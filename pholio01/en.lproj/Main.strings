@@ -1,0 +1,51 @@
+
+/* Class = "UIButton"; normalTitle = "Photographer"; ObjectID = "24g-DM-9yi"; */
+"24g-DM-9yi.normalTitle" = "Photographer";
+
+/* Class = "UIButton"; normalTitle = "Guest"; ObjectID = "7L3-Oc-eJ6"; */
+"7L3-Oc-eJ6.normalTitle" = "Guest";
+
+/* Class = "UIButton"; normalTitle = "Register"; ObjectID = "7ZZ-xZ-H9c"; */
+"7ZZ-xZ-H9c.normalTitle" = "Register";
+
+/* Class = "UITextField"; text = "Full Name"; ObjectID = "ACI-4e-0CI"; */
+"ACI-4e-0CI.text" = "Full Name";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "DF7-XL-Qmp"; */
+"DF7-XL-Qmp.normalTitle" = "Sign Up";
+
+/* Class = "UITextField"; text = "Email"; ObjectID = "Ffn-y3-R6w"; */
+"Ffn-y3-R6w.text" = "Email";
+
+/* Class = "UINavigationItem"; title = "Choose User Type"; ObjectID = "Ghg-t1-xKg"; */
+"Ghg-t1-xKg.title" = "Choose User Type";
+
+/* Class = "UIButton"; normalTitle = "Videographer"; ObjectID = "JEB-KX-Bvd"; */
+"JEB-KX-Bvd.normalTitle" = "Videographer";
+
+/* Class = "UITextField"; text = "Username"; ObjectID = "LLM-UI-y8E"; */
+"LLM-UI-y8E.text" = "Username";
+
+/* Class = "UILabel"; text = "PHOLIO"; ObjectID = "SCY-mi-5In"; */
+"SCY-mi-5In.text" = "PHOLIO";
+
+/* Class = "UILabel"; text = "PHOLIO"; ObjectID = "XTM-1Y-kRk"; */
+"XTM-1Y-kRk.text" = "PHOLIO";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "ZWU-SZ-1m6"; */
+"ZWU-SZ-1m6.title" = "Back";
+
+/* Class = "UIButton"; normalTitle = "Model"; ObjectID = "bXZ-GS-hfa"; */
+"bXZ-GS-hfa.normalTitle" = "Model";
+
+/* Class = "UIButton"; normalTitle = "SIgn In"; ObjectID = "ddm-c9-OqV"; */
+"ddm-c9-OqV.normalTitle" = "SIgn In";
+
+/* Class = "UITextField"; text = "Password"; ObjectID = "myd-Mt-xdh"; */
+"myd-Mt-xdh.text" = "Password";
+
+/* Class = "UITextField"; text = "Password"; ObjectID = "qej-6N-Qp7"; */
+"qej-6N-Qp7.text" = "Password";
+
+/* Class = "UITextField"; text = "Email"; ObjectID = "wR7-BI-WCi"; */
+"wR7-BI-WCi.text" = "Email";
