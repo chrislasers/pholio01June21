@@ -7,14 +7,49 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A0B0C9F20CACF17009675B8 /* AbstractOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0C9E20CACF17009675B8 /* AbstractOperation.swift */; };
+		2A0B0CA120CACF94009675B8 /* ImageUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0CA020CACF94009675B8 /* ImageUploadManager.swift */; };
+		2A0B0CA520CB3665009675B8 /* UploadImageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0CA420CB3665009675B8 /* UploadImageOperation.swift */; };
+		2A0B0CA720CD9C52009675B8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0CA620CD9C52009675B8 /* Photo.swift */; };
+		2A20B7F020D1629B00C3C8FA /* FirFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A20B7EF20D1629B00C3C8FA /* FirFile.swift */; };
+		2A2F226E20C2622000D05D01 /* UploadPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F226D20C2622000D05D01 /* UploadPresenter.swift */; };
+		2A2F227420C269C100D05D01 /* UploadimageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F227320C269C100D05D01 /* UploadimageCell.swift */; };
+		2A2F227620C48B8700D05D01 /* CustomImageFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F227520C48B8700D05D01 /* CustomImageFlowLayout.swift */; };
+		2A2F227A20C4B47E00D05D01 /* EditGalleryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F227920C4B47E00D05D01 /* EditGalleryVC.swift */; };
+		2A2F227C20C4B5A400D05D01 /* SelectImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F227B20C4B5A400D05D01 /* SelectImageVC.swift */; };
+		2A2F227E20C4C35C00D05D01 /* UploadImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F227D20C4C35C00D05D01 /* UploadImagePresenter.swift */; };
 		2A31E1E0207BC769006CFF24 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A31E1DF207BC769006CFF24 /* AppDelegate.swift */; };
 		2A31E1E2207BC769006CFF24 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A31E1E1207BC769006CFF24 /* ViewController.swift */; };
 		2A31E1E5207BC769006CFF24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A31E1E3207BC769006CFF24 /* Main.storyboard */; };
 		2A31E1E7207BC76A006CFF24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A31E1E6207BC76A006CFF24 /* Assets.xcassets */; };
 		2A31E1EA207BC76A006CFF24 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A31E1E8207BC76A006CFF24 /* LaunchScreen.storyboard */; };
+		2A31E1F4207BCBDA006CFF24 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A31E1F3207BCBDA006CFF24 /* GoogleService-Info.plist */; };
+		2A31E1F6207BD0DE006CFF24 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A31E1F5207BD0DE006CFF24 /* SignInVC.swift */; };
+		2A31E1F8207BD0F7006CFF24 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A31E1F7207BD0F7006CFF24 /* SignUpVC.swift */; };
+		2A40224020B6BEB0001F2F38 /* EditProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A40223F20B6BEB0001F2F38 /* EditProfile.swift */; };
+		2A42585F20BBC3B8006B0146 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A42585E20BBC3B8006B0146 /* CoreLocation.framework */; };
+		2A4A4B1C20826AAC0069D5C6 /* PairWithVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A4B1B20826AAC0069D5C6 /* PairWithVC.swift */; };
+		2A4A4B2020826BF70069D5C6 /* HomePageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A4B1F20826BF70069D5C6 /* HomePageVC.swift */; };
+		2A4D91E320A9E58B0018A3D1 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4D91E220A9E58A0018A3D1 /* Service.swift */; };
+		2A6789D1208987C1003FAAA9 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6789D0208987C1003FAAA9 /* AlertController.swift */; };
+		2A89ACFE2094F00500B7485F /* openingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89ACFD2094F00500B7485F /* openingVC.swift */; };
+		2AF4D9672092579A005D3C66 /* chooseusertypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4D9662092579A005D3C66 /* chooseusertypeVC.swift */; };
+		FFDD85588F312A161005339E /* Pods_pholio01.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F49E4E484B4A53584B7ECEC /* Pods_pholio01.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1CEF13C22DFFD79208D49E43 /* Pods-pholio01.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pholio01.release.xcconfig"; path = "Pods/Target Support Files/Pods-pholio01/Pods-pholio01.release.xcconfig"; sourceTree = "<group>"; };
+		2A0B0C9E20CACF17009675B8 /* AbstractOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractOperation.swift; sourceTree = "<group>"; };
+		2A0B0CA020CACF94009675B8 /* ImageUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadManager.swift; sourceTree = "<group>"; };
+		2A0B0CA420CB3665009675B8 /* UploadImageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageOperation.swift; sourceTree = "<group>"; };
+		2A0B0CA620CD9C52009675B8 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		2A20B7EF20D1629B00C3C8FA /* FirFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirFile.swift; sourceTree = "<group>"; };
+		2A2F226D20C2622000D05D01 /* UploadPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPresenter.swift; sourceTree = "<group>"; };
+		2A2F227320C269C100D05D01 /* UploadimageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadimageCell.swift; sourceTree = "<group>"; };
+		2A2F227520C48B8700D05D01 /* CustomImageFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageFlowLayout.swift; sourceTree = "<group>"; };
+		2A2F227920C4B47E00D05D01 /* EditGalleryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGalleryVC.swift; sourceTree = "<group>"; };
+		2A2F227B20C4B5A400D05D01 /* SelectImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageVC.swift; sourceTree = "<group>"; };
+		2A2F227D20C4C35C00D05D01 /* UploadImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImagePresenter.swift; sourceTree = "<group>"; };
 		2A31E1DC207BC769006CFF24 /* pholio01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pholio01.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A31E1DF207BC769006CFF24 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2A31E1E1207BC769006CFF24 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +57,20 @@
 		2A31E1E6207BC76A006CFF24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A31E1E9207BC76A006CFF24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2A31E1EB207BC76A006CFF24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A31E1F3207BCBDA006CFF24 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2A31E1F5207BD0DE006CFF24 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
+		2A31E1F7207BD0F7006CFF24 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		2A3F6CB9208ED07C001DD794 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		2A40223F20B6BEB0001F2F38 /* EditProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfile.swift; sourceTree = "<group>"; };
+		2A42585E20BBC3B8006B0146 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		2A4A4B1B20826AAC0069D5C6 /* PairWithVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairWithVC.swift; sourceTree = "<group>"; };
+		2A4A4B1F20826BF70069D5C6 /* HomePageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageVC.swift; sourceTree = "<group>"; };
+		2A4D91E220A9E58A0018A3D1 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		2A6789D0208987C1003FAAA9 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		2A89ACFD2094F00500B7485F /* openingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openingVC.swift; sourceTree = "<group>"; };
+		2AF4D9662092579A005D3C66 /* chooseusertypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chooseusertypeVC.swift; sourceTree = "<group>"; };
+		2F49E4E484B4A53584B7ECEC /* Pods_pholio01.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pholio01.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C918C841DF627DDDCFBBE3D5 /* Pods-pholio01.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pholio01.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pholio01/Pods-pholio01.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +78,52 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A42585F20BBC3B8006B0146 /* CoreLocation.framework in Frameworks */,
+				FFDD85588F312A161005339E /* Pods_pholio01.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A0B0CA220CAD094009675B8 /* UploadTask */ = {
+			isa = PBXGroup;
+			children = (
+				2A2F226D20C2622000D05D01 /* UploadPresenter.swift */,
+				2A2F227320C269C100D05D01 /* UploadimageCell.swift */,
+				2A2F227D20C4C35C00D05D01 /* UploadImagePresenter.swift */,
+				2A0B0CA420CB3665009675B8 /* UploadImageOperation.swift */,
+				2A0B0CA020CACF94009675B8 /* ImageUploadManager.swift */,
+				2A0B0C9E20CACF17009675B8 /* AbstractOperation.swift */,
+				2A0B0CA620CD9C52009675B8 /* Photo.swift */,
+				2A20B7EF20D1629B00C3C8FA /* FirFile.swift */,
+			);
+			path = UploadTask;
+			sourceTree = "<group>";
+		};
+		2A0B0CA320CAD1A4009675B8 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2A89ACFD2094F00500B7485F /* openingVC.swift */,
+				2A31E1F5207BD0DE006CFF24 /* SignInVC.swift */,
+				2A31E1F7207BD0F7006CFF24 /* SignUpVC.swift */,
+				2A4A4B1F20826BF70069D5C6 /* HomePageVC.swift */,
+				2AF4D9662092579A005D3C66 /* chooseusertypeVC.swift */,
+				2A4A4B1B20826AAC0069D5C6 /* PairWithVC.swift */,
+				2A40223F20B6BEB0001F2F38 /* EditProfile.swift */,
+				2A2F227920C4B47E00D05D01 /* EditGalleryVC.swift */,
+				2A2F227B20C4B5A400D05D01 /* SelectImageVC.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		2A31E1D3207BC769006CFF24 = {
 			isa = PBXGroup;
 			children = (
 				2A31E1DE207BC769006CFF24 /* pholio01 */,
 				2A31E1DD207BC769006CFF24 /* Products */,
+				D5C7DE1ABEAB3F74487DD202 /* Pods */,
+				FDD0BAD480B8D7C7C7DFC32E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,12 +140,44 @@
 			children = (
 				2A31E1DF207BC769006CFF24 /* AppDelegate.swift */,
 				2A31E1E1207BC769006CFF24 /* ViewController.swift */,
+				2A4D91E220A9E58A0018A3D1 /* Service.swift */,
+				2A6789D0208987C1003FAAA9 /* AlertController.swift */,
+				2A2F227520C48B8700D05D01 /* CustomImageFlowLayout.swift */,
+				2A0B0CA320CAD1A4009675B8 /* ViewControllers */,
+				2A0B0CA220CAD094009675B8 /* UploadTask */,
+				2AF8FAD720D57AFC00E525BE /* Youtube */,
 				2A31E1E3207BC769006CFF24 /* Main.storyboard */,
 				2A31E1E6207BC76A006CFF24 /* Assets.xcassets */,
 				2A31E1E8207BC76A006CFF24 /* LaunchScreen.storyboard */,
 				2A31E1EB207BC76A006CFF24 /* Info.plist */,
+				2A31E1F3207BCBDA006CFF24 /* GoogleService-Info.plist */,
 			);
 			path = pholio01;
+			sourceTree = "<group>";
+		};
+		2AF8FAD720D57AFC00E525BE /* Youtube */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Youtube;
+			sourceTree = "<group>";
+		};
+		D5C7DE1ABEAB3F74487DD202 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C918C841DF627DDDCFBBE3D5 /* Pods-pholio01.debug.xcconfig */,
+				1CEF13C22DFFD79208D49E43 /* Pods-pholio01.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FDD0BAD480B8D7C7C7DFC32E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A42585E20BBC3B8006B0146 /* CoreLocation.framework */,
+				2F49E4E484B4A53584B7ECEC /* Pods_pholio01.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +187,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2A31E1EE207BC76A006CFF24 /* Build configuration list for PBXNativeTarget "pholio01" */;
 			buildPhases = (
+				EB7ECA0D7D8A07C90B48D845 /* [CP] Check Pods Manifest.lock */,
 				2A31E1D8207BC769006CFF24 /* Sources */,
 				2A31E1D9207BC769006CFF24 /* Frameworks */,
 				2A31E1DA207BC769006CFF24 /* Resources */,
+				276D2F51BA48C53398D5DE6B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -91,7 +209,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Chris Ransom";
 				TargetAttributes = {
 					2A31E1DB207BC769006CFF24 = {
@@ -123,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A31E1EA207BC76A006CFF24 /* LaunchScreen.storyboard in Resources */,
+				2A31E1F4207BCBDA006CFF24 /* GoogleService-Info.plist in Resources */,
 				2A31E1E7207BC76A006CFF24 /* Assets.xcassets in Resources */,
 				2A31E1E5207BC769006CFF24 /* Main.storyboard in Resources */,
 			);
@@ -130,13 +249,120 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		276D2F51BA48C53398D5DE6B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-pholio01/Pods-pholio01-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BSGridCollectionViewLayout/BSGridCollectionViewLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/BSImagePicker/BSImagePicker.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Haneke/Haneke.framework",
+				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/LBTAComponents/LBTAComponents.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftValidator/SwiftValidator.framework",
+				"${BUILT_PRODUCTS_DIR}/UIImageViewModeScaleAspect/UIImageViewModeScaleAspect.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSGridCollectionViewLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSImagePicker.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Haneke.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LBTAComponents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftValidator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIImageViewModeScaleAspect.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pholio01/Pods-pholio01-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EB7ECA0D7D8A07C90B48D845 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-pholio01-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2A31E1D8207BC769006CFF24 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A0B0CA720CD9C52009675B8 /* Photo.swift in Sources */,
+				2A6789D1208987C1003FAAA9 /* AlertController.swift in Sources */,
+				2A31E1F8207BD0F7006CFF24 /* SignUpVC.swift in Sources */,
+				2A0B0CA520CB3665009675B8 /* UploadImageOperation.swift in Sources */,
+				2A40224020B6BEB0001F2F38 /* EditProfile.swift in Sources */,
+				2A4A4B2020826BF70069D5C6 /* HomePageVC.swift in Sources */,
+				2A0B0C9F20CACF17009675B8 /* AbstractOperation.swift in Sources */,
+				2AF4D9672092579A005D3C66 /* chooseusertypeVC.swift in Sources */,
 				2A31E1E2207BC769006CFF24 /* ViewController.swift in Sources */,
+				2A2F227420C269C100D05D01 /* UploadimageCell.swift in Sources */,
 				2A31E1E0207BC769006CFF24 /* AppDelegate.swift in Sources */,
+				2A2F226E20C2622000D05D01 /* UploadPresenter.swift in Sources */,
+				2A2F227620C48B8700D05D01 /* CustomImageFlowLayout.swift in Sources */,
+				2A2F227C20C4B5A400D05D01 /* SelectImageVC.swift in Sources */,
+				2A2F227A20C4B47E00D05D01 /* EditGalleryVC.swift in Sources */,
+				2A20B7F020D1629B00C3C8FA /* FirFile.swift in Sources */,
+				2A0B0CA120CACF94009675B8 /* ImageUploadManager.swift in Sources */,
+				2A4A4B1C20826AAC0069D5C6 /* PairWithVC.swift in Sources */,
+				2A31E1F6207BD0DE006CFF24 /* SignInVC.swift in Sources */,
+				2A4D91E320A9E58B0018A3D1 /* Service.swift in Sources */,
+				2A89ACFE2094F00500B7485F /* openingVC.swift in Sources */,
+				2A2F227E20C4C35C00D05D01 /* UploadImagePresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +373,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2A31E1E4207BC769006CFF24 /* Base */,
+				2A3F6CB9208ED07C001DD794 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -278,8 +505,10 @@
 		};
 		2A31E1EF207BC76A006CFF24 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C918C841DF627DDDCFBBE3D5 /* Pods-pholio01.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4NPGUH6AXZ;
 				INFOPLIST_FILE = pholio01/Info.plist;
@@ -289,15 +518,18 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.chrisransom.pholio01;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		2A31E1F0207BC76A006CFF24 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CEF13C22DFFD79208D49E43 /* Pods-pholio01.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4NPGUH6AXZ;
 				INFOPLIST_FILE = pholio01/Info.plist;
@@ -307,8 +539,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.chrisransom.pholio01;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
