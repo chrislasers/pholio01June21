@@ -145,7 +145,6 @@
 				2A2F227520C48B8700D05D01 /* CustomImageFlowLayout.swift */,
 				2A0B0CA320CAD1A4009675B8 /* ViewControllers */,
 				2A0B0CA220CAD094009675B8 /* UploadTask */,
-				2AF8FAD720D57AFC00E525BE /* Youtube */,
 				2A31E1E3207BC769006CFF24 /* Main.storyboard */,
 				2A31E1E6207BC76A006CFF24 /* Assets.xcassets */,
 				2A31E1E8207BC76A006CFF24 /* LaunchScreen.storyboard */,
@@ -153,13 +152,6 @@
 				2A31E1F3207BCBDA006CFF24 /* GoogleService-Info.plist */,
 			);
 			path = pholio01;
-			sourceTree = "<group>";
-		};
-		2AF8FAD720D57AFC00E525BE /* Youtube */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Youtube;
 			sourceTree = "<group>";
 		};
 		D5C7DE1ABEAB3F74487DD202 /* Pods */ = {

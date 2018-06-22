@@ -1,0 +1,6 @@
+framework module Pods_pholio01 {
+  umbrella header "Pods-pholio01-umbrella.h"
+
+  export *
+  module * { export * }
+}

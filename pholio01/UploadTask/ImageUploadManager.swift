@@ -46,9 +46,9 @@ class ImageUploadManager: NSObject {
             metadata.contentType = "image/jpeg"
             let uploadTask = imagesReference.putData(imageData, metadata: metadata, completion: { (metadata, error) in
     
-                starsRef.downloadURL(completion: { (url, error) in
-                    if (error == nil) {
-                        if let downloadUrl = url {
+                starsRef.downloadURL(completion: { (metadata, error) in
+                    if (error != nil) {
+                        if let downloadUrl = metadata {
                             // Make you download string
                             let downloadString = downloadUrl.absoluteString
                             print(downloadString)
