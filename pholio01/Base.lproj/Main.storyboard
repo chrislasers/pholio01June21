@@ -240,7 +240,7 @@
                             <stackView opaque="NO" contentMode="scaleAspectFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rK1-jC-JFe">
                                 <rect key="frame" x="67" y="80" width="240" height="94"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fyq-hg-Gxh">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fyq-hg-Gxh">
                                         <rect key="frame" x="88" y="0.0" width="64" height="64"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fg-vi-uFH">
@@ -909,6 +909,7 @@
     </scenes>
     <resources>
         <image name="backpack-black-and-white-camera-940877" width="414" height="736"/>
+        <image name="profile.png" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="t7w-pi-hRo"/>
