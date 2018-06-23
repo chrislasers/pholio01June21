@@ -44,20 +44,19 @@ class ImageUploadManager: NSObject {
         if let imageData = UIImageJPEGRepresentation(image, 0.8) {
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
-            let uploadTask = imagesReference.putData(imageData, metadata: metadata, completion: { (url, error) in
-    
-                starsRef.downloadURL(completion: { (url, error) in
-                    if (error == nil) {
-                        if let downloadUrl = url {
-                            // Make you download string
-                            let downloadString = downloadUrl.absoluteString
-                            print(downloadString)
-                        }
+            let uploadTask = imagesReference.putData(imageData, metadata: metadata, completion: { (metadata, error) in
+                storageReference.downloadURL(completion: { (metadata, error) in
+                    if (error != nil), let downloadUrl = metadata {
+                        // Make you download string
+                        let downloadString = downloadUrl.absoluteString
+                        print(downloadString)
+                        completionBlock(downloadUrl, nil)
                     } else {
                         // Do something if error
+                        completionBlock(nil, "Error")
                     }
                 })
-                })
+            })
             uploadTask.observe(.progress, handler: { (snapshot) in
                 guard let progress = snapshot.progress else {
                     return
