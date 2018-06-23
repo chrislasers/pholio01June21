@@ -92,18 +92,11 @@
             location = "group:Photo.swift">
          </FileRef>
          <FileRef
-            location = "group:FirFile.swift">
-         </FileRef>
-         <FileRef
             location = "group:UploadPresenter.swift">
          </FileRef>
          <FileRef
             location = "group:UploadimageCell.swift">
          </FileRef>
-      </Group>
-      <Group
-         location = "group:Youtube"
-         name = "Youtube">
       </Group>
       <Group
          location = "group:Base.lproj"

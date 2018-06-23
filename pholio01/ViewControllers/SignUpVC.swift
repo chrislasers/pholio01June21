@@ -103,17 +103,17 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
         
-      ///  Auth.auth().addStateDidChangeListener { (auth, user) in
-        ///
-         ///    if Auth.auth().currentUser != nil {
-           ///      print("User Signed In")
-           ///      self.performSegue(withIdentifier: "toEditProfile", sender: nil)    }
-          ///
-          ///   else {
-          ///       print("User Not Signed In")
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            
+            if Auth.auth().currentUser != nil {
+                print("User Signed In")
+                self.performSegue(withIdentifier: "toEditProfile", sender: nil)    }
+                
+            else {
+                print("User Not Signed In")
                 // ...
-         ///    }
-        /// }
+            }
+        }
 
         
 

@@ -11,7 +11,6 @@
 		2A0B0CA120CACF94009675B8 /* ImageUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0CA020CACF94009675B8 /* ImageUploadManager.swift */; };
 		2A0B0CA520CB3665009675B8 /* UploadImageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0CA420CB3665009675B8 /* UploadImageOperation.swift */; };
 		2A0B0CA720CD9C52009675B8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0CA620CD9C52009675B8 /* Photo.swift */; };
-		2A20B7F020D1629B00C3C8FA /* FirFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A20B7EF20D1629B00C3C8FA /* FirFile.swift */; };
 		2A2F226E20C2622000D05D01 /* UploadPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F226D20C2622000D05D01 /* UploadPresenter.swift */; };
 		2A2F227420C269C100D05D01 /* UploadimageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F227320C269C100D05D01 /* UploadimageCell.swift */; };
 		2A2F227620C48B8700D05D01 /* CustomImageFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F227520C48B8700D05D01 /* CustomImageFlowLayout.swift */; };
@@ -43,7 +42,6 @@
 		2A0B0CA020CACF94009675B8 /* ImageUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadManager.swift; sourceTree = "<group>"; };
 		2A0B0CA420CB3665009675B8 /* UploadImageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageOperation.swift; sourceTree = "<group>"; };
 		2A0B0CA620CD9C52009675B8 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
-		2A20B7EF20D1629B00C3C8FA /* FirFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirFile.swift; sourceTree = "<group>"; };
 		2A2F226D20C2622000D05D01 /* UploadPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPresenter.swift; sourceTree = "<group>"; };
 		2A2F227320C269C100D05D01 /* UploadimageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadimageCell.swift; sourceTree = "<group>"; };
 		2A2F227520C48B8700D05D01 /* CustomImageFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageFlowLayout.swift; sourceTree = "<group>"; };
@@ -96,7 +94,6 @@
 				2A0B0CA020CACF94009675B8 /* ImageUploadManager.swift */,
 				2A0B0C9E20CACF17009675B8 /* AbstractOperation.swift */,
 				2A0B0CA620CD9C52009675B8 /* Photo.swift */,
-				2A20B7EF20D1629B00C3C8FA /* FirFile.swift */,
 			);
 			path = UploadTask;
 			sourceTree = "<group>";
@@ -348,7 +345,6 @@
 				2A2F227620C48B8700D05D01 /* CustomImageFlowLayout.swift in Sources */,
 				2A2F227C20C4B5A400D05D01 /* SelectImageVC.swift in Sources */,
 				2A2F227A20C4B47E00D05D01 /* EditGalleryVC.swift in Sources */,
-				2A20B7F020D1629B00C3C8FA /* FirFile.swift in Sources */,
 				2A0B0CA120CACF94009675B8 /* ImageUploadManager.swift in Sources */,
 				2A4A4B1C20826AAC0069D5C6 /* PairWithVC.swift in Sources */,
 				2A31E1F6207BD0DE006CFF24 /* SignInVC.swift in Sources */,
