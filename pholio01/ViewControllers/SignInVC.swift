@@ -125,6 +125,19 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         super.viewDidLoad()
         
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            
+            if user?.isEmailVerified == true
+            {
+                print("User Signed In")
+                self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
+                
+            else {
+                print("User Not Signed In")
+                // ...
+            }
+        }
+        
         configureTextFields()
         
         ref = Database.database().reference()
@@ -291,19 +304,6 @@ Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        
-        Auth.auth().addStateDidChangeListener { (auth, user) in
-            
-            if user?.isEmailVerified == true
-            {
-                print("User Signed In")
-                self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
-                
-            else {
-                print("User Not Signed In")
-                // ...
-            }
-        }
     }
     
     

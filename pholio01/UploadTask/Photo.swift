@@ -15,10 +15,9 @@ class Car: NSObject {
     var imageURLs: [String]?
     
     convenience init?(dictionary: [String: Any]?, objectID: String, imageURLs: String) {
-        
-        
-        if let imageURLs = dictionary!["images"] as? [String] {
-            self.init(objectID: objectID, imageURLs: imageURLs)
+        if let dictionary = dictionary, let imageURLsDict = dictionary["images"] as? [String: String] {
+            let images = imageURLsDict.compactMap({ $0.value as? String })
+            self.init(objectID: objectID, imageURLs: images)
         } else {
             return nil
         }
@@ -26,13 +25,22 @@ class Car: NSObject {
     
     init(objectID: String?, imageURLs: [String]) {
         self.objectID = objectID ?? ""
-       
+        
         self.imageURLs = imageURLs
         self.imageURL = imageURLs.first
     }
     
     func dictionary() -> [String: Any] {
-        return [ "images": [imageURLs]]
+        guard let imageURLs = imageURLs else {
+            return [:]
+        }
+        
+        var imageDicts = [String: String]()
+        for (index, url) in imageURLs.enumerated() {
+            imageDicts["\(index)"] = url
+        }
+        return ["images": imageDicts]
     }
     
 }
+

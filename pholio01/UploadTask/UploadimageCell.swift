@@ -8,6 +8,8 @@
 
 import UIKit
 import Haneke
+import FirebaseUI
+import SDWebImage
 
 class UploadimageCell: UICollectionViewCell {
     
@@ -26,8 +28,10 @@ class UploadimageCell: UICollectionViewCell {
     func fill(with object: Any) {
         if let image = object as? UIImage {
             imageView.image = image
+            print("Image Noticed")
         } else if let urlString = object as? String, let imageURLs = URL(string: urlString) {
             imageView.hnk_setImage(from: imageURLs)
+            print("URL Noticed")
         }
     }
     }

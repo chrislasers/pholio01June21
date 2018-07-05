@@ -34,19 +34,26 @@ class ImageUploadManager: NSObject {
         let storage = Storage.storage()
         let storageReference = storage.reference()
         
-        let starsRef = storageReference.child("User-Gallery").child((Auth.auth().currentUser?.uid)!)
+        _ = storageReference.child("User-Gallery").child((Auth.auth().currentUser?.uid)!)
 
-        
+        let uid = Auth.auth().currentUser?.uid
+        let imgName = NSUUID().uuidString + ".jpg"
         // storage/carImages/image.jpg
-        let imagesReference = storageReference.child("User-Gallery").child((Auth.auth().currentUser?.uid)!)
+        let imagesReference = storageReference.child("User-Gallery").child((Auth.auth().currentUser?.uid)!).child("\(uid!)/photos/\(imgName)")
 
         
         if let imageData = UIImageJPEGRepresentation(image, 0.8) {
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             let uploadTask = imagesReference.putData(imageData, metadata: metadata, completion: { (metadata, error) in
-                storageReference.downloadURL(completion: { (metadata, error) in
-                    if (error != nil), let downloadUrl = metadata {
+                guard metadata != nil else {
+                    completionBlock(nil, "Error occured")
+                    
+                    return
+                }
+                
+                imagesReference.downloadURL(completion: { (metadata, error) in
+                    if let downloadUrl = metadata {
                         // Make you download string
                         let downloadString = downloadUrl.absoluteString
                         print(downloadString)

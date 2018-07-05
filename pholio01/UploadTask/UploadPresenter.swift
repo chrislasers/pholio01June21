@@ -73,6 +73,8 @@ class UploadPresenter: NSObject {
                 
             }
             queue.addOperation(imageUploadOperation)
+            queue.isSuspended = false
+
 
         }
         
@@ -91,14 +93,13 @@ class UploadPresenter: NSObject {
      func CreateCar(imageURLs: [String]) {
         let car = Car(objectID: nil, imageURLs: imageURLs)
         collection.addDocument(data: car.dictionary()) { [unowned self] (error) in
-            DispatchQueue.main.sync {
                 if let error = error {
                     print("Queue Error Occured")
                     print(error.localizedDescription)
                 } else {
-                    self.viewController?.dismiss(animated: true, completion: nil)
+                    self.viewController?.performSegue(withIdentifier: "toAddPhoto", sender: nil)
                 }
-            }
+            
         }
     }
 }

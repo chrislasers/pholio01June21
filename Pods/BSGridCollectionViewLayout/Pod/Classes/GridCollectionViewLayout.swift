@@ -89,7 +89,7 @@ public final class GridCollectionViewLayout: UICollectionViewLayout {
     public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         return indexPathsInRect(rect).map { (indexPath) -> UICollectionViewLayoutAttributes? in
             return self.layoutAttributesForItem(at: indexPath)
-}.flatMap { $0 }
+}.compactMap(_:) { $0 }
     }
 
     /**

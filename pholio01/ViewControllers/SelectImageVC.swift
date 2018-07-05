@@ -94,6 +94,7 @@ class SelectImageVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             return
         }
         
+
        uploadPresenter.createCar(with: images)
        
     }

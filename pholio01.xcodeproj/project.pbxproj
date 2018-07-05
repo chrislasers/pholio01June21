@@ -11,6 +11,15 @@
 		2A0B0CA120CACF94009675B8 /* ImageUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0CA020CACF94009675B8 /* ImageUploadManager.swift */; };
 		2A0B0CA520CB3665009675B8 /* UploadImageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0CA420CB3665009675B8 /* UploadImageOperation.swift */; };
 		2A0B0CA720CD9C52009675B8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0CA620CD9C52009675B8 /* Photo.swift */; };
+		2A0F047620EAA5A300AC6827 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F047420EAA5A200AC6827 /* BaseViewController.swift */; };
+		2A0F047720EAA5A300AC6827 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F047520EAA5A300AC6827 /* MenuViewController.swift */; };
+		2A0F047B20EAA89000AC6827 /* BViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F047A20EAA89000AC6827 /* BViewController.swift */; };
+		2A0F048520EAE36500AC6827 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F048320EAE36400AC6827 /* SWRevealViewController.m */; };
+		2A0F048A20ED476E00AC6827 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F048920ED476E00AC6827 /* CollectionViewCell.swift */; };
+		2A0F048C20ED526800AC6827 /* StoryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F048B20ED526800AC6827 /* StoryImage.swift */; };
+		2A0F048E20ED5B7700AC6827 /* Datasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F048D20ED5B7700AC6827 /* Datasource.swift */; };
+		2A0F049020ED5C7A00AC6827 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F048F20ED5C7900AC6827 /* GridLayout.swift */; };
+		2A0F049220ED6D0300AC6827 /* ViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F049120ED6D0300AC6827 /* ViewPresenter.swift */; };
 		2A2F226E20C2622000D05D01 /* UploadPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F226D20C2622000D05D01 /* UploadPresenter.swift */; };
 		2A2F227420C269C100D05D01 /* UploadimageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F227320C269C100D05D01 /* UploadimageCell.swift */; };
 		2A2F227620C48B8700D05D01 /* CustomImageFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F227520C48B8700D05D01 /* CustomImageFlowLayout.swift */; };
@@ -42,6 +51,17 @@
 		2A0B0CA020CACF94009675B8 /* ImageUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadManager.swift; sourceTree = "<group>"; };
 		2A0B0CA420CB3665009675B8 /* UploadImageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageOperation.swift; sourceTree = "<group>"; };
 		2A0B0CA620CD9C52009675B8 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		2A0F047420EAA5A200AC6827 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		2A0F047520EAA5A300AC6827 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		2A0F047A20EAA89000AC6827 /* BViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BViewController.swift; sourceTree = "<group>"; };
+		2A0F047F20EAE2F500AC6827 /* pholio01-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "pholio01-Bridging-Header.h"; sourceTree = "<group>"; };
+		2A0F048320EAE36400AC6827 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		2A0F048420EAE36500AC6827 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		2A0F048920ED476E00AC6827 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		2A0F048B20ED526800AC6827 /* StoryImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryImage.swift; sourceTree = "<group>"; };
+		2A0F048D20ED5B7700AC6827 /* Datasource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datasource.swift; sourceTree = "<group>"; };
+		2A0F048F20ED5C7900AC6827 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
+		2A0F049120ED6D0300AC6827 /* ViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPresenter.swift; sourceTree = "<group>"; };
 		2A2F226D20C2622000D05D01 /* UploadPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPresenter.swift; sourceTree = "<group>"; };
 		2A2F227320C269C100D05D01 /* UploadimageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadimageCell.swift; sourceTree = "<group>"; };
 		2A2F227520C48B8700D05D01 /* CustomImageFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageFlowLayout.swift; sourceTree = "<group>"; };
@@ -114,6 +134,21 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		2A0F047320EAA50500AC6827 /* SlideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				2A0F047420EAA5A200AC6827 /* BaseViewController.swift */,
+				2A0F047520EAA5A300AC6827 /* MenuViewController.swift */,
+				2A0F047A20EAA89000AC6827 /* BViewController.swift */,
+				2A0F048F20ED5C7900AC6827 /* GridLayout.swift */,
+				2A0F048D20ED5B7700AC6827 /* Datasource.swift */,
+				2A0F048920ED476E00AC6827 /* CollectionViewCell.swift */,
+				2A0F049120ED6D0300AC6827 /* ViewPresenter.swift */,
+				2A0F048B20ED526800AC6827 /* StoryImage.swift */,
+			);
+			path = SlideMenu;
+			sourceTree = "<group>";
+		};
 		2A31E1D3207BC769006CFF24 = {
 			isa = PBXGroup;
 			children = (
@@ -141,12 +176,16 @@
 				2A6789D0208987C1003FAAA9 /* AlertController.swift */,
 				2A2F227520C48B8700D05D01 /* CustomImageFlowLayout.swift */,
 				2A0B0CA320CAD1A4009675B8 /* ViewControllers */,
+				2A0F047320EAA50500AC6827 /* SlideMenu */,
 				2A0B0CA220CAD094009675B8 /* UploadTask */,
 				2A31E1E3207BC769006CFF24 /* Main.storyboard */,
 				2A31E1E6207BC76A006CFF24 /* Assets.xcassets */,
 				2A31E1E8207BC76A006CFF24 /* LaunchScreen.storyboard */,
 				2A31E1EB207BC76A006CFF24 /* Info.plist */,
 				2A5B7BC720DECA7F00BCF0A1 /* GoogleService-Info.plist */,
+				2A0F047F20EAE2F500AC6827 /* pholio01-Bridging-Header.h */,
+				2A0F048420EAE36500AC6827 /* SWRevealViewController.h */,
+				2A0F048320EAE36400AC6827 /* SWRevealViewController.m */,
 			);
 			path = pholio01;
 			sourceTree = "<group>";
@@ -181,6 +220,7 @@
 				2A31E1D9207BC769006CFF24 /* Frameworks */,
 				2A31E1DA207BC769006CFF24 /* Resources */,
 				276D2F51BA48C53398D5DE6B /* [CP] Embed Pods Frameworks */,
+				C137B6EBF65368F06F8168E1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -203,6 +243,7 @@
 				TargetAttributes = {
 					2A31E1DB207BC769006CFF24 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0940;
 					};
 				};
 			};
@@ -256,14 +297,18 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Haneke/Haneke.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/LBTAComponents/LBTAComponents.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftValidator/SwiftValidator.framework",
+				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
 				"${BUILT_PRODUCTS_DIR}/UIImageViewModeScaleAspect/UIImageViewModeScaleAspect.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
@@ -284,14 +329,18 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Haneke.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LBTAComponents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftValidator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIImageViewModeScaleAspect.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
@@ -303,6 +352,38 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pholio01/Pods-pholio01-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C137B6EBF65368F06F8168E1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-pholio01/Pods-pholio01-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseFacebookAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebasePhoneAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseTwitterAuthUI.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseFacebookAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebasePhoneAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseTwitterAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterShareExtensionUIResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pholio01/Pods-pholio01-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EB7ECA0D7D8A07C90B48D845 /* [CP] Check Pods Manifest.lock */ = {
@@ -333,17 +414,25 @@
 				2A0B0CA720CD9C52009675B8 /* Photo.swift in Sources */,
 				2A6789D1208987C1003FAAA9 /* AlertController.swift in Sources */,
 				2A31E1F8207BD0F7006CFF24 /* SignUpVC.swift in Sources */,
+				2A0F047B20EAA89000AC6827 /* BViewController.swift in Sources */,
 				2A0B0CA520CB3665009675B8 /* UploadImageOperation.swift in Sources */,
+				2A0F047620EAA5A300AC6827 /* BaseViewController.swift in Sources */,
+				2A0F048E20ED5B7700AC6827 /* Datasource.swift in Sources */,
 				2A40224020B6BEB0001F2F38 /* EditProfile.swift in Sources */,
 				2A4A4B2020826BF70069D5C6 /* HomePageVC.swift in Sources */,
+				2A0F049220ED6D0300AC6827 /* ViewPresenter.swift in Sources */,
+				2A0F048A20ED476E00AC6827 /* CollectionViewCell.swift in Sources */,
 				2A0B0C9F20CACF17009675B8 /* AbstractOperation.swift in Sources */,
 				2AF4D9672092579A005D3C66 /* chooseusertypeVC.swift in Sources */,
 				2A31E1E2207BC769006CFF24 /* ViewController.swift in Sources */,
 				2A2F227420C269C100D05D01 /* UploadimageCell.swift in Sources */,
+				2A0F048520EAE36500AC6827 /* SWRevealViewController.m in Sources */,
+				2A0F049020ED5C7A00AC6827 /* GridLayout.swift in Sources */,
 				2A31E1E0207BC769006CFF24 /* AppDelegate.swift in Sources */,
 				2A2F226E20C2622000D05D01 /* UploadPresenter.swift in Sources */,
 				2A2F227620C48B8700D05D01 /* CustomImageFlowLayout.swift in Sources */,
 				2A2F227C20C4B5A400D05D01 /* SelectImageVC.swift in Sources */,
+				2A0F047720EAA5A300AC6827 /* MenuViewController.swift in Sources */,
 				2A2F227A20C4B47E00D05D01 /* EditGalleryVC.swift in Sources */,
 				2A0B0CA120CACF94009675B8 /* ImageUploadManager.swift in Sources */,
 				2A4A4B1C20826AAC0069D5C6 /* PairWithVC.swift in Sources */,
@@ -351,6 +440,7 @@
 				2A4D91E320A9E58B0018A3D1 /* Service.swift in Sources */,
 				2A89ACFE2094F00500B7485F /* openingVC.swift in Sources */,
 				2A2F227E20C4C35C00D05D01 /* UploadImagePresenter.swift in Sources */,
+				2A0F048C20ED526800AC6827 /* StoryImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,6 +586,7 @@
 			baseConfigurationReference = C918C841DF627DDDCFBBE3D5 /* Pods-pholio01.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4NPGUH6AXZ;
@@ -507,6 +598,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = co.chrisransom.pholio01;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "pholio01/pholio01-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -517,6 +610,7 @@
 			baseConfigurationReference = 1CEF13C22DFFD79208D49E43 /* Pods-pholio01.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4NPGUH6AXZ;
@@ -528,6 +622,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = co.chrisransom.pholio01;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "pholio01/pholio01-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

@@ -46,4 +46,8 @@ platform :ios, '11.0'
 	pod 'Alamofire', '~>4.0' 
 	
 	pod 'BSImagePicker'
+
+	pod 'FirebaseUI', '~> 5.0'
+
+	pod 'SDWebImage'
 end

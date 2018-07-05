@@ -17,17 +17,32 @@ class HomePageVC: UIViewController {
     
     @IBOutlet weak var signOutPressed: UIButton!
     
-    
+    @IBOutlet weak var btnMenuButton: UIBarButtonItem!
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
+        
+        
          signOutPressed.addTarget(self, action: #selector(signOut), for: .touchUpInside)
         
-       
-}
+        if revealViewController() != nil {
+            //            revealViewController().rearViewRevealWidth = 62
+            btnMenuButton.target = revealViewController()
+            btnMenuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            
+            //            revealViewController().rightViewRevealWidth = 150
+            //            extraButton.target = revealViewController()
+            //            extraButton.action = "rightRevealToggle:"
+            
+            
+            
+            
+        }
+    }
+        
     
     
     override func viewDidAppear(_ animated: Bool) {

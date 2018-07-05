@@ -24,24 +24,59 @@ import MapKit
 import CoreLocation
 import GeoFire
 
-class EditProfile: UIViewController, CLLocationManagerDelegate {
+class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelegate, ValidationDelegate {
+    func validationSuccessful() {
+        
+        validator.registerField(HourlyRate, errorLabel: hrLabel , rules: [RequiredRule(), PasswordRule(message: "Must be 6 characters")])
+        
+        
+        validator.registerField(Age, errorLabel: ageLabel, rules: [RequiredRule(), EmailRule(message: "Invalid email")])
+        
+       
+        
+        print("Validation Success!")
+    }
+    
+    func validationFailed(_ errors: [(Validatable, ValidationError)]) {
+        for (field, error) in errors {
+            
+            print("Validation Error!")
+            
+            
+            if let field = field as? UITextField {
+                field.layer.borderColor = UIColor.red.cgColor
+                field.layer.borderWidth = 1.0
+            }
+            error.errorLabel?.text = error.errorMessage // works if you added labels
+            error.errorLabel?.isHidden = false
+        }
+    }
     
     
     
     
     @IBOutlet weak var map: MKMapView!
     
-    
     @IBOutlet weak var genderTapped: UIButton!
     
-    
     @IBOutlet weak var locationLabel: UILabel!
-    
     
     @IBOutlet weak var genderTV: UITableView!
     
     
-   
+    @IBOutlet weak var HourlyRate: UITextField!
+    @IBOutlet weak var hrLabel: UILabel!
+    
+    
+    @IBOutlet weak var Age: UITextField!
+    @IBOutlet weak var ageLabel: UILabel!
+    
+    @IBOutlet weak var signUpButton: UIButton!
+    
+    
+    let validator = Validator()
+
+    
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation!
     
@@ -49,18 +84,65 @@ class EditProfile: UIViewController, CLLocationManagerDelegate {
     var geoFireRef: DatabaseReference?
     var geoFire: GeoFire?
     
+    let userID = Auth.auth().currentUser?.uid
     var ref: DatabaseReference!
-    
+
     let list = ["Male", "Female"]
     
-    let HRlocation = ["$15", "$20", "$25", "$30", "$20", "$20", "$20", "$20", "$20", "$20", "$20", "$20", "$20", "$20", "$20", "$20", "$20"]
     
-    let userID = Auth.auth().currentUser?.uid
 
     
 
     override func viewDidLoad() {
+        
+        
+        Age.keyboardType = .decimalPad
+
+        Age.placeholder = "Age"
+        
+        HourlyRate.keyboardType = .decimalPad
+        HourlyRate.placeholder = "Hourly Rate"
+        
+        
         super.viewDidLoad()
+        
+        validator.styleTransformers(success:{ (validationRule) -> Void in
+            print("here")
+            // clear error label
+            validationRule.errorLabel?.isHidden = true
+            validationRule.errorLabel?.text = ""
+            if let textField = validationRule.field as? UITextField {
+                textField.layer.borderColor = UIColor.green.cgColor
+                textField.layer.borderWidth = 0.5
+                
+            }
+        }, error:{ (validationError) -> Void in
+            print("error")
+            validationError.errorLabel?.isHidden = false
+            validationError.errorLabel?.text = validationError.errorMessage
+            if let textField = validationError.field as? UITextField {
+                textField.layer.borderColor = UIColor.red.cgColor
+                textField.layer.borderWidth = 1.0
+            }
+        })
+        validator.registerField(HourlyRate, errorLabel: hrLabel , rules: [RequiredRule(), FloatRule(message: "This must be a number with or without a decimal")])
+        
+        
+        validator.registerField(Age, errorLabel: ageLabel, rules: [RequiredRule(), FloatRule(message: "This must be a number with or without a decimal")])
+        
+        
+        signUpButton.addTarget(self, action: #selector(confirmBTN), for: .touchUpInside)
+        
+        signUpButton(enabled: false)
+        
+        configureTextFields()
+        ref = Database.database().reference()
+
+        
+        
+        
+        hrLabel.isHidden = true
+        ageLabel.isHidden = true
         
         genderTV.isHidden = true
         genderTV.delegate = self
@@ -69,7 +151,7 @@ class EditProfile: UIViewController, CLLocationManagerDelegate {
         map.isHidden = true
         map.showsUserLocation = true
         
-            locationManager.delegate = self
+        locationManager.delegate = self 
             
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             
@@ -97,6 +179,30 @@ class EditProfile: UIViewController, CLLocationManagerDelegate {
                 // ...
             }
         }
+        
+        Age.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        HourlyRate.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        
+        Age.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin )
+        Age.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidEnd)
+        Age.addTarget(self, action: #selector(textFieldDidEndEditing(_:)), for: .editingDidEndOnExit )
+        
+        HourlyRate.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
+        HourlyRate.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidEnd)
+        HourlyRate.addTarget(self, action: #selector(textFieldDidEndEditing(_:)), for: .editingDidEndOnExit )
+        
+        //////////////Listens For Keyboard Events
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
     }
 
     
@@ -106,6 +212,11 @@ class EditProfile: UIViewController, CLLocationManagerDelegate {
         super.didReceiveMemoryWarning()
     }
     
+    private func configureTextFields() {
+        
+        Age.delegate = self
+        HourlyRate.delegate = self
+    }
    
    
     
@@ -153,6 +264,142 @@ class EditProfile: UIViewController, CLLocationManagerDelegate {
     }
     }
     
+    @objc func keyboardWillChange(notification: Notification) {
+        
+        guard ((notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil else {
+            return
+        }
+        if notification.name == Notification.Name.UIKeyboardWillShow ||
+            notification.name == Notification.Name.UIKeyboardWillChangeFrame {
+            view.frame.origin.y = -160
+        } else {
+            
+            view.frame.origin.y = 0
+            
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        HourlyRate.becomeFirstResponder
+        
+        
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Age.resignFirstResponder()
+        HourlyRate.resignFirstResponder()
+    }
+    
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true}
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        print("You typed : \(string)")
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case Age:
+            HourlyRate.becomeFirstResponder()
+        case HourlyRate:
+            Age.becomeFirstResponder()
+        default:
+            Age.resignFirstResponder()
+        }
+        return true
+    }
+    
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        
+        return true
+    }
+    
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+        return
+    }
+    
+    //////////////////////////////////////////////
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+        
+    }
+    
+
+    ////////////////////////////////////////////////////////
+    
+    @objc func textFieldDidChange(_ target:UITextField) {
+        
+        signUpButton.isEnabled = false
+        
+        guard let age = Age.text,
+            
+            age != "" else {
+                print("Age is empty")
+                return
+        }
+        guard let hourlyrate = HourlyRate.text,
+            
+            hourlyrate != "" else {
+                
+                
+                print("Hourly Rate 3 is empty")
+                return
+        }
+        // set button to true whenever all textfield criteria is met.
+        signUpButton.isEnabled = true
+        
+    }
+    
+    
+    
+    @objc func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        signUpButton.isEnabled = false
+        
+        guard let age = Age.text,
+            
+            age != "" else {
+                print("Age is empty")
+                return
+        }
+        guard let hourlyrate = HourlyRate.text,
+            
+            hourlyrate != "" else {
+                
+                
+                print("Hourly Rate 3 is empty")
+                return
+        }
+       
+        // set button to true whenever all textfield criteria is met.
+        signUpButton.isEnabled = true
+        
+    }
+   
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
@@ -165,6 +412,8 @@ class EditProfile: UIViewController, CLLocationManagerDelegate {
             
             currentLocation = locationManager.location
             print(currentLocation.coordinate.longitude)
+            print(currentLocation.coordinate.latitude)
+
             
         } else {
             locationManager.requestWhenInUseAuthorization()
@@ -180,6 +429,18 @@ class EditProfile: UIViewController, CLLocationManagerDelegate {
     }
     
     
+    func signUpButton(enabled:Bool) {
+        
+        if enabled{
+            
+            signUpButton.alpha = 1.0
+            signUpButton.isEnabled = true
+            
+        } else {
+            signUpButton.alpha = 0.9
+            signUpButton.isEnabled = false
+        }
+    }
     
     
     
@@ -194,10 +455,6 @@ class EditProfile: UIViewController, CLLocationManagerDelegate {
         }
 
 
-    
-    
-    
- 
     func animate(toggle: Bool, type: UIButton) {
         if toggle {
             
@@ -215,6 +472,17 @@ class EditProfile: UIViewController, CLLocationManagerDelegate {
         }
     }
    
+    @IBAction func confirmBTN(_ sender: Any) {
+        
+        validator.validate(self)
+
+         guard let Age = Age.text, let hourlyRate = HourlyRate.text else {return}
+        
+        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).childByAutoId().setValue(["Age": Int(Age), "Hourly Rate": Int(hourlyRate)])
+        
+        self.performSegue(withIdentifier: "toHomePage", sender: self)
+
+    }
     
     
     
