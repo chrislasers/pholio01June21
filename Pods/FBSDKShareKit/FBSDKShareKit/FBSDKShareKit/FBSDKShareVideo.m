@@ -80,7 +80,7 @@ NSString *const kFBSDKShareVideoURLKey = @"videoURL";
     NSRange range = [localIdentifier rangeOfString:@"/"];
     NSString *uuid = [localIdentifier substringToIndex:range.location];
     NSString *assetPath = [NSString stringWithFormat:@"assets-library://asset/asset.%@?id=%@&ext=%@", pathExtension, uuid, pathExtension];
-    _videoURL = [NSURL URLWithString:assetPath];
+                                                self->_videoURL = [NSURL URLWithString:assetPath];
     dispatch_semaphore_signal(semaphore);
   }];
   dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, 500 * NSEC_PER_MSEC));

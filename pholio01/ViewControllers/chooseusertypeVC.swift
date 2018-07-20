@@ -102,7 +102,7 @@ class chooseusertypeVC: UIViewController {
         
          self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["User Type": Photographer])
         
-        performSegue(withIdentifier: "toPair1", sender: nil)
+        performSegue(withIdentifier: "toPair", sender: nil)
         
         
         print("Model Stored")

@@ -94,7 +94,7 @@ class SelectImageVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             return
         }
         
-
+performSegue(withIdentifier: "toAddPhoto", sender: self)
        uploadPresenter.createCar(with: images)
        
     }

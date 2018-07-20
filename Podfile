@@ -50,4 +50,7 @@ platform :ios, '11.0'
 	pod 'FirebaseUI', '~> 5.0'
 
 	pod 'SDWebImage'
+	
+    pod 'SwiftyJSON', '~> 4.0'
+
 end

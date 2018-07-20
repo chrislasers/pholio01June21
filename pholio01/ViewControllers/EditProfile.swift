@@ -411,6 +411,7 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             
             currentLocation = locationManager.location
+            
             print(currentLocation.coordinate.longitude)
             print(currentLocation.coordinate.latitude)
 

@@ -416,6 +416,8 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         let profileImageRef = storageReference.child("UserPro-Pics").child((Auth.auth().currentUser?.uid)!)
         
+        let userReference = self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).child("UserPro-Pic")
+        
         let uploadMetaData = StorageMetadata()
         uploadMetaData.contentType = "image/jpeg"
         
@@ -425,8 +427,21 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
                 print("Error took place \(String(describing: error?.localizedDescription))")
                 return } else {
                 
+                
+                profileImageRef.downloadURL(completion: { (metadata, error) in
+                    if let downloadUrl = metadata {
+                        // Make you download string
+                        let profileImageURL = downloadUrl.absoluteString
+                        userReference.setValue(["profileImageURL": profileImageURL])
+                        print(profileImageURL)
+                    } else {
+                        // Do something if error
+                        print("No ProPic-Download URL")
+                    }
+                })
                 print("Meta data of upload image \(String(describing: uploadMetaData))")
             }
+            
 
     }
     }
@@ -507,6 +522,8 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             else
             
             {
+                
+
                 let optimizedImageData = UIImageJPEGRepresentation(self.profileImageView.image!, 0.6)
                 
                 // upload image from here
