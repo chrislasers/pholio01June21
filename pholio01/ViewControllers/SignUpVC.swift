@@ -81,6 +81,8 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     
     override func viewDidLoad() {
         
+        
+        
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
@@ -97,6 +99,8 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         email.placeholder = "Email Address"
         
         super.viewDidLoad()
+        
+        
         
         let db = Firestore.firestore()
         let settings = db.settings
@@ -345,6 +349,8 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     @objc func textFieldDidEndEditing(_ textField: UITextField) {
         
         signUpButton.isEnabled = false
+        
+        
       
         guard let username = username.text,
             
@@ -382,6 +388,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         if enabled{
             
+
             signUpButton.alpha = 1.0
             signUpButton.isEnabled = true
             
@@ -421,6 +428,8 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         let uploadMetaData = StorageMetadata()
         uploadMetaData.contentType = "image/jpeg"
         
+        guard let imageData = UIImageJPEGRepresentation(self.profileImageView.image!, 0.6)  else {return }
+        
         profileImageRef.putData(imageData, metadata: uploadMetaData) { (uploadMetaData, error) in
             
             if error != nil {
@@ -435,7 +444,6 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
                         userReference.setValue(["profileImageURL": profileImageURL])
                         print(profileImageURL)
                     } else {
-                        // Do something if error
                         print("No ProPic-Download URL")
                     }
                 })
@@ -508,13 +516,13 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         guard let email = email.text, let password = password.text , let username = username.text else {return}
-        
-        
-        guard  UIImageJPEGRepresentation(self.profileImageView.image!, 0.6) != nil else { return }
+        guard let image = UIImageJPEGRepresentation(self.profileImageView.image!, 0.6)  else { return }
+        guard let img = UIImage(named: "profile") else {return}
 
    
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
-            if error != nil {
+            
+            if error != nil   {
                 print(error?.localizedDescription as Any)
                 return
                 }
@@ -524,55 +532,45 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             {
                 
 
-                let optimizedImageData = UIImageJPEGRepresentation(self.profileImageView.image!, 0.6)
                 
-                // upload image from here
+                if self.profileImageView?.image != img  { //Now check if the img has changed or not:
 
-                self.uploadProfileImage(imageData: optimizedImageData!)
-                
- self.performSegue(withIdentifier: "toEditProfile", sender: self)
-                self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).childByAutoId().setValue(["Username": self.username.text])
-            
-            
-            let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                changeRequest?.displayName = username
-            changeRequest?.commitChanges {error in
-                
-                if error == nil {
                     
-                    print("User display changed")
+                    self.uploadProfileImage(imageData: image) // upload image from here
+
                     
+                    self.performSegue(withIdentifier: "toEditProfile", sender: self)
+                    self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).childByAutoId().setValue(["Username": self.username.text])
+                    
+                    
+                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                    changeRequest?.displayName = username
+                    changeRequest?.commitChanges { error in
+                        
+                        if error == nil {
+                            
+                            print("User display changed")
+                            
+                        } else {
+                            
+                            let loginAlert = UIAlertController(title: "Login Error", message: " Please Provide Valid Username", preferredStyle: .alert)
+                            loginAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                            self.present(loginAlert, animated: true, completion: nil)
+                            
+                        }
+                        
+                    }
+                    
+                } else {
+                    
+                    let loginAlert = UIAlertController(title: "Login Error", message: " Please Add Profile Picture", preferredStyle: .alert)
+                    loginAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(loginAlert, animated: true, completion: nil)
                 }
-
-            }
-Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
-                    
-                    if error != nil {
-                        
-                        let emailNotSentAlert = UIAlertController(title: "Email Verification", message: "Verification failed to send: \(String(describing: error?.localizedDescription))", preferredStyle: .alert)
-                        emailNotSentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        self.present(emailNotSentAlert, animated: true, completion: nil)
-                        
-                        print("Email Not Sent")
-                    }
-                        
-                    else {
-                        
-                        let emailSentAlert = UIAlertController(title: "Email Verification", message: "Verification email has been sent. Please tap on the link in the email to verify your account before you can use the features assoicited within the app", preferredStyle: .alert)
-                        emailSentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        
-                        self.present(emailSentAlert, animated: true, completion: nil)
-                        
-                        print("Email Sent")
-                    }
-                })
-            
             }
             }
         }
     }
-
-
 
 
 extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

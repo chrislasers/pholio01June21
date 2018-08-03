@@ -24,33 +24,15 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
   
     fileprivate var userArr = [[String: Any]]()
     
-    
     var ref: DatabaseReference!
 
-    var imageUploadManager: ImageUploadManager?
-    
+  
+    var arrImages: [[String: String]] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      
-        
-        ref = Database.database().reference()
-
-        
-        Auth.auth().addStateDidChangeListener { (auth, user) in
-            
-            if Auth.auth().currentUser?.uid != nil {
-                print("Entire Profile Created")
-                
-                
-            }
-                
-            else {
-                print("User Not Signed In")
-                // ...
-            }
-        }
+                ref = Database.database().reference()
         
         userArr = [
             [ "pro-image" : "pro-img-3",
@@ -66,11 +48,16 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
             ["pro-image" : "pro-img-5",
              "items": [["content" : "video", "item" : "output2"], ["content" : "image", "item" : "img-5"], ["content" : "video", "item" : "output3"]]],
         ]
+        
         let db = Firestore.firestore()
         let settings = db.settings
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
     
+            //collectionView.delegate = self
+           // collectionView.dataSource = self
+        collectionView.reloadData()
+
         
         self.addSlideMenuButton()
         // Do any additional setup after loading the view.
@@ -87,9 +74,12 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         super.viewWillTransition(to: size, with: coordinator)
         collectionView.collectionViewLayout.invalidateLayout()
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////
 
-
+    
+    
+    
+    
     
     // MARK: - UICollectionViewDataSource
     //1
@@ -109,7 +99,7 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CELL", for: indexPath) as! CollectionViewCell
         
-        cell.storyImages.image = UIImage(named: userArr[indexPath.row]["pro-image"] as! String)        
+        cell.storyImages.image = UIImage(named: userArr[indexPath.row]["pro-image"] as! String)
         return cell
     }
     
@@ -130,3 +120,5 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     
 
 }
+
+

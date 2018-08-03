@@ -23,12 +23,12 @@ class CollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var storyImages: UIImageView!
     
-    
    
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+                
         self.storyImages.layer.cornerRadius = self.storyImages.frame.size.height / 2;
         self.storyImages.layer.borderColor = UIColor.red.cgColor
         self.storyImages.layer.borderWidth = 3
@@ -43,6 +43,8 @@ class CollectionViewCell: UICollectionViewCell {
         storyImages.image = nil
         
     }
+    
+    
         
         func fill(with object: Any) {
             if let image = object as? UIImage {
@@ -54,3 +56,4 @@ class CollectionViewCell: UICollectionViewCell {
             }
         }
 }
+

@@ -17,7 +17,7 @@ import Photos
 import FirebaseFirestore
 import FirebaseCore
 
-class Datasource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
+class Datasource: NSObject {//UICollectionViewDataSource, UICollectionViewDelegate {
 
     var itemsToDisplay: [Any] = []
     
@@ -82,7 +82,8 @@ class Datasource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate
         
         if let car = item as? Car {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CELL", for: indexPath) as! CollectionViewCell
-            cell.fill(with: car)
+            
+            //cell.fill(with: car)
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CELL", for: indexPath) as! CollectionViewCell

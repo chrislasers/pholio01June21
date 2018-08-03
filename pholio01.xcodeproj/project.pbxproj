@@ -10,7 +10,7 @@
 		2A0B0C9F20CACF17009675B8 /* AbstractOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0C9E20CACF17009675B8 /* AbstractOperation.swift */; };
 		2A0B0CA120CACF94009675B8 /* ImageUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0CA020CACF94009675B8 /* ImageUploadManager.swift */; };
 		2A0B0CA520CB3665009675B8 /* UploadImageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0CA420CB3665009675B8 /* UploadImageOperation.swift */; };
-		2A0B0CA720CD9C52009675B8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0CA620CD9C52009675B8 /* Photo.swift */; };
+		2A0B0CA720CD9C52009675B8 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0CA620CD9C52009675B8 /* Car.swift */; };
 		2A0F047620EAA5A300AC6827 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F047420EAA5A200AC6827 /* BaseViewController.swift */; };
 		2A0F047720EAA5A300AC6827 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F047520EAA5A300AC6827 /* MenuViewController.swift */; };
 		2A0F047B20EAA89000AC6827 /* BViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F047A20EAA89000AC6827 /* BViewController.swift */; };
@@ -55,7 +55,7 @@
 		2A0B0C9E20CACF17009675B8 /* AbstractOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractOperation.swift; sourceTree = "<group>"; };
 		2A0B0CA020CACF94009675B8 /* ImageUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadManager.swift; sourceTree = "<group>"; };
 		2A0B0CA420CB3665009675B8 /* UploadImageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageOperation.swift; sourceTree = "<group>"; };
-		2A0B0CA620CD9C52009675B8 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		2A0B0CA620CD9C52009675B8 /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
 		2A0F047420EAA5A200AC6827 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		2A0F047520EAA5A300AC6827 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		2A0F047A20EAA89000AC6827 /* BViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BViewController.swift; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 				2A0B0CA420CB3665009675B8 /* UploadImageOperation.swift */,
 				2A0B0CA020CACF94009675B8 /* ImageUploadManager.swift */,
 				2A0B0C9E20CACF17009675B8 /* AbstractOperation.swift */,
-				2A0B0CA620CD9C52009675B8 /* Photo.swift */,
+				2A0B0CA620CD9C52009675B8 /* Car.swift */,
 			);
 			path = UploadTask;
 			sourceTree = "<group>";
@@ -181,8 +181,8 @@
 				2A2F227520C48B8700D05D01 /* CustomImageFlowLayout.swift */,
 				2A0B0CA320CAD1A4009675B8 /* ViewControllers */,
 				2AC47CAA20F2C22200CA5B4D /* HELP!! */,
-				2A0B0CA220CAD094009675B8 /* UploadTask */,
 				2A0F047320EAA50500AC6827 /* SlideMenu */,
+				2A0B0CA220CAD094009675B8 /* UploadTask */,
 				2A6DB00920FFA7BE00762C06 /* Other */,
 				2A31E1E3207BC769006CFF24 /* Main.storyboard */,
 				2A31E1E6207BC76A006CFF24 /* Assets.xcassets */,
@@ -455,7 +455,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A0B0CA720CD9C52009675B8 /* Photo.swift in Sources */,
+				2A0B0CA720CD9C52009675B8 /* Car.swift in Sources */,
 				2A6789D1208987C1003FAAA9 /* AlertController.swift in Sources */,
 				2A31E1F8207BD0F7006CFF24 /* SignUpVC.swift in Sources */,
 				2AC47CAD20F2C22200CA5B4D /* SegmentedProgressBar.swift in Sources */,

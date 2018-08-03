@@ -24,8 +24,8 @@ class chooseusertypeVC: UIViewController {
         
 
     let userID = Auth.auth().currentUser?.uid
-    let Photographer: String = "Photographer"
-    let Model: String = "Model"
+    let P: String = "Photographer"
+    let M: String = "Model"
     let Videographer: String = "Videographer"
     let Guest: String = "Guest"
     
@@ -83,9 +83,9 @@ class chooseusertypeVC: UIViewController {
     
    
     
-    @IBAction func photographerPressed(_ sender: Any) {
+    @IBAction func pPressed(_ sender: Any) {
         
-        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Usertype": Photographer])
+        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Usertype": P])
 
         
         
@@ -98,9 +98,9 @@ class chooseusertypeVC: UIViewController {
     
     
     
-    @IBAction func modelPressed(_ sender: Any) {
+    @IBAction func mPressed(_ sender: Any) {
         
-         self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["User Type": Photographer])
+         self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["User Type": M])
         
         performSegue(withIdentifier: "toPair", sender: nil)
         

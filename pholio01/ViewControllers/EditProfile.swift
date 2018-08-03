@@ -82,7 +82,7 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
     
 
     var geoFireRef: DatabaseReference?
-    var geoFire: GeoFire?
+    var geoFire: GeoFire!
     
     let userID = Auth.auth().currentUser?.uid
     var ref: DatabaseReference!
@@ -161,7 +161,7 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         
         geoFireRef = Database.database().reference()
         
-        geoFire = GeoFire(firebaseRef: (geoFireRef?.child("user_locations"))!)
+        geoFire = GeoFire(firebaseRef: (geoFireRef!.child("user_locations")))
         
         ref = Database.database().reference()
         
@@ -230,7 +230,7 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         map.setRegion(region, animated: true)
         
         guard locations.last != nil else { return }
-        geoFire?.setLocation(location, forKey: (Auth.auth().currentUser?.uid)!)
+        geoFire!.setLocation(location, forKey: (Auth.auth().currentUser?.uid)!)
         
         
         print(location.coordinate)

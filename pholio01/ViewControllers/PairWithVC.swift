@@ -20,8 +20,8 @@ class PairWithVC: UIViewController {
     var ref: DatabaseReference!
 
     let userID = Auth.auth().currentUser?.uid
-    let Photographer: String = "Photographer"
-    let Model: String = "Model"
+    let P: String = "Photographer"
+    let M: String = "Model"
     
     
     
@@ -64,9 +64,9 @@ class PairWithVC: UIViewController {
     
     
     
-    @IBAction func photogPressed(_ sender: Any) {
+    @IBAction func pPressed(_ sender: Any) {
         
-        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Pairing With": Photographer])
+        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Pairing With": P])
 
         self.performSegue(withIdentifier: "toEditProfile", sender: nil)
 
@@ -75,8 +75,8 @@ class PairWithVC: UIViewController {
     
     
     
-    @IBAction func modelPressed(_ sender: Any) {
-        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Pairing With": Model])
+    @IBAction func mPressed(_ sender: Any) {
+        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Pairing With": M])
         
         self.performSegue(withIdentifier: "toEditProfile", sender: nil)
     }

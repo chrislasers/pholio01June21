@@ -46,6 +46,28 @@ class SelectImageVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
+            
+            if error != nil {
+                
+                let emailNotSentAlert = UIAlertController(title: "Email Verification", message: "Verification failed to send: \(String(describing: error?.localizedDescription))", preferredStyle: .alert)
+                emailNotSentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(emailNotSentAlert, animated: true, completion: nil)
+                
+                print("Email Not Sent")
+            }
+                
+            else {
+                
+                let emailSentAlert = UIAlertController(title: "Email Verification", message: "Verification email has been sent. Please tap on the link in the email to verify your account before you can use the features assoicited within the app", preferredStyle: .alert)
+                emailSentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                
+                self.present(emailSentAlert, animated: true, completion: nil)
+                
+                print("Email Sent")
+            }
+        })
+        
         uploadPresenter = UploadPresenter(viewController: self)
         
         uploadImagePresenter = UploadImagePresenter()
