@@ -102,4 +102,5 @@ class UploadPresenter: NSObject {
             
         }
     }
+    
 }

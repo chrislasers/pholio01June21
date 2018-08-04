@@ -22,15 +22,31 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     var SPB: SegmentedProgressBar!
     var player: AVPlayer!
     
+    var usersArray = [UserModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
-        userProfileImage.image = UIImage(named: items[pageIndex]["pro-image"] as! String)
-        lblUserName.text = items[pageIndex]["name"] as? String
-        item = self.items[pageIndex]["items"] as! [[String : String]]
+        //userProfileImage.image = UIImage(named: items[pageIndex]["pro-image"] as! String)
         
-        SPB = SegmentedProgressBar(numberOfSegments: self.item.count, duration: 5)
+        let user = usersArray[pageIndex]
+        
+        DispatchQueue.global(qos: .background).async {
+            let imageData = NSData(contentsOf: URL(string: user.profileImageUrl!)!)
+            
+            DispatchQueue.main.async {
+                let profileImage = UIImage(data: imageData! as Data)
+                self.userProfileImage.image = profileImage
+            }
+        }
+        
+        lblUserName.text = items[pageIndex]["name"] as? String
+        //item = self.items[pageIndex]["items"] as! [[String : String]]
+        item = user.itemsConverted
+        
+        SPB = SegmentedProgressBar(numberOfSegments: self.items.count, duration: 5)
+        //SPB = SegmentedProgressBar(numberOfSegments: self.items.count, duration: 5)
         if #available(iOS 11.0, *) {
             SPB.frame = CGRect(x: 18, y: UIApplication.shared.statusBarFrame.height + 5, width: view.frame.width - 35, height: 3)
         } else {
@@ -120,7 +136,19 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             self.SPB.duration = 5
             self.imagePreview.isHidden = false
             self.videoView.isHidden = true
-            self.imagePreview.image = UIImage(named: item[index]["item"]!)
+            
+            let content = item[index]["item"]
+            
+            DispatchQueue.global(qos: .background).async {
+                let imageData = NSData(contentsOf: URL(string: content!)!)
+                
+                DispatchQueue.main.async {
+                    let contentImage = UIImage(data: imageData! as Data)
+                    self.imagePreview.image = contentImage
+                }
+            }
+            
+            //self.imagePreview.image = UIImage(named: item[index]["item"]!)
         }
         else {
             let moviePath = Bundle.main.path(forResource: item[index]["item"], ofType: "mp4")
@@ -142,6 +170,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
                 
                 self.SPB.duration = durationTime
                 self.player.play()
+                
             }
         }
     }
