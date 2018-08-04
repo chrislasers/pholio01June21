@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 protocol SlideMenuDelegate {
     func slideMenuItemSelectedAtIndex(_ index : Int32)
@@ -39,8 +40,12 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     */
     var delegate : SlideMenuDelegate?
     
+    @IBOutlet var userProfileImage: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        getProfileImage()
         tblMenuOptions.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     }
@@ -52,6 +57,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         updateArrayMenuOptions()
     }
     
@@ -63,11 +69,22 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         arrayMenuOptions.append(["title":"Notifications", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Get Help", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Settings", "icon":"PlayIcon"])
-        
 
-        
-        
         tblMenuOptions.reloadData()
+    }
+    
+    func getProfileImage() {
+        DBService.shared.refreshUser(userId: (Auth.auth().currentUser?.uid)!) { (user) in
+            
+            DispatchQueue.global(qos: .background).async {
+                let imageData = NSData(contentsOf: URL(string: user.profileImageUrl!)!)
+                
+                DispatchQueue.main.async {
+                    let profileImage = UIImage(data: imageData! as Data)
+                    self.userProfileImage.image = profileImage
+                }
+            }
+        }
     }
     
     @IBAction func onCloseMenuClick(_ button:UIButton!){

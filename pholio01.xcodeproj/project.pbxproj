@@ -47,6 +47,9 @@
 		2AC47CB820F2CB2400CA5B4D /* output3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2AC47CB520F2CB2400CA5B4D /* output3.mp4 */; };
 		2AC47CB920F2CB2400CA5B4D /* output2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2AC47CB620F2CB2400CA5B4D /* output2.mp4 */; };
 		2AF4D9672092579A005D3C66 /* chooseusertypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4D9662092579A005D3C66 /* chooseusertypeVC.swift */; };
+		D79CDE862114E24700CF921A /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79CDE852114E24700CF921A /* DBService.swift */; };
+		D7D21B7E2114E53400391721 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D21B7D2114E53400391721 /* UserModel.swift */; };
+		D7D21B802114E72900391721 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D21B7F2114E72900391721 /* StorageService.swift */; };
 		FFDD85588F312A161005339E /* Pods_pholio01.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F49E4E484B4A53584B7ECEC /* Pods_pholio01.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +102,9 @@
 		2AF4D9662092579A005D3C66 /* chooseusertypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chooseusertypeVC.swift; sourceTree = "<group>"; };
 		2F49E4E484B4A53584B7ECEC /* Pods_pholio01.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pholio01.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C918C841DF627DDDCFBBE3D5 /* Pods-pholio01.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pholio01.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pholio01/Pods-pholio01.debug.xcconfig"; sourceTree = "<group>"; };
+		D79CDE852114E24700CF921A /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
+		D7D21B7D2114E53400391721 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		D7D21B7F2114E72900391721 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +215,7 @@
 		2AC47CAA20F2C22200CA5B4D /* HELP!! */ = {
 			isa = PBXGroup;
 			children = (
+				D79CDE842114E23000CF921A /* Services */,
 				2A0F047A20EAA89000AC6827 /* BViewController.swift */,
 				2A0F048920ED476E00AC6827 /* CollectionViewCell.swift */,
 				2AC47CB020F2CB1400CA5B4D /* ContentViewController.swift */,
@@ -236,6 +243,16 @@
 				1CEF13C22DFFD79208D49E43 /* Pods-pholio01.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		D79CDE842114E23000CF921A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D79CDE852114E24700CF921A /* DBService.swift */,
+				D7D21B7D2114E53400391721 /* UserModel.swift */,
+				D7D21B7F2114E72900391721 /* StorageService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		FDD0BAD480B8D7C7C7DFC32E /* Frameworks */ = {
@@ -332,6 +349,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BSGridCollectionViewLayout/BSGridCollectionViewLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/BSImagePicker/BSImagePicker.framework",
+				"${BUILT_PRODUCTS_DIR}/BSImageView/BSImageView.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
@@ -342,6 +360,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Haneke/Haneke.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/LBTAComponents/LBTAComponents.framework",
@@ -352,7 +371,6 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
-				"${BUILT_PRODUCTS_DIR}/UIImageViewModeScaleAspect/UIImageViewModeScaleAspect.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
@@ -365,6 +383,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSGridCollectionViewLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSImagePicker.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSImageView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
@@ -375,6 +394,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Haneke.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LBTAComponents.framework",
@@ -385,7 +405,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIImageViewModeScaleAspect.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
@@ -412,7 +431,6 @@
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseTwitterAuthUI.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -423,7 +441,6 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseTwitterAuthUI.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterShareExtensionUIResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -463,6 +480,7 @@
 				2A0B0CA520CB3665009675B8 /* UploadImageOperation.swift in Sources */,
 				2A0F047620EAA5A300AC6827 /* BaseViewController.swift in Sources */,
 				2A0F048E20ED5B7700AC6827 /* Datasource.swift in Sources */,
+				D7D21B7E2114E53400391721 /* UserModel.swift in Sources */,
 				2A40224020B6BEB0001F2F38 /* EditProfile.swift in Sources */,
 				2A4A4B2020826BF70069D5C6 /* HomePageVC.swift in Sources */,
 				2A0F049220ED6D0300AC6827 /* ViewPresenter.swift in Sources */,
@@ -474,6 +492,7 @@
 				2A0F048520EAE36500AC6827 /* SWRevealViewController.m in Sources */,
 				2A0F049020ED5C7A00AC6827 /* GridLayout.swift in Sources */,
 				2A31E1E0207BC769006CFF24 /* AppDelegate.swift in Sources */,
+				D7D21B802114E72900391721 /* StorageService.swift in Sources */,
 				2AC47CB220F2CB1400CA5B4D /* ContentViewController.swift in Sources */,
 				2A2F226E20C2622000D05D01 /* UploadPresenter.swift in Sources */,
 				2A2F227620C48B8700D05D01 /* CustomImageFlowLayout.swift in Sources */,
@@ -484,6 +503,7 @@
 				2A0B0CA120CACF94009675B8 /* ImageUploadManager.swift in Sources */,
 				2A4A4B1C20826AAC0069D5C6 /* PairWithVC.swift in Sources */,
 				2A31E1F6207BD0DE006CFF24 /* SignInVC.swift in Sources */,
+				D79CDE862114E24700CF921A /* DBService.swift in Sources */,
 				2A4D91E320A9E58B0018A3D1 /* Service.swift in Sources */,
 				2A89ACFE2094F00500B7485F /* openingVC.swift in Sources */,
 				2A2F227E20C4C35C00D05D01 /* UploadImagePresenter.swift in Sources */,

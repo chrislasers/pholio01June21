@@ -590,17 +590,17 @@ static CGSize FBSDKLikeControlCalculateContentSize(FBSDKLikeControlLayout layout
         view.frame = frame;
       };
       [UIView animateWithDuration:kFBLikeControlAnimationDuration animations:^{
-          hideView(self->_socialSentenceLabel);
+        hideView(_socialSentenceLabel);
       } completion:^(BOOL finished) {
-          self->_socialSentenceLabel.text = likeActionController.socialSentence;
+        _socialSentenceLabel.text = likeActionController.socialSentence;
         [self setNeedsLayout];
         [self setNeedsUpdateConstraints];
         [self invalidateIntrinsicContentSize];
         [self layoutIfNeeded];
-          hideView(self->_socialSentenceLabel);
+        hideView(_socialSentenceLabel);
 
         [UIView animateWithDuration:kFBLikeControlAnimationDuration animations:^{
-            self->_socialSentenceLabel.alpha = 1.0;
+          _socialSentenceLabel.alpha = 1.0;
           [self setNeedsLayout];
           [self layoutIfNeeded];
         }];

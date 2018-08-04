@@ -112,6 +112,8 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [defaultCenter addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+
+    [[FBSDKAppEvents singleton] registerNotifications];
   }
   return self;
 }
@@ -156,12 +158,12 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
   id<FBSDKURLOpening> pendingURLOpen = _pendingURLOpen;
 
   void (^completePendingOpenURLBlock)(void) = ^{
-      self->_pendingURLOpen = nil;
+    _pendingURLOpen = nil;
     [pendingURLOpen application:application
                         openURL:url
               sourceApplication:sourceApplication
                      annotation:annotation];
-      self->_isDismissingSafariViewController = NO;
+    _isDismissingSafariViewController = NO;
   };
   // if they completed a SFVC flow, dismiss it.
   if (_safariViewController) {
@@ -311,8 +313,8 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
   _pendingRequestCompletionBlock = [completionBlock copy];
   void (^handler)(BOOL, NSError *) = ^(BOOL openedURL, NSError *anError) {
     if (!openedURL) {
-        self->_pendingRequest = nil;
-        self->_pendingRequestCompletionBlock = nil;
+      _pendingRequest = nil;
+      _pendingRequestCompletionBlock = nil;
       NSError *openedURLError;
       if ([request.scheme hasPrefix:@"http"]) {
         openedURLError = [FBSDKError errorWithCode:FBSDKBrowserUnavailableErrorCode
@@ -356,7 +358,7 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
           if (error == nil) {
             [self application:[UIApplication sharedApplication] openURL:aURL sourceApplication:@"com.apple" annotation:nil];
           }
-            self->_authenticationSession = nil;
+          _authenticationSession = nil;
         }];
         [_authenticationSession start];
         return;
@@ -387,11 +389,11 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
       // Wait until the transition is finished before presenting SafariVC to avoid a blank screen.
       [parent.transitionCoordinator animateAlongsideTransition:NULL completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         // Note SFVC init must occur inside block to avoid blank screen.
-          self->_safariViewController = [[SFSafariViewControllerClass alloc] initWithURL:url];
+        _safariViewController = [[SFSafariViewControllerClass alloc] initWithURL:url];
         // Disable dismissing with edge pan gesture
-          self->_safariViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-          [self->_safariViewController performSelector:@selector(setDelegate:) withObject:self];
-          [container displayChildController:self->_safariViewController];
+        _safariViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        [_safariViewController performSelector:@selector(setDelegate:) withObject:self];
+        [container displayChildController:_safariViewController];
         [parent presentViewController:container animated:YES completion:nil];
       }];
     } else {
@@ -508,6 +510,9 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
   }
   if (objc_lookUpClass("FBSDKTVInterfaceFactory.m") != nil) {
     [params setObject:@1 forKey:@"tv_lib_included"];
+  }
+  if (objc_lookUpClass("FBSDKAutoLog") != nil) {
+    [params setObject:@1 forKey:@"marketing_lib_included"];
   }
   [FBSDKAppEvents logEvent:@"fb_sdk_initialize" parameters:params];
 }
