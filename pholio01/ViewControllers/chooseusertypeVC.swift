@@ -21,30 +21,33 @@ class chooseusertypeVC: UIViewController {
     
     
     var ref: DatabaseReference!
-        
-
+    
+    
     let userID = Auth.auth().currentUser?.uid
-    let P: String = "Photographer"
-    let M: String = "Model"
-    let Videographer: String = "Videographer"
+    let P: String = "P"
+    let M: String = "M"
+    let V: String = "V"
     let Guest: String = "Guest"
+    let Man: String = "Man"
+    let Woman: String = "Woman"
     
     
     
     
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
         
-       
+        
         
         ref =
-      Database.database().reference()
+            Database.database().reference()
         
-            
-            
+        
+        
         
         
         Auth.auth().addStateDidChangeListener { (auth, user) in
@@ -52,17 +55,17 @@ class chooseusertypeVC: UIViewController {
             if Auth.auth().currentUser?.uid != nil {
                 print("Creation of profile SUCCESSFUL")
                 
-            
-                    }
+                
+            }
                 
             else {
                 print("User Not Signed In")
                 // ...
             }
         }
-
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -81,12 +84,12 @@ class chooseusertypeVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-   
+    
     
     @IBAction func pPressed(_ sender: Any) {
         
-        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Usertype": P])
-
+        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Usertype": Man])
+        
         
         
         self.performSegue(withIdentifier: "toPair", sender: nil)
@@ -94,13 +97,13 @@ class chooseusertypeVC: UIViewController {
         
         print("Photographer Stored")
     }
-
+    
     
     
     
     @IBAction func mPressed(_ sender: Any) {
         
-         self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["User Type": M])
+        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["User Type": Woman])
         
         performSegue(withIdentifier: "toPair", sender: nil)
         

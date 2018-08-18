@@ -21,50 +21,58 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     
     
     @IBOutlet weak var collectionView: UICollectionView!
-  
-    fileprivate var userArr = [[String: Any]]()
     
+    //fileprivate var userArr = [[String: Any]]()
     var ref: DatabaseReference!
-
-  
     var arrImages: [[String: String]] = []
-
+    
+    var usersArray = [UserModel]()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        DBService.shared.getAllUsers { (usersArray) in
+            self.usersArray = usersArray
+            self.collectionView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-                ref = Database.database().reference()
-        
-        userArr = [
-            [ "pro-image" : "pro-img-3",
-             "items": [["content" : "image", "item" : "img-3"], ["content" : "video", "item" : "output"], ["content" : "video", "item" : "output2"]]],
-            ["pro-image" : "pro-img-1",
-             "items": [["content" : "video", "item" : "output3"], ["content" : "image", "item" : "img-4"], ["content" : "image", "item" : "img-5"], ["content" : "video", "item" : "output"]]],
-            ["pro-image" : "pro-img-2",
-             "items": [["content" : "image", "item" : "img-1"], ["content" : "video", "item" : "output2"]]],
-            ["pro-image" : "pro-img-4",
-             "items": [["content" : "image", "item" : "img-2"], ["content" : "video", "item" : "output"], ["content" : "image", "item" : "img-3"]]],
-            ["pro-image" : "pro-img-3",
-             "items": [["content" : "video", "item" : "output"], ["content" : "image", "item" : "img-4"], ["content" : "video", "item" : "output3"], ["content" : "image", "item" : "img-3"]]],
-            ["pro-image" : "pro-img-5",
-             "items": [["content" : "video", "item" : "output2"], ["content" : "image", "item" : "img-5"], ["content" : "video", "item" : "output3"]]],
-        ]
-        
+        ref = Database.database().reference()
+        /*
+         userArr = [
+         [ "pro-image" : "pro-img-3",
+         "items": [["content" : "image", "item" : "img-3"], ["content" : "video", "item" : "output"], ["content" : "video", "item" : "output2"]]],
+         ["pro-image" : "pro-img-1",
+         "items": [["content" : "video", "item" : "output3"], ["content" : "image", "item" : "img-4"], ["content" : "image", "item" : "img-5"], ["content" : "video", "item" : "output"]]],
+         ["pro-image" : "pro-img-2",
+         "items": [["content" : "image", "item" : "img-1"], ["content" : "video", "item" : "output2"]]],
+         ["pro-image" : "pro-img-4",
+         "items": [["content" : "image", "item" : "img-2"], ["content" : "video", "item" : "output"], ["content" : "image", "item" : "img-3"]]],
+         ["pro-image" : "pro-img-3",
+         "items": [["content" : "video", "item" : "output"], ["content" : "image", "item" : "img-4"], ["content" : "video", "item" : "output3"], ["content" : "image", "item" : "img-3"]]],
+         ["pro-image" : "pro-img-5",
+         "items": [["content" : "video", "item" : "output2"], ["content" : "image", "item" : "img-5"], ["content" : "video", "item" : "output3"]]],
+         ]
+         */
         let db = Firestore.firestore()
         let settings = db.settings
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
-    
-            //collectionView.delegate = self
-           // collectionView.dataSource = self
-        collectionView.reloadData()
-
+        
+        //collectionView.delegate = self
+        // collectionView.dataSource = self
+        //collectionView.reloadData()
+        
         
         self.addSlideMenuButton()
         // Do any additional setup after loading the view.
     }
     
-
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -75,7 +83,7 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         collectionView.collectionViewLayout.invalidateLayout()
     }
     /////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     
     
     
@@ -90,7 +98,7 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     //2
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return userArr.count
+        return usersArray.count
     }
     
     //3
@@ -99,7 +107,19 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CELL", for: indexPath) as! CollectionViewCell
         
-        cell.storyImages.image = UIImage(named: userArr[indexPath.row]["pro-image"] as! String)
+        let user = usersArray[indexPath.row]
+        
+        DispatchQueue.global(qos: .background).async {
+            let imageData = NSData(contentsOf: URL(string: user.profileImageUrl!)!)
+            
+            DispatchQueue.main.async {
+                let profileImage = UIImage(data: imageData! as Data)
+                cell.storyImages.image = profileImage
+            }
+        }
+        
+        //cell.storyImages.image = UIImage(named: userArr[indexPath.row]["pro-image"] as! String)
+        
         return cell
     }
     
@@ -108,17 +128,30 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     // MARK: - UICollectionViewDelegate
     //1
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        DispatchQueue.main.async {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ContentView") as! ContentViewController
-            vc.modalPresentationStyle = .overFullScreen
-            vc.pages = self.userArr
-            vc.currentIndex = indexPath.row
-            self.present(vc, animated: true, completion: nil)
+        
+        DBService.shared.refreshUser(userId: usersArray[indexPath.row].userId!) { (refreshedUser) in
+            
+            if refreshedUser.itemsConverted.count == 0 {
+                // no images uploaded
+                print("no images uploaded")
+                
+            } else {
+                self.usersArray[indexPath.row] = refreshedUser
+                
+                DispatchQueue.main.async {
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "ContentView") as! ContentViewController
+                    vc.modalPresentationStyle = .overFullScreen
+                    vc.pages = self.usersArray
+                    vc.currentIndex = indexPath.row
+                    self.present(vc, animated: true, completion: nil)
+                }
+            }
+            
         }
     }
     
     
-
+    
 }
 
 

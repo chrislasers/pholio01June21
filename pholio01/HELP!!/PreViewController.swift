@@ -10,7 +10,7 @@ import AVFoundation
 import AVKit
 
 class PreViewController: UIViewController, SegmentedProgressBarDelegate {
-
+    
     @IBOutlet weak var videoView: UIView!
     @IBOutlet weak var imagePreview: UIImageView!
     @IBOutlet weak var userProfileImage: UIImageView!
@@ -22,15 +22,31 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     var SPB: SegmentedProgressBar!
     var player: AVPlayer!
     
+    var usersArray = [UserModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
-        userProfileImage.image = UIImage(named: items[pageIndex]["pro-image"] as! String)
-        lblUserName.text = items[pageIndex]["name"] as? String
-        item = self.items[pageIndex]["items"] as! [[String : String]]
         
-        SPB = SegmentedProgressBar(numberOfSegments: self.item.count, duration: 5)
+        self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
+        //userProfileImage.image = UIImage(named: items[pageIndex]["pro-image"] as! String)
+        
+        let user = usersArray[pageIndex]
+        
+        DispatchQueue.global(qos: .background).async {
+            let imageData = NSData(contentsOf: URL(string: user.profileImageUrl!)!)
+            
+            DispatchQueue.main.async {
+                let profileImage = UIImage(data: imageData! as Data)
+                self.userProfileImage.image = profileImage
+            }
+        }
+        
+lblUserName.text = user.username
+        //item = self.items[pageIndex]["items"] as! [[String : String]]
+        item = user.itemsConverted
+        
+        SPB = SegmentedProgressBar(numberOfSegments: self.items.count, duration: 5)
+        //SPB = SegmentedProgressBar(numberOfSegments: self.items.count, duration: 5)
         if #available(iOS 11.0, *) {
             SPB.frame = CGRect(x: 18, y: UIApplication.shared.statusBarFrame.height + 5, width: view.frame.width - 35, height: 3)
         } else {
@@ -56,11 +72,65 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         tapGestureVideo.numberOfTapsRequired = 1
         tapGestureVideo.numberOfTouchesRequired = 1
         videoView.addGestureRecognizer(tapGestureVideo)
+        
+        
+        
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
+        imagePreview.addGestureRecognizer(gesture)
+    }
+    
+    
+    
+    @objc func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
+        let labelPoint = gestureRecognizer.translation(in: view)
+        imagePreview.center = CGPoint(x: view.bounds.width / 2 + labelPoint.x, y: view.bounds.height / 2 + labelPoint.y)
+        
+        let xFromCenter = view.bounds.width / 2 - imagePreview.center.x
+        
+        var rotation = CGAffineTransform(rotationAngle: xFromCenter / 200)
+        
+        let scale = min(100 / abs(xFromCenter), 1)
+        
+        var scaledAndRotated = rotation.scaledBy(x: scale, y: scale)
+        
+        imagePreview.transform = scaledAndRotated
+        
+        if gestureRecognizer.state == .ended {
+            
+            
+            
+            
+            
+            
+            
+            if imagePreview.center.x < (view.bounds.width / 2 - 100) {
+                print("Not Interested")
+                
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+            
+            if imagePreview.center.x > (view.bounds.width / 2 + 100) {
+                print("Interested")
+                
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+            
+            
+            rotation = CGAffineTransform(rotationAngle: 0)
+            
+            scaledAndRotated = rotation.scaledBy(x: 1, y: 1)
+            
+            imagePreview.transform = scaledAndRotated
+            
+            imagePreview.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         UIView.animate(withDuration: 0.8) {
             self.view.transform = .identity
         }
@@ -83,7 +153,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             self.SPB.isPaused = true
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -120,7 +190,19 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             self.SPB.duration = 5
             self.imagePreview.isHidden = false
             self.videoView.isHidden = true
-            self.imagePreview.image = UIImage(named: item[index]["item"]!)
+            
+            let content = item[index]["item"]
+            
+            DispatchQueue.global(qos: .background).async {
+                let imageData = NSData(contentsOf: URL(string: content!)!)
+                
+                DispatchQueue.main.async {
+                    let contentImage = UIImage(data: imageData! as Data)
+                    self.imagePreview.image = contentImage
+                }
+            }
+            
+            //self.imagePreview.image = UIImage(named: item[index]["item"]!)
         }
         else {
             let moviePath = Bundle.main.path(forResource: item[index]["item"], ofType: "mp4")
@@ -142,6 +224,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
                 
                 self.SPB.duration = durationTime
                 self.player.play()
+                
             }
         }
     }

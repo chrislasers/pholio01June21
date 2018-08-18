@@ -310,7 +310,7 @@
             </objects>
             <point key="canvasLocation" x="-3374" y="368"/>
         </scene>
-        <!--ChooseusertypeVC-->
+        <!--User Type-->
         <scene sceneID="BUs-Ng-SOV">
             <objects>
                 <viewController storyboardIdentifier="chooseusertypeVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cWI-GB-tOm" customClass="chooseusertypeVC" customModule="pholio01" customModuleProvider="target" sceneMemberID="viewController">
@@ -325,11 +325,11 @@
                                     <constraint firstAttribute="height" constant="45" id="UdL-Hb-Rca"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="17"/>
-                                <state key="normal" title="P">
+                                <state key="normal" title="Man">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="photographerPressed:" destination="cWI-GB-tOm" eventType="touchUpInside" id="yjU-ME-KB4"/>
+                                    <action selector="pPressed:" destination="cWI-GB-tOm" eventType="touchUpInside" id="GA5-9V-Olv"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="The-6x-FcH">
@@ -350,12 +350,11 @@
                                     <constraint firstAttribute="height" constant="45" id="B5r-Ii-laI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="17"/>
-                                <state key="normal" title="M">
+                                <state key="normal" title="Woman">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="modelPressed:" destination="diO-dI-wvm" eventType="touchUpInside" id="2kR-r6-lnj"/>
-                                    <action selector="modelPressed:" destination="cWI-GB-tOm" eventType="touchUpInside" id="iau-Pr-XBH"/>
+                                    <action selector="mPressed:" destination="cWI-GB-tOm" eventType="touchUpInside" id="avO-R6-IqO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -373,7 +372,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UhZ-u1-dPh"/>
                     </view>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="fhr-cf-uSY">
+                    <navigationItem key="navigationItem" title="User Type" largeTitleDisplayMode="never" id="fhr-cf-uSY">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="fHg-4n-KdO">
                             <connections>
                                 <action selector="backPressed:" destination="cWI-GB-tOm" id="Ogb-L5-H5H"/>
@@ -381,13 +380,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="photoPressed" destination="KxF-al-pea" id="V4g-OV-93s"/>
                         <segue destination="G5n-4x-tfz" kind="show" identifier="toPair" id="XYM-dc-JqP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Czr-6s-kze" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3231" y="-244"/>
+            <point key="canvasLocation" x="2113" y="1253"/>
         </scene>
         <!--Looking To Pair With-->
         <scene sceneID="hzE-rc-0X9">
@@ -401,12 +399,11 @@
                                 <rect key="frame" x="34" y="202" width="306" height="45"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="17"/>
-                                <state key="normal" title="P">
+                                <state key="normal" title="Man">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="photogPressed:" destination="diO-dI-wvm" eventType="touchUpInside" id="MpN-zx-Q5T"/>
-                                    <action selector="photographerPressed:" destination="cWI-GB-tOm" eventType="touchUpInside" id="RAO-XP-oRt"/>
+                                    <action selector="pPressed:" destination="diO-dI-wvm" eventType="touchUpInside" id="eiZ-EQ-PME"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2b-yI-yKd">
@@ -416,12 +413,11 @@
                                     <constraint firstAttribute="height" constant="45" id="w67-VG-Z7O"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="17"/>
-                                <state key="normal" title="M">
+                                <state key="normal" title="Woman">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="modelPressed:" destination="cWI-GB-tOm" eventType="touchUpInside" id="F4D-a4-IXg"/>
-                                    <action selector="modelPressed:" destination="diO-dI-wvm" eventType="touchUpInside" id="ceI-uO-FII"/>
+                                    <action selector="mPressed:" destination="diO-dI-wvm" eventType="touchUpInside" id="3S0-q0-8Wu"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -437,7 +433,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SNu-eg-nsM"/>
                     </view>
-                    <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="never" id="AAV-pS-ufg">
+                    <navigationItem key="navigationItem" title="Looking To Pair With" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="never" id="AAV-pS-ufg">
                         <barButtonItem key="backBarButtonItem" title="Back" id="DHe-aW-pzV"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="L4u-qp-CUv">
                             <connections>
@@ -446,12 +442,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="nKs-Kl-DrU" kind="show" identifier="toEditProfile" id="7VK-qC-6Nk"/>
+                        <segue destination="hF1-0G-edz" kind="show" identifier="toEditProfile" id="poz-TH-1r0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aav-fv-hHD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5316" y="-244"/>
+            <point key="canvasLocation" x="2182" y="1963"/>
         </scene>
         <!--Edit Profile-->
         <scene sceneID="0tE-Yf-bVV">
@@ -787,7 +783,7 @@
                     <connections>
                         <outlet property="collectionView" destination="6kC-k8-Q03" id="tQ6-za-0S2"/>
                         <outlet property="progressView" destination="BYu-rZ-p2O" id="VGd-dh-5zX"/>
-                        <segue destination="hF1-0G-edz" kind="show" identifier="toAddPhoto" id="wjG-43-bIe"/>
+                        <segue destination="Cco-d9-0uz" kind="show" identifier="toAddPhoto" id="NTl-5Q-HVx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NXt-qQ-F16" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -810,7 +806,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ckk-Oj-RvU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2457" y="-202"/>
+            <point key="canvasLocation" x="1238" y="1253"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dmI-7F-2dl">
@@ -849,7 +845,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z3r-Bm-YsD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4338" y="-244"/>
+            <point key="canvasLocation" x="1238" y="1989"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aKJ-EF-DX2">
@@ -1214,6 +1210,7 @@
                     <connections>
                         <outlet property="btnCloseMenuOverlay" destination="hjn-u7-j7E" id="Pmn-Uy-0gY"/>
                         <outlet property="tblMenuOptions" destination="JiO-0J-Scc" id="sV8-la-CPI"/>
+                        <outlet property="userProfileImage" destination="jzY-Vu-eaY" id="njU-sn-RFV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Zc-4v-NDQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1462,6 +1459,6 @@
         <image name="profile.png" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wjG-43-bIe"/>
+        <segue reference="poz-TH-1r0"/>
     </inferredMetricsTieBreakers>
 </document>

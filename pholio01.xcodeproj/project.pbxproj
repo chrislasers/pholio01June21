@@ -46,6 +46,9 @@
 		2AC47CB720F2CB2400CA5B4D /* output.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2AC47CB420F2CB2400CA5B4D /* output.mp4 */; };
 		2AC47CB820F2CB2400CA5B4D /* output3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2AC47CB520F2CB2400CA5B4D /* output3.mp4 */; };
 		2AC47CB920F2CB2400CA5B4D /* output2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2AC47CB620F2CB2400CA5B4D /* output2.mp4 */; };
+		2AE737232128B0C3001E8C98 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7371F2128B0C3001E8C98 /* StorageService.swift */; };
+		2AE737242128B0C3001E8C98 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE737202128B0C3001E8C98 /* DBService.swift */; };
+		2AE737252128B0C3001E8C98 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE737212128B0C3001E8C98 /* UserModel.swift */; };
 		2AF4D9672092579A005D3C66 /* chooseusertypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4D9662092579A005D3C66 /* chooseusertypeVC.swift */; };
 		FFDD85588F312A161005339E /* Pods_pholio01.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F49E4E484B4A53584B7ECEC /* Pods_pholio01.framework */; };
 /* End PBXBuildFile section */
@@ -96,6 +99,9 @@
 		2AC47CB420F2CB2400CA5B4D /* output.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = output.mp4; sourceTree = "<group>"; };
 		2AC47CB520F2CB2400CA5B4D /* output3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = output3.mp4; sourceTree = "<group>"; };
 		2AC47CB620F2CB2400CA5B4D /* output2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = output2.mp4; sourceTree = "<group>"; };
+		2AE7371F2128B0C3001E8C98 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		2AE737202128B0C3001E8C98 /* DBService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
+		2AE737212128B0C3001E8C98 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2AF4D9662092579A005D3C66 /* chooseusertypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chooseusertypeVC.swift; sourceTree = "<group>"; };
 		2F49E4E484B4A53584B7ECEC /* Pods_pholio01.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pholio01.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C918C841DF627DDDCFBBE3D5 /* Pods-pholio01.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pholio01.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pholio01/Pods-pholio01.debug.xcconfig"; sourceTree = "<group>"; };
@@ -209,6 +215,7 @@
 		2AC47CAA20F2C22200CA5B4D /* HELP!! */ = {
 			isa = PBXGroup;
 			children = (
+				2AE7371E2128B0C3001E8C98 /* Services */,
 				2A0F047A20EAA89000AC6827 /* BViewController.swift */,
 				2A0F048920ED476E00AC6827 /* CollectionViewCell.swift */,
 				2AC47CB020F2CB1400CA5B4D /* ContentViewController.swift */,
@@ -227,6 +234,16 @@
 				2AC47CB620F2CB2400CA5B4D /* output2.mp4 */,
 			);
 			path = videos;
+			sourceTree = "<group>";
+		};
+		2AE7371E2128B0C3001E8C98 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2AE7371F2128B0C3001E8C98 /* StorageService.swift */,
+				2AE737202128B0C3001E8C98 /* DBService.swift */,
+				2AE737212128B0C3001E8C98 /* UserModel.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		D5C7DE1ABEAB3F74487DD202 /* Pods */ = {
@@ -463,7 +480,9 @@
 				2A0B0CA520CB3665009675B8 /* UploadImageOperation.swift in Sources */,
 				2A0F047620EAA5A300AC6827 /* BaseViewController.swift in Sources */,
 				2A0F048E20ED5B7700AC6827 /* Datasource.swift in Sources */,
+				2AE737252128B0C3001E8C98 /* UserModel.swift in Sources */,
 				2A40224020B6BEB0001F2F38 /* EditProfile.swift in Sources */,
+				2AE737242128B0C3001E8C98 /* DBService.swift in Sources */,
 				2A4A4B2020826BF70069D5C6 /* HomePageVC.swift in Sources */,
 				2A0F049220ED6D0300AC6827 /* ViewPresenter.swift in Sources */,
 				2A0F048A20ED476E00AC6827 /* CollectionViewCell.swift in Sources */,
@@ -486,6 +505,7 @@
 				2A31E1F6207BD0DE006CFF24 /* SignInVC.swift in Sources */,
 				2A4D91E320A9E58B0018A3D1 /* Service.swift in Sources */,
 				2A89ACFE2094F00500B7485F /* openingVC.swift in Sources */,
+				2AE737232128B0C3001E8C98 /* StorageService.swift in Sources */,
 				2A2F227E20C4C35C00D05D01 /* UploadImagePresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -637,7 +657,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4NPGUH6AXZ;
 				INFOPLIST_FILE = pholio01/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.chrisransom.pholio01;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -658,7 +681,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4NPGUH6AXZ;
 				INFOPLIST_FILE = pholio01/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.chrisransom.pholio01;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

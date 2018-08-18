@@ -10,14 +10,14 @@ import UIKit
 var ContentViewControllerVC = ContentViewController()
 
 class ContentViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-
+    
     var pageViewController : UIPageViewController?
-    var pages = [[String: Any]]()
+    var pages = [UserModel]()
     var currentIndex : Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         ContentViewControllerVC = self
         pageViewController = self.storyboard?.instantiateViewController(withIdentifier: "PageViewController") as? UIPageViewController
@@ -34,7 +34,7 @@ class ContentViewController: UIViewController, UIPageViewControllerDataSource, U
         view.sendSubview(toBack: pageViewController!.view)
         pageViewController!.didMove(toParentViewController: self)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -79,7 +79,9 @@ class ContentViewController: UIViewController, UIPageViewControllerDataSource, U
         // Create a new view controller and pass suitable data.
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "PreView") as! PreViewController
         vc.pageIndex = index
-        vc.items = self.pages
+        
+        vc.items = self.pages[index].items
+        vc.usersArray = self.pages
         currentIndex = index
         
         vc.view.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
