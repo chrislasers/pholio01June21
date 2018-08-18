@@ -174,13 +174,7 @@ static NSString *const kCellReuseIdentifier = @"cellReuseIdentifier";
     };
 
   // Check for the presence of an anonymous user and whether automatic upgrade is enabled.
-<<<<<<< HEAD
   if (self.auth.currentUser.isAnonymous && self.authUI.shouldAutoUpgradeAnonymousUsers) {
-=======
-  if (self.auth.currentUser.isAnonymous &&
-    [FUIAuth defaultAuthUI].shouldAutoUpgradeAnonymousUsers) {
-
->>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
     [self.auth.currentUser
         linkAndRetrieveDataWithCredential:credential
                                completion:^(FIRAuthDataResult *_Nullable authResult,
@@ -188,16 +182,9 @@ static NSString *const kCellReuseIdentifier = @"cellReuseIdentifier";
       if (error) {
         if (error.code == FIRAuthErrorCodeEmailAlreadyInUse) {
           NSDictionary *userInfo = @{ FUIAuthCredentialKey : credential };
-<<<<<<< HEAD
           NSError *mergeError = [FUIAuthErrorUtils mergeConflictErrorWithUserInfo:userInfo
                                                                   underlyingError:error];
           completeSignInBlock(nil, mergeError);
-=======
-          NSError *mergeError = [FUIAuthErrorUtils mergeConflictErrorWithUserInfo:userInfo];
-          [self.navigationController dismissViewControllerAnimated:YES completion:^{
-            [self.authUI invokeResultCallbackWithAuthDataResult:authResult error:mergeError];
-          }];
->>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
           return;
         }
         completeSignInBlock(nil, error);

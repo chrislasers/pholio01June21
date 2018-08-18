@@ -325,11 +325,11 @@
                                     <constraint firstAttribute="height" constant="45" id="UdL-Hb-Rca"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="17"/>
-                                <state key="normal" title="Man">
+                                <state key="normal" title="P">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="pPressed:" destination="cWI-GB-tOm" eventType="touchUpInside" id="bBq-hh-vdK"/>
+                                    <action selector="photographerPressed:" destination="cWI-GB-tOm" eventType="touchUpInside" id="yjU-ME-KB4"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="The-6x-FcH">
@@ -350,11 +350,12 @@
                                     <constraint firstAttribute="height" constant="45" id="B5r-Ii-laI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="17"/>
-                                <state key="normal" title="Woman">
+                                <state key="normal" title="M">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="mPressed:" destination="cWI-GB-tOm" eventType="touchUpInside" id="ccA-zu-9jo"/>
+                                    <action selector="modelPressed:" destination="diO-dI-wvm" eventType="touchUpInside" id="2kR-r6-lnj"/>
+                                    <action selector="modelPressed:" destination="cWI-GB-tOm" eventType="touchUpInside" id="iau-Pr-XBH"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -380,12 +381,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="photoPressed" destination="KxF-al-pea" id="V4g-OV-93s"/>
                         <segue destination="G5n-4x-tfz" kind="show" identifier="toPair" id="XYM-dc-JqP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Czr-6s-kze" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="343" y="628"/>
+            <point key="canvasLocation" x="3231" y="-244"/>
         </scene>
         <!--Looking To Pair With-->
         <scene sceneID="hzE-rc-0X9">
@@ -399,11 +401,12 @@
                                 <rect key="frame" x="34" y="202" width="306" height="45"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="17"/>
-                                <state key="normal" title="Boy">
+                                <state key="normal" title="P">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="pPressed:" destination="diO-dI-wvm" eventType="touchUpInside" id="sYT-Ci-u18"/>
+                                    <action selector="photogPressed:" destination="diO-dI-wvm" eventType="touchUpInside" id="MpN-zx-Q5T"/>
+                                    <action selector="photographerPressed:" destination="cWI-GB-tOm" eventType="touchUpInside" id="RAO-XP-oRt"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2b-yI-yKd">
@@ -413,11 +416,12 @@
                                     <constraint firstAttribute="height" constant="45" id="w67-VG-Z7O"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="17"/>
-                                <state key="normal" title="Girl">
+                                <state key="normal" title="M">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="mPressed:" destination="diO-dI-wvm" eventType="touchUpInside" id="Ojx-4b-c5s"/>
+                                    <action selector="modelPressed:" destination="cWI-GB-tOm" eventType="touchUpInside" id="F4D-a4-IXg"/>
+                                    <action selector="modelPressed:" destination="diO-dI-wvm" eventType="touchUpInside" id="ceI-uO-FII"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -442,12 +446,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="hF1-0G-edz" kind="show" identifier="toEditProfile" id="w3R-9M-bzs"/>
+                        <segue destination="nKs-Kl-DrU" kind="show" identifier="toEditProfile" id="7VK-qC-6Nk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aav-fv-hHD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1970" y="1413"/>
+            <point key="canvasLocation" x="5316" y="-244"/>
         </scene>
         <!--Edit Profile-->
         <scene sceneID="0tE-Yf-bVV">
@@ -694,7 +698,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jvx-aA-Ikd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6188" y="-976"/>
+            <point key="canvasLocation" x="1345" y="-203"/>
         </scene>
         <!--Select An Image-->
         <scene sceneID="L9u-uy-gkQ">
@@ -783,12 +787,12 @@
                     <connections>
                         <outlet property="collectionView" destination="6kC-k8-Q03" id="tQ6-za-0S2"/>
                         <outlet property="progressView" destination="BYu-rZ-p2O" id="VGd-dh-5zX"/>
-                        <segue destination="Cco-d9-0uz" kind="show" identifier="toAddPhoto" id="yLD-Er-C8h"/>
+                        <segue destination="hF1-0G-edz" kind="show" identifier="toAddPhoto" id="wjG-43-bIe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NXt-qQ-F16" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1644" y="367"/>
+            <point key="canvasLocation" x="118" y="1289"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ov7-PT-woa">
@@ -806,7 +810,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ckk-Oj-RvU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-639" y="403"/>
+            <point key="canvasLocation" x="2457" y="-202"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dmI-7F-2dl">
@@ -845,7 +849,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z3r-Bm-YsD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1703" y="627"/>
+            <point key="canvasLocation" x="4338" y="-244"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aKJ-EF-DX2">
@@ -881,7 +885,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mR5-lT-QBh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4890" y="-976"/>
+            <point key="canvasLocation" x="119" y="-203"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QYb-lO-ZbS">
@@ -899,7 +903,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R9r-1b-RzO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2482" y="367"/>
+            <point key="canvasLocation" x="-1324" y="1289"/>
         </scene>
         <!--Home PageVC-->
         <scene sceneID="NjT-cn-Mmh">
@@ -1112,7 +1116,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rmy-FD-NNi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4767" y="1413"/>
+            <point key="canvasLocation" x="4337" y="534"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="IoR-zB-5wU">
@@ -1210,7 +1214,6 @@
                     <connections>
                         <outlet property="btnCloseMenuOverlay" destination="hjn-u7-j7E" id="Pmn-Uy-0gY"/>
                         <outlet property="tblMenuOptions" destination="JiO-0J-Scc" id="sV8-la-CPI"/>
-                        <outlet property="userProfileImage" destination="jzY-Vu-eaY" id="ZjL-5L-deW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Zc-4v-NDQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1233,7 +1236,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jlq-XZ-un2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-599" y="1688"/>
+            <point key="canvasLocation" x="-599" y="2642"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QIz-nH-ZEr">
@@ -1459,6 +1462,6 @@
         <image name="profile.png" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="w3R-9M-bzs"/>
+        <segue reference="wjG-43-bIe"/>
     </inferredMetricsTieBreakers>
 </document>

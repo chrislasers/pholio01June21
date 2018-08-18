@@ -232,7 +232,8 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         email.resignFirstResponder()
-
+        
+        
         
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         

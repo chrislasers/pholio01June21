@@ -13,22 +13,12 @@
 		2A0B0CA720CD9C52009675B8 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0CA620CD9C52009675B8 /* Car.swift */; };
 		2A0F047620EAA5A300AC6827 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F047420EAA5A200AC6827 /* BaseViewController.swift */; };
 		2A0F047720EAA5A300AC6827 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F047520EAA5A300AC6827 /* MenuViewController.swift */; };
+		2A0F047B20EAA89000AC6827 /* BViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F047A20EAA89000AC6827 /* BViewController.swift */; };
 		2A0F048520EAE36500AC6827 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F048320EAE36400AC6827 /* SWRevealViewController.m */; };
+		2A0F048A20ED476E00AC6827 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F048920ED476E00AC6827 /* CollectionViewCell.swift */; };
 		2A0F048E20ED5B7700AC6827 /* Datasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F048D20ED5B7700AC6827 /* Datasource.swift */; };
 		2A0F049020ED5C7A00AC6827 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F048F20ED5C7900AC6827 /* GridLayout.swift */; };
 		2A0F049220ED6D0300AC6827 /* ViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F049120ED6D0300AC6827 /* ViewPresenter.swift */; };
-		2A1CBFE821289703004B9F22 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1CBFDA21289703004B9F22 /* ContentViewController.swift */; };
-		2A1CBFE921289703004B9F22 /* SegmentedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1CBFDB21289703004B9F22 /* SegmentedProgressBar.swift */; };
-		2A1CBFEA21289703004B9F22 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1CBFDC21289703004B9F22 /* CollectionViewCell.swift */; };
-		2A1CBFEB21289703004B9F22 /* output.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2A1CBFDE21289703004B9F22 /* output.mp4 */; };
-		2A1CBFEC21289703004B9F22 /* output3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2A1CBFDF21289703004B9F22 /* output3.mp4 */; };
-		2A1CBFED21289703004B9F22 /* output2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2A1CBFE021289703004B9F22 /* output2.mp4 */; };
-		2A1CBFEE21289703004B9F22 /* PreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1CBFE121289703004B9F22 /* PreViewController.swift */; };
-		2A1CBFEF21289703004B9F22 /* BViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1CBFE221289703004B9F22 /* BViewController.swift */; };
-		2A1CBFF021289703004B9F22 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1CBFE421289703004B9F22 /* StorageService.swift */; };
-		2A1CBFF121289703004B9F22 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1CBFE521289703004B9F22 /* User.swift */; };
-		2A1CBFF221289703004B9F22 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1CBFE621289703004B9F22 /* DBService.swift */; };
-		2A1CBFF321289703004B9F22 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1CBFE721289703004B9F22 /* UserModel.swift */; };
 		2A2F226E20C2622000D05D01 /* UploadPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F226D20C2622000D05D01 /* UploadPresenter.swift */; };
 		2A2F227420C269C100D05D01 /* UploadimageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F227320C269C100D05D01 /* UploadimageCell.swift */; };
 		2A2F227620C48B8700D05D01 /* CustomImageFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F227520C48B8700D05D01 /* CustomImageFlowLayout.swift */; };
@@ -50,6 +40,12 @@
 		2A5B7BC820DECA8000BCF0A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A5B7BC720DECA7F00BCF0A1 /* GoogleService-Info.plist */; };
 		2A6789D1208987C1003FAAA9 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6789D0208987C1003FAAA9 /* AlertController.swift */; };
 		2A89ACFE2094F00500B7485F /* openingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89ACFD2094F00500B7485F /* openingVC.swift */; };
+		2AC47CAD20F2C22200CA5B4D /* SegmentedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC47CAB20F2C22200CA5B4D /* SegmentedProgressBar.swift */; };
+		2AC47CB120F2CB1400CA5B4D /* PreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC47CAF20F2CB1400CA5B4D /* PreViewController.swift */; };
+		2AC47CB220F2CB1400CA5B4D /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC47CB020F2CB1400CA5B4D /* ContentViewController.swift */; };
+		2AC47CB720F2CB2400CA5B4D /* output.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2AC47CB420F2CB2400CA5B4D /* output.mp4 */; };
+		2AC47CB820F2CB2400CA5B4D /* output3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2AC47CB520F2CB2400CA5B4D /* output3.mp4 */; };
+		2AC47CB920F2CB2400CA5B4D /* output2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2AC47CB620F2CB2400CA5B4D /* output2.mp4 */; };
 		2AF4D9672092579A005D3C66 /* chooseusertypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4D9662092579A005D3C66 /* chooseusertypeVC.swift */; };
 		FFDD85588F312A161005339E /* Pods_pholio01.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F49E4E484B4A53584B7ECEC /* Pods_pholio01.framework */; };
 /* End PBXBuildFile section */
@@ -62,24 +58,14 @@
 		2A0B0CA620CD9C52009675B8 /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
 		2A0F047420EAA5A200AC6827 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		2A0F047520EAA5A300AC6827 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		2A0F047A20EAA89000AC6827 /* BViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BViewController.swift; sourceTree = "<group>"; };
 		2A0F047F20EAE2F500AC6827 /* pholio01-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "pholio01-Bridging-Header.h"; sourceTree = "<group>"; };
 		2A0F048320EAE36400AC6827 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		2A0F048420EAE36500AC6827 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		2A0F048920ED476E00AC6827 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		2A0F048D20ED5B7700AC6827 /* Datasource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datasource.swift; sourceTree = "<group>"; };
 		2A0F048F20ED5C7900AC6827 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		2A0F049120ED6D0300AC6827 /* ViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPresenter.swift; sourceTree = "<group>"; };
-		2A1CBFDA21289703004B9F22 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
-		2A1CBFDB21289703004B9F22 /* SegmentedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedProgressBar.swift; sourceTree = "<group>"; };
-		2A1CBFDC21289703004B9F22 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
-		2A1CBFDE21289703004B9F22 /* output.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = output.mp4; sourceTree = "<group>"; };
-		2A1CBFDF21289703004B9F22 /* output3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = output3.mp4; sourceTree = "<group>"; };
-		2A1CBFE021289703004B9F22 /* output2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = output2.mp4; sourceTree = "<group>"; };
-		2A1CBFE121289703004B9F22 /* PreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreViewController.swift; sourceTree = "<group>"; };
-		2A1CBFE221289703004B9F22 /* BViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BViewController.swift; sourceTree = "<group>"; };
-		2A1CBFE421289703004B9F22 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
-		2A1CBFE521289703004B9F22 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		2A1CBFE621289703004B9F22 /* DBService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
-		2A1CBFE721289703004B9F22 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2A2F226D20C2622000D05D01 /* UploadPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPresenter.swift; sourceTree = "<group>"; };
 		2A2F227320C269C100D05D01 /* UploadimageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadimageCell.swift; sourceTree = "<group>"; };
 		2A2F227520C48B8700D05D01 /* CustomImageFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageFlowLayout.swift; sourceTree = "<group>"; };
@@ -104,6 +90,12 @@
 		2A5B7BC720DECA7F00BCF0A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2A6789D0208987C1003FAAA9 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		2A89ACFD2094F00500B7485F /* openingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openingVC.swift; sourceTree = "<group>"; };
+		2AC47CAB20F2C22200CA5B4D /* SegmentedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedProgressBar.swift; sourceTree = "<group>"; };
+		2AC47CAF20F2CB1400CA5B4D /* PreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreViewController.swift; sourceTree = "<group>"; };
+		2AC47CB020F2CB1400CA5B4D /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		2AC47CB420F2CB2400CA5B4D /* output.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = output.mp4; sourceTree = "<group>"; };
+		2AC47CB520F2CB2400CA5B4D /* output3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = output3.mp4; sourceTree = "<group>"; };
+		2AC47CB620F2CB2400CA5B4D /* output2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = output2.mp4; sourceTree = "<group>"; };
 		2AF4D9662092579A005D3C66 /* chooseusertypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chooseusertypeVC.swift; sourceTree = "<group>"; };
 		2F49E4E484B4A53584B7ECEC /* Pods_pholio01.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pholio01.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C918C841DF627DDDCFBBE3D5 /* Pods-pholio01.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pholio01.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pholio01/Pods-pholio01.debug.xcconfig"; sourceTree = "<group>"; };
@@ -161,40 +153,6 @@
 			path = SlideMenu;
 			sourceTree = "<group>";
 		};
-		2A1CBFD921289703004B9F22 /* Matching */ = {
-			isa = PBXGroup;
-			children = (
-				2A1CBFE321289703004B9F22 /* Services */,
-				2A1CBFDA21289703004B9F22 /* ContentViewController.swift */,
-				2A1CBFDB21289703004B9F22 /* SegmentedProgressBar.swift */,
-				2A1CBFDC21289703004B9F22 /* CollectionViewCell.swift */,
-				2A1CBFE121289703004B9F22 /* PreViewController.swift */,
-				2A1CBFE221289703004B9F22 /* BViewController.swift */,
-			);
-			path = Matching;
-			sourceTree = "<group>";
-		};
-		2A1CBFDD21289703004B9F22 /* videos */ = {
-			isa = PBXGroup;
-			children = (
-				2A1CBFDE21289703004B9F22 /* output.mp4 */,
-				2A1CBFDF21289703004B9F22 /* output3.mp4 */,
-				2A1CBFE021289703004B9F22 /* output2.mp4 */,
-			);
-			path = videos;
-			sourceTree = "<group>";
-		};
-		2A1CBFE321289703004B9F22 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				2A1CBFE421289703004B9F22 /* StorageService.swift */,
-				2A1CBFE521289703004B9F22 /* User.swift */,
-				2A1CBFE621289703004B9F22 /* DBService.swift */,
-				2A1CBFE721289703004B9F22 /* UserModel.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
 		2A31E1D3207BC769006CFF24 = {
 			isa = PBXGroup;
 			children = (
@@ -221,9 +179,8 @@
 				2A4D91E220A9E58A0018A3D1 /* Service.swift */,
 				2A6789D0208987C1003FAAA9 /* AlertController.swift */,
 				2A2F227520C48B8700D05D01 /* CustomImageFlowLayout.swift */,
-				2A1CBFD921289703004B9F22 /* Matching */,
-				2A1CBFDD21289703004B9F22 /* videos */,
 				2A0B0CA320CAD1A4009675B8 /* ViewControllers */,
+				2AC47CAA20F2C22200CA5B4D /* HELP!! */,
 				2A0F047320EAA50500AC6827 /* SlideMenu */,
 				2A0B0CA220CAD094009675B8 /* UploadTask */,
 				2A6DB00920FFA7BE00762C06 /* Other */,
@@ -247,6 +204,29 @@
 				2A0F049120ED6D0300AC6827 /* ViewPresenter.swift */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		2AC47CAA20F2C22200CA5B4D /* HELP!! */ = {
+			isa = PBXGroup;
+			children = (
+				2A0F047A20EAA89000AC6827 /* BViewController.swift */,
+				2A0F048920ED476E00AC6827 /* CollectionViewCell.swift */,
+				2AC47CB020F2CB1400CA5B4D /* ContentViewController.swift */,
+				2AC47CAF20F2CB1400CA5B4D /* PreViewController.swift */,
+				2AC47CAB20F2C22200CA5B4D /* SegmentedProgressBar.swift */,
+				2AC47CB320F2CB2400CA5B4D /* videos */,
+			);
+			path = "HELP!!";
+			sourceTree = "<group>";
+		};
+		2AC47CB320F2CB2400CA5B4D /* videos */ = {
+			isa = PBXGroup;
+			children = (
+				2AC47CB420F2CB2400CA5B4D /* output.mp4 */,
+				2AC47CB520F2CB2400CA5B4D /* output3.mp4 */,
+				2AC47CB620F2CB2400CA5B4D /* output2.mp4 */,
+			);
+			path = videos;
 			sourceTree = "<group>";
 		};
 		D5C7DE1ABEAB3F74487DD202 /* Pods */ = {
@@ -331,11 +311,11 @@
 			files = (
 				2A31E1EA207BC76A006CFF24 /* LaunchScreen.storyboard in Resources */,
 				2A5B7BC820DECA8000BCF0A1 /* GoogleService-Info.plist in Resources */,
-				2A1CBFEC21289703004B9F22 /* output3.mp4 in Resources */,
+				2AC47CB820F2CB2400CA5B4D /* output3.mp4 in Resources */,
 				2A31E1E7207BC76A006CFF24 /* Assets.xcassets in Resources */,
-				2A1CBFEB21289703004B9F22 /* output.mp4 in Resources */,
+				2AC47CB720F2CB2400CA5B4D /* output.mp4 in Resources */,
 				2A31E1E5207BC769006CFF24 /* Main.storyboard in Resources */,
-				2A1CBFED21289703004B9F22 /* output2.mp4 in Resources */,
+				2AC47CB920F2CB2400CA5B4D /* output2.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,38 +458,34 @@
 				2A0B0CA720CD9C52009675B8 /* Car.swift in Sources */,
 				2A6789D1208987C1003FAAA9 /* AlertController.swift in Sources */,
 				2A31E1F8207BD0F7006CFF24 /* SignUpVC.swift in Sources */,
+				2AC47CAD20F2C22200CA5B4D /* SegmentedProgressBar.swift in Sources */,
+				2A0F047B20EAA89000AC6827 /* BViewController.swift in Sources */,
 				2A0B0CA520CB3665009675B8 /* UploadImageOperation.swift in Sources */,
 				2A0F047620EAA5A300AC6827 /* BaseViewController.swift in Sources */,
 				2A0F048E20ED5B7700AC6827 /* Datasource.swift in Sources */,
 				2A40224020B6BEB0001F2F38 /* EditProfile.swift in Sources */,
 				2A4A4B2020826BF70069D5C6 /* HomePageVC.swift in Sources */,
 				2A0F049220ED6D0300AC6827 /* ViewPresenter.swift in Sources */,
+				2A0F048A20ED476E00AC6827 /* CollectionViewCell.swift in Sources */,
 				2A0B0C9F20CACF17009675B8 /* AbstractOperation.swift in Sources */,
 				2AF4D9672092579A005D3C66 /* chooseusertypeVC.swift in Sources */,
 				2A31E1E2207BC769006CFF24 /* ViewController.swift in Sources */,
 				2A2F227420C269C100D05D01 /* UploadimageCell.swift in Sources */,
-				2A1CBFE921289703004B9F22 /* SegmentedProgressBar.swift in Sources */,
-				2A1CBFEE21289703004B9F22 /* PreViewController.swift in Sources */,
 				2A0F048520EAE36500AC6827 /* SWRevealViewController.m in Sources */,
 				2A0F049020ED5C7A00AC6827 /* GridLayout.swift in Sources */,
-				2A1CBFEF21289703004B9F22 /* BViewController.swift in Sources */,
 				2A31E1E0207BC769006CFF24 /* AppDelegate.swift in Sources */,
+				2AC47CB220F2CB1400CA5B4D /* ContentViewController.swift in Sources */,
 				2A2F226E20C2622000D05D01 /* UploadPresenter.swift in Sources */,
 				2A2F227620C48B8700D05D01 /* CustomImageFlowLayout.swift in Sources */,
 				2A2F227C20C4B5A400D05D01 /* SelectImageVC.swift in Sources */,
-				2A1CBFEA21289703004B9F22 /* CollectionViewCell.swift in Sources */,
 				2A0F047720EAA5A300AC6827 /* MenuViewController.swift in Sources */,
-				2A1CBFF121289703004B9F22 /* User.swift in Sources */,
-				2A1CBFE821289703004B9F22 /* ContentViewController.swift in Sources */,
 				2A2F227A20C4B47E00D05D01 /* EditGalleryVC.swift in Sources */,
+				2AC47CB120F2CB1400CA5B4D /* PreViewController.swift in Sources */,
 				2A0B0CA120CACF94009675B8 /* ImageUploadManager.swift in Sources */,
 				2A4A4B1C20826AAC0069D5C6 /* PairWithVC.swift in Sources */,
 				2A31E1F6207BD0DE006CFF24 /* SignInVC.swift in Sources */,
 				2A4D91E320A9E58B0018A3D1 /* Service.swift in Sources */,
-				2A1CBFF221289703004B9F22 /* DBService.swift in Sources */,
 				2A89ACFE2094F00500B7485F /* openingVC.swift in Sources */,
-				2A1CBFF021289703004B9F22 /* StorageService.swift in Sources */,
-				2A1CBFF321289703004B9F22 /* UserModel.swift in Sources */,
 				2A2F227E20C4C35C00D05D01 /* UploadImagePresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -661,10 +637,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4NPGUH6AXZ;
 				INFOPLIST_FILE = pholio01/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.chrisransom.pholio01;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -685,10 +658,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4NPGUH6AXZ;
 				INFOPLIST_FILE = pholio01/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.chrisransom.pholio01;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

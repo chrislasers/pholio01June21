@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 protocol SlideMenuDelegate {
     func slideMenuItemSelectedAtIndex(_ index : Int32)
@@ -16,36 +15,32 @@ protocol SlideMenuDelegate {
 class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     /**
-     *  Array to display menu options
-     */
+    *  Array to display menu options
+    */
     @IBOutlet var tblMenuOptions : UITableView!
     
     /**
-     *  Transparent button to hide menu
-     */
+    *  Transparent button to hide menu
+    */
     @IBOutlet var btnCloseMenuOverlay : UIButton!
     
     /**
-     *  Array containing menu options
-     */
+    *  Array containing menu options
+    */
     var arrayMenuOptions = [Dictionary<String,String>]()
     
     /**
-     *  Menu button which was tapped to display the menu
-     */
+    *  Menu button which was tapped to display the menu
+    */
     var btnMenu : UIButton!
     
     /**
-     *  Delegate of the MenuVC
-     */
+    *  Delegate of the MenuVC
+    */
     var delegate : SlideMenuDelegate?
-    
-    @IBOutlet var userProfileImage: UIImageView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getProfileImage()
         tblMenuOptions.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     }
@@ -57,11 +52,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
         updateArrayMenuOptions()
     }
     
@@ -73,26 +63,11 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         arrayMenuOptions.append(["title":"Notifications", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Get Help", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Settings", "icon":"PlayIcon"])
-<<<<<<< HEAD
         
-=======
 
->>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
+        
+        
         tblMenuOptions.reloadData()
-    }
-    
-    func getProfileImage() {
-        DBService.shared.refreshUser(userId: (Auth.auth().currentUser?.uid)!) { (user) in
-            
-            DispatchQueue.global(qos: .background).async {
-                let imageData = NSData(contentsOf: URL(string: user.profileImageUrl!)!)
-                
-                DispatchQueue.main.async {
-                    let profileImage = UIImage(data: imageData! as Data)
-                    self.userProfileImage.image = profileImage
-                }
-            }
-        }
     }
     
     @IBAction func onCloseMenuClick(_ button:UIButton!){
@@ -110,9 +85,9 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.view.frame = CGRect(x: -UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width,height: UIScreen.main.bounds.size.height)
             self.view.layoutIfNeeded()
             self.view.backgroundColor = UIColor.clear
-        }, completion: { (finished) -> Void in
-            self.view.removeFromSuperview()
-            self.removeFromParentViewController()
+            }, completion: { (finished) -> Void in
+                self.view.removeFromSuperview()
+                self.removeFromParentViewController()
         })
     }
     

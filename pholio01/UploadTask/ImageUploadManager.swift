@@ -57,8 +57,6 @@ class ImageUploadManager: NSObject {
                         // Make you download string
                         let downloadString = downloadUrl.absoluteString
                         print(downloadString)
-                        self.uploadGalleryUrlToUserNode(contentType: "image", item: downloadString)
-                        
                         completionBlock(downloadUrl, nil)
                     } else {
                         // Do something if error
@@ -78,14 +76,6 @@ class ImageUploadManager: NSObject {
             completionBlock(nil, "Image couldn't be converted to Data.")
         }
         
-    }
-    
-    
-    func uploadGalleryUrlToUserNode(contentType: String, item: String) {
-        let galleryDict = ["content": contentType,
-                           "item": item]
-        
-        DBService.shared.currentUser.child("User-Gallery").childByAutoId().updateChildValues(galleryDict)
     }
     
 }
