@@ -51,6 +51,6 @@ platform :ios, '11.0'
 
 	pod 'SDWebImage'
 	
-    pod 'SwiftyJSON', '~> 4.0'
+    pod 'SwiftyJSON'
 
 end
