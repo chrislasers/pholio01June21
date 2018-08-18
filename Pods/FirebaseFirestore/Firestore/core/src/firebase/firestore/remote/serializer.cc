@@ -703,7 +703,11 @@ Query Serializer::DecodeQueryTarget(nanopb::Reader* reader) {
     }
   }
 
+<<<<<<< HEAD
   size_t from_count = query.from.size();
+=======
+  int from_count = query.from.size();
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
   if (from_count > 0) {
     HARD_ASSERT(
         from_count == 1,

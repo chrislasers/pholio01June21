@@ -31,6 +31,7 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.35.0):
     - FBSDKCoreKit (~> 4.35.0)
+<<<<<<< HEAD
   - Firebase/Auth (5.6.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.0.3)
@@ -49,6 +50,26 @@ PODS:
     - Firebase/CoreOnly
     - FirebaseStorage (= 3.0.0)
   - FirebaseAnalytics (5.1.1):
+=======
+  - Firebase/Auth (5.5.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (= 5.0.3)
+  - Firebase/Core (5.5.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 5.1.0)
+  - Firebase/CoreOnly (5.5.0):
+    - FirebaseCore (= 5.1.0)
+  - Firebase/Database (5.5.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (= 5.0.2)
+  - Firebase/Firestore (5.5.0):
+    - Firebase/CoreOnly
+    - FirebaseFirestore (= 0.13.0)
+  - Firebase/Storage (5.5.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (= 3.0.0)
+  - FirebaseAnalytics (5.1.0):
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
     - FirebaseCore (~> 5.1)
     - FirebaseInstanceID (~> 3.2)
     - GoogleAppMeasurement (~> 5.1)
@@ -63,32 +84,52 @@ PODS:
     - GoogleUtilities/Environment (~> 5.2)
     - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseAuthInterop (1.0.0)
+<<<<<<< HEAD
   - FirebaseCore (5.1.1):
+=======
+  - FirebaseCore (5.1.0):
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
     - GoogleUtilities/Logger (~> 5.2)
   - FirebaseDatabase (5.0.2):
     - FirebaseCore (~> 5.0)
     - leveldb-library (~> 1.18)
+<<<<<<< HEAD
   - FirebaseFirestore (0.13.1):
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.0)
     - FirebaseFirestore/abseil-cpp (= 0.13.1)
+=======
+  - FirebaseFirestore (0.13.0):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 5.0)
+    - FirebaseFirestore/abseil-cpp (= 0.13.0)
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
     - gRPC-ProtoRPC (~> 1.0)
     - leveldb-library (~> 1.18)
     - nanopb (~> 0.3.8)
     - Protobuf (~> 3.1)
+<<<<<<< HEAD
   - FirebaseFirestore/abseil-cpp (0.13.1):
+=======
+  - FirebaseFirestore/abseil-cpp (0.13.0):
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.0)
     - gRPC-ProtoRPC (~> 1.0)
     - leveldb-library (~> 1.18)
     - nanopb (~> 0.3.8)
     - Protobuf (~> 3.1)
+<<<<<<< HEAD
   - FirebaseInstanceID (3.2.1):
+=======
+  - FirebaseInstanceID (3.2.0):
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
     - FirebaseCore (~> 5.1)
     - GoogleUtilities/Environment (~> 5.2)
   - FirebaseStorage (3.0.0):
     - FirebaseCore (~> 5.0)
     - GTMSessionFetcher/Core (~> 1.1)
+<<<<<<< HEAD
   - FirebaseUI (5.2.0):
     - FirebaseUI/Auth (= 5.2.0)
     - FirebaseUI/Database (= 5.2.0)
@@ -116,17 +157,54 @@ PODS:
     - Firebase/Storage (~> 5.0)
     - SDWebImage (~> 4.0)
   - FirebaseUI/Twitter (5.2.0):
+=======
+  - FirebaseUI (5.1.3):
+    - FirebaseUI/Auth (= 5.1.3)
+    - FirebaseUI/Database (= 5.1.3)
+    - FirebaseUI/Facebook (= 5.1.3)
+    - FirebaseUI/Firestore (= 5.1.3)
+    - FirebaseUI/Google (= 5.1.3)
+    - FirebaseUI/Phone (= 5.1.3)
+    - FirebaseUI/Storage (= 5.1.3)
+    - FirebaseUI/Twitter (= 5.1.3)
+  - FirebaseUI/Auth (5.1.3):
+    - Firebase/Auth (~> 5.0)
+  - FirebaseUI/Database (5.1.3):
+    - Firebase/Database (~> 5.0)
+  - FirebaseUI/Facebook (5.1.3):
+    - FBSDKLoginKit (~> 4.0)
+    - FirebaseUI/Auth
+  - FirebaseUI/Firestore (5.1.3):
+    - Firebase/Firestore
+  - FirebaseUI/Google (5.1.3):
+    - FirebaseUI/Auth
+    - GoogleSignIn (~> 4.0)
+  - FirebaseUI/Phone (5.1.3):
+    - FirebaseUI/Auth
+  - FirebaseUI/Storage (5.1.3):
+    - Firebase/Storage (~> 5.0)
+    - SDWebImage (~> 4.0)
+  - FirebaseUI/Twitter (5.1.3):
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
     - FirebaseUI/Auth
     - TwitterKit (~> 3.0)
   - GeoFire (3.0.0):
     - Firebase/Database (~> 5.0)
+<<<<<<< HEAD
   - GoogleAppMeasurement (5.1.1):
+=======
+  - GoogleAppMeasurement (5.1.0):
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2.0)
     - GoogleUtilities/MethodSwizzler (~> 5.2.0)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
+<<<<<<< HEAD
   - GoogleSignIn (4.2.0):
+=======
+  - GoogleSignIn (4.1.2):
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
     - GTMOAuth2 (~> 1.0)
@@ -139,6 +217,7 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.4)
     - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.4)"
   - "GoogleToolboxForMac/NSString+URLArguments (2.1.4)"
+<<<<<<< HEAD
   - GoogleUtilities/AppDelegateSwizzler (5.2.2):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -176,6 +255,44 @@ PODS:
   - gRPC/Main (1.14.1):
     - gRPC-Core (= 1.14.1)
     - gRPC-RxLibrary (= 1.14.1)
+=======
+  - GoogleUtilities/AppDelegateSwizzler (5.2.1):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (5.2.1)
+  - GoogleUtilities/Logger (5.2.1):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (5.2.1):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (5.2.1):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (5.2.1)"
+  - GoogleUtilities/Reachability (5.2.1):
+    - GoogleUtilities/Logger
+  - gRPC (1.14.0):
+    - gRPC-RxLibrary (= 1.14.0)
+    - gRPC/Main (= 1.14.0)
+  - gRPC-Core (1.14.0):
+    - gRPC-Core/Implementation (= 1.14.0)
+    - gRPC-Core/Interface (= 1.14.0)
+  - gRPC-Core/Implementation (1.14.0):
+    - BoringSSL (~> 10.0)
+    - gRPC-Core/Interface (= 1.14.0)
+    - nanopb (~> 0.3)
+  - gRPC-Core/Interface (1.14.0)
+  - gRPC-ProtoRPC (1.14.0):
+    - gRPC-ProtoRPC/Main (= 1.14.0)
+  - gRPC-ProtoRPC/Main (1.14.0):
+    - gRPC (= 1.14.0)
+    - gRPC-RxLibrary (= 1.14.0)
+    - Protobuf (~> 3.0)
+  - gRPC-RxLibrary (1.14.0)
+  - gRPC/Main (1.14.0):
+    - gRPC-Core (= 1.14.0)
+    - gRPC-RxLibrary (= 1.14.0)
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
   - GTMOAuth2 (1.1.6):
     - GTMSessionFetcher (~> 1.1)
   - GTMSessionFetcher (1.2.0):
@@ -192,7 +309,11 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+<<<<<<< HEAD
   - Protobuf (3.6.1)
+=======
+  - Protobuf (3.6.0)
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
@@ -302,6 +423,7 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 1a5b2e3ceb5ca827a53c54aa5f4a3480efff80d2
   FBSDKLoginKit: 00a3d65d1226852f9d76dcddff01981e5e6d9c38
   FBSDKShareKit: 2ddbd7e6432023fff957af62e23a3671b84319f7
+<<<<<<< HEAD
   Firebase: 75ea9e232eefa158c1049028030b8f661a2ccb62
   FirebaseAnalytics: 993577e91157feb40945abedd6ab346d8a4b6ac8
   FirebaseAuth: 657a25e4be044d2d333663ebf515a861c5a59cd7
@@ -321,6 +443,27 @@ SPEC CHECKSUMS:
   gRPC-Core: e3ace1e1161e75903135de8d8231bb69c9d35721
   gRPC-ProtoRPC: 78f976fc6a1eafc0e1f4965c255c313aa0859b1e
   gRPC-RxLibrary: c4c826507ad3c8c8fab6887f153938eb04b86d59
+=======
+  Firebase: 8c957f9cb3852b519180fb378801b7eeeba4d288
+  FirebaseAnalytics: d4a260c114aec0d765ab5b9c404ac63de1d29381
+  FirebaseAuth: 657a25e4be044d2d333663ebf515a861c5a59cd7
+  FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
+  FirebaseCore: ee4b35cf8c8e781da296cc7c15125e4608bb954d
+  FirebaseDatabase: 27be5ac5bc75e0b17537b2bbfada8258addcc8cd
+  FirebaseFirestore: 0a6e4b9256ae39ed41258aa46213975c93908a74
+  FirebaseInstanceID: 8cd2c6cfe7b9ab65ce7e248f6da7f26f6775b9be
+  FirebaseStorage: 7ca4bb7b58a25fa647b04f524033fc7cb7eb272b
+  FirebaseUI: 6d3f86249a4de8288424e154c9ff1a976aae3910
+  GeoFire: e3ae6f4be3f2466c3467ef6c1c203db3af935c59
+  GoogleAppMeasurement: e785bdb86d3d280abc778156cec323a975f11d1d
+  GoogleSignIn: d9ef55b10f0aa401a5de2747f59b725e4b9732ac
+  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
+  GoogleUtilities: 8d9fa00248c475b606fd20b562242060a20117a2
+  gRPC: 9d4c549f37c7cef22478634bac7a0405b6e3dbfb
+  gRPC-Core: f4836515817c0eb479aeeb9cc27c91c4ba62a9f6
+  gRPC-ProtoRPC: 76f6053639a842e1fb45fa82aa598bf3f4d9f66f
+  gRPC-RxLibrary: 3c305f32155024b116b780f389323c73a28197e6
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   Haneke: 01454a67322faa0dd9d81fc0f447885044e71521
@@ -328,7 +471,11 @@ SPEC CHECKSUMS:
   LBTAComponents: 7d5e126b0e62ade42db7388abb3f92bf8aa0b201
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+<<<<<<< HEAD
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+=======
+  Protobuf: 0fc0ad8bec688b2a3017a139953e01374fedbd5f
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
   SwiftValidator: 25ded5ca1f10c05adf57f6ac82a72d28ac8d91af

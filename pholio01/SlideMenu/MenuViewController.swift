@@ -57,7 +57,11 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
         updateArrayMenuOptions()
     }
     
@@ -69,7 +73,11 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         arrayMenuOptions.append(["title":"Notifications", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Get Help", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Settings", "icon":"PlayIcon"])
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
         tblMenuOptions.reloadData()
     }
     

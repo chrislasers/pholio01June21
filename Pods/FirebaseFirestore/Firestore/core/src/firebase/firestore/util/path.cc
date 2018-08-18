@@ -16,10 +16,13 @@
 
 #include "Firestore/core/src/firebase/firestore/util/path.h"
 
+<<<<<<< HEAD
 #include <algorithm>
 
 #include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
 #include "Firestore/core/src/firebase/firestore/util/string_win.h"
+=======
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
 #include "absl/strings/ascii.h"
 #include "absl/strings/string_view.h"
 
@@ -27,6 +30,7 @@ namespace firebase {
 namespace firestore {
 namespace util {
 
+<<<<<<< HEAD
 constexpr size_t Path::npos;
 
 namespace {
@@ -56,18 +60,41 @@ size_t OffsetAfterDriveLetter(const Path::char_type* path, size_t size) {
   (void)path;
   (void)size;
   return 0;
+=======
+namespace {
+
+static constexpr absl::string_view::size_type npos = absl::string_view::npos;
+
+/** Returns the given path with its leading drive letter removed. */
+inline absl::string_view StripDriveLetter(absl::string_view path) {
+#if defined(_WIN32)
+  if (path.size() >= 2 && path[1] == ':' && absl::ascii_isalpha(path[0])) {
+    return path.substr(2);
+  }
+  return path;
+
+#else
+  return path;
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
 #endif  // defined(_WIN32)
 }
 
 /** Returns true if the given character is a pathname separator. */
+<<<<<<< HEAD
 inline bool IsSeparator(Path::char_type c) {
 #if defined(_WIN32)
   return c == L'/' || c == L'\\';
+=======
+inline bool IsSeparator(char c) {
+#if defined(_WIN32)
+  return c == '/' || c == '\\';
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
 #else
   return c == '/';
 #endif  // defined(_WIN32)
 }
 
+<<<<<<< HEAD
 bool IsAbsolute(const Path::char_type* path, size_t size) {
   size_t offset = OffsetAfterDriveLetter(path, size);
   return size >= offset && IsSeparator(path[offset]);
@@ -169,6 +196,13 @@ const std::string& Path::ToUtf8String() const {
 
 Path Path::Basename() const {
   size_t slash = LastSeparator(c_str(), size());
+=======
+}  // namespace
+
+absl::string_view Path::Basename(absl::string_view pathname) {
+  size_t slash = pathname.find_last_of('/');
+
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
   if (slash == npos) {
     // No path separator found => the whole string.
     return *this;
@@ -179,8 +213,14 @@ Path Path::Basename() const {
   return Path{pathname_.substr(start)};
 }
 
+<<<<<<< HEAD
 Path Path::Dirname() const {
   size_t last_slash = LastSeparator(c_str(), size());
+=======
+absl::string_view Path::Dirname(absl::string_view pathname) {
+  size_t last_slash = pathname.find_last_of('/');
+
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
   if (last_slash == npos) {
     // No path separator found => empty string. Conformance with POSIX would
     // have us return "." here.
@@ -188,8 +228,13 @@ Path Path::Dirname() const {
   }
 
   // Collapse runs of slashes.
+<<<<<<< HEAD
   size_t non_slash = LastNonSeparator(c_str(), last_slash);
   if (non_slash == npos) {
+=======
+  size_t nonslash = pathname.find_last_not_of('/', last_slash);
+  if (nonslash == npos) {
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
     // All characters preceding the last path separator are slashes
     return Path{pathname_.substr(0, 1)};
   }
@@ -199,6 +244,7 @@ Path Path::Dirname() const {
   return Path{pathname_.substr(0, last_slash)};
 }
 
+<<<<<<< HEAD
 bool Path::IsAbsolute() const {
   return util::IsAbsolute(c_str(), size());
 }
@@ -207,6 +253,11 @@ Path Path::AppendUtf8(absl::string_view path) const {
   Path result{*this};
   result.MutableAppendUtf8(path);
   return result;
+=======
+bool Path::IsAbsolute(absl::string_view path) {
+  path = StripDriveLetter(path);
+  return !path.empty() && IsSeparator(path.front());
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
 }
 
 void Path::MutableAppendSegment(const char_type* path, size_t size) {
@@ -214,10 +265,17 @@ void Path::MutableAppendSegment(const char_type* path, size_t size) {
     pathname_.assign(path, size);
 
   } else {
+<<<<<<< HEAD
     size_t non_slash = LastNonSeparator(pathname_.c_str(), pathname_.size());
     if (non_slash != npos) {
       pathname_.resize(non_slash + 1);
       pathname_.push_back(kPreferredSeparator);
+=======
+    size_t nonslash = base->find_last_not_of('/');
+    if (nonslash != npos) {
+      base->resize(nonslash + 1);
+      base->push_back('/');
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
     }
 
     // If path started with a slash we'd treat it as absolute above

@@ -150,7 +150,12 @@ static const CGFloat kTextFieldRightViewSize = 36.0f;
   [self incrementActivity];
 
   // Check for the presence of an anonymous user and whether automatic upgrade is enabled.
+<<<<<<< HEAD
   if (self.auth.currentUser.isAnonymous && self.authUI.shouldAutoUpgradeAnonymousUsers) {
+=======
+  if (self.auth.currentUser.isAnonymous &&
+        [FUIAuth defaultAuthUI].shouldAutoUpgradeAnonymousUsers) {
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
     FIRAuthCredential *credential =
         [FIREmailAuthProvider credentialWithEmail:email password:password];
     [self.auth.currentUser
@@ -175,10 +180,17 @@ static const CGFloat kTextFieldRightViewSize = 36.0f;
       }];
     }];
   } else {
+<<<<<<< HEAD
     [self.auth createUserWithEmail:email
                           password:password
                         completion:^(FIRAuthDataResult *_Nullable authDataResult,
                                      NSError *_Nullable error) {
+=======
+    [self.auth createUserAndRetrieveDataWithEmail:email
+                                       password:password
+                                     completion:^(FIRAuthDataResult *_Nullable authDataResult,
+                                                  NSError *_Nullable error) {
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
       if (error) {
         [self decrementActivity];
 

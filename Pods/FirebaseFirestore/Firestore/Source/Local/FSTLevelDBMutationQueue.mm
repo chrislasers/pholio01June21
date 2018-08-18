@@ -33,7 +33,10 @@
 #include "Firestore/core/src/firebase/firestore/auth/user.h"
 #include "Firestore/core/src/firebase/firestore/local/leveldb_key.h"
 #include "Firestore/core/src/firebase/firestore/local/leveldb_transaction.h"
+<<<<<<< HEAD
 #include "Firestore/core/src/firebase/firestore/local/leveldb_util.h"
+=======
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
 #include "Firestore/core/src/firebase/firestore/model/resource_path.h"
 #include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
 #include "Firestore/core/src/firebase/firestore/util/string_apple.h"
@@ -400,6 +403,11 @@ using leveldb::WriteOptions;
 
 - (NSArray<FSTMutationBatch *> *)allMutationBatchesAffectingDocumentKeys:
     (const DocumentKeySet &)documentKeys {
+<<<<<<< HEAD
+=======
+  NSString *userID = self.userID;
+
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
   // Take a pass through the document keys and collect the set of unique mutation batchIDs that
   // affect them all. Some batches can affect more than one key.
   std::set<FSTBatchID> batchIDs;
@@ -408,7 +416,11 @@ using leveldb::WriteOptions;
   FSTLevelDBDocumentMutationKey *rowKey = [[FSTLevelDBDocumentMutationKey alloc] init];
   for (const DocumentKey &documentKey : documentKeys) {
     std::string indexPrefix =
+<<<<<<< HEAD
         [FSTLevelDBDocumentMutationKey keyPrefixWithUserID:_userID resourcePath:documentKey.path()];
+=======
+        [FSTLevelDBDocumentMutationKey keyPrefixWithUserID:userID resourcePath:documentKey.path()];
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
     for (indexIterator->Seek(indexPrefix); indexIterator->Valid(); indexIterator->Next()) {
       // Only consider rows matching exactly the specific key of interest. Index rows have this
       // form (with markers in brackets):
@@ -453,7 +465,11 @@ using leveldb::WriteOptions;
   // index for more than a single document so the associated batchIDs will be neither necessarily
   // unique nor in order. This means an efficient simultaneous scan isn't possible.
   std::string indexPrefix =
+<<<<<<< HEAD
       [FSTLevelDBDocumentMutationKey keyPrefixWithUserID:_userID resourcePath:queryPath];
+=======
+      [FSTLevelDBDocumentMutationKey keyPrefixWithUserID:userID resourcePath:queryPath];
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
   auto indexIterator = _db.currentTransaction->NewIterator();
   indexIterator->Seek(indexPrefix);
 
@@ -492,12 +508,20 @@ using leveldb::WriteOptions;
 - (NSArray<FSTMutationBatch *> *)allMutationBatchesWithBatchIDs:
     (const std::set<FSTBatchID> &)batchIDs {
   NSMutableArray *result = [NSMutableArray array];
+<<<<<<< HEAD
+=======
+  NSString *userID = self.userID;
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
 
   // Given an ordered set of unique batchIDs perform a skipping scan over the main table to find
   // the mutation batches.
   auto mutationIterator = _db.currentTransaction->NewIterator();
   for (FSTBatchID batchID : batchIDs) {
+<<<<<<< HEAD
     std::string mutationKey = [FSTLevelDBMutationKey keyWithUserID:_userID batchID:batchID];
+=======
+    std::string mutationKey = [FSTLevelDBMutationKey keyWithUserID:userID batchID:batchID];
+>>>>>>> 4719ea23f8468bbadd8337b40ab8d74bf98573b7
     mutationIterator->Seek(mutationKey);
     if (!mutationIterator->Valid() || mutationIterator->key() != mutationKey) {
       HARD_FAIL(
