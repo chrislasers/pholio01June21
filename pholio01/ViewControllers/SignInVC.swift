@@ -87,7 +87,12 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     
     @IBOutlet weak var fbValid: UILabel!
     
-
+    @IBOutlet weak var signUp: UIButton!
+    
+    @IBOutlet weak var signIn: UIButton!
+    
+    
+    
     override func viewDidLoad() {
         
         var signInWithFbButton: UIButton {
@@ -95,7 +100,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         // Add a custom login button to your app
             let myLoginButton = UIButton(type: .custom)
         myLoginButton.backgroundColor = UIColor(r: 73, g: 103, b: 173)
-        myLoginButton.frame = CGRect(x: 15, y: 620, width: view.frame.width - 30, height: 47)
+        myLoginButton.frame = CGRect(x: 15, y: 660, width: view.frame.width - 30, height: 47)
             myLoginButton.setTitle("Login with Facebook", for: .normal)
             myLoginButton.setTitleColor(UIColor.white, for: .normal)
             myLoginButton.layer.cornerRadius = 7
@@ -115,28 +120,60 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         view.addSubview(signInWithFbButton)
         
         email.keyboardType = .emailAddress
-        email.placeholder = "Email Address"
+        //email.placeholder = "Email Address"
         self.view.addSubview(email)
         
-        password.placeholder = "Password"
+       // password.placeholder = "Password"
         self.view.addSubview(password)
         
         
         
         super.viewDidLoad()
         
-        Auth.auth().addStateDidChangeListener { (auth, user) in
+        
+        signUp.backgroundColor = UIColor.black
+        signUp.setTitle("Sign Up", for: .normal)
+        signUp.layer.borderWidth = 2
+        signUp.layer.borderColor = UIColor.white.cgColor
+        signUp.layer.cornerRadius = signUp.frame.height / 2
+        signUp.setTitleColor(UIColor.white, for: .normal)
+        signUp.layer.shadowColor = UIColor.white.cgColor
+        signUp.layer.shadowRadius = 5
+        signUp.layer.shadowOpacity = 0.3
+        signUp.layer.shadowOffset = CGSize(width: 0, height: 0)
+        
+        
+        signIn.backgroundColor = UIColor.clear
+        signIn.layer.borderWidth = 2
+        signIn.layer.borderColor = UIColor.white.cgColor
+        signIn.layer.cornerRadius = signIn.frame.height / 2.1
+        signIn.setTitleColor(UIColor.white, for: .normal)
+        signIn.layer.shadowColor = UIColor.white.cgColor
+        signIn.layer.shadowRadius = 12
+        signIn.layer.shadowOpacity = 0.4
+        signIn.layer.shadowOffset = CGSize(width: 0, height: 0)
+        
+        
+        signUp.addTarget(self, action: #selector(setButtonSelected(button:)), for: .touchDown);
+        signUp.addTarget(self, action: #selector(setButtonUnselected(button:)), for: .touchUpInside)
+        
+        
+        
+        
+        
+        
+        //Auth.auth().addStateDidChangeListener { (auth, user) in
             
-            if user?.isEmailVerified == true
-            {
-                print("User Signed In")
-                self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
-                
-            else {
-                print("User Not Signed In")
+         //if Auth.auth().currentUser != nil
+           // {
+           //     print("User Signed In")
+            //    self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
+             //
+          //  else {
+           //     print("User Not Signed In")
                 // ...
-            }
-        }
+           // }
+       // }
         
         configureTextFields()
         
@@ -228,6 +265,79 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             
     }
     }
+    
+    var didSetupWhiteTintColorForClearTextFieldButton = false
+    var didsetupWhiteTintColorForClearTextFieldButton = false
+
+    
+    
+    private func setupTintColorForTextFieldClearButtonIfNeeded() {
+        // Do it once only
+        if didSetupWhiteTintColorForClearTextFieldButton { return }
+        
+        guard let button = email.value(forKey: "_clearButton") as? UIButton else { return }
+        guard let icon = button.image(for: .normal)?.withRenderingMode(.alwaysTemplate) else { return }
+        button.setImage(icon, for: .normal)
+        button.tintColor = .white
+        didSetupWhiteTintColorForClearTextFieldButton = true
+    }
+    
+    private func setUpTintColorForTextFieldClearButtonIfNeeded() {
+        // Do it once only
+        if didsetupWhiteTintColorForClearTextFieldButton { return }
+        
+        guard let button = password.value(forKey: "_clearButton") as? UIButton else { return }
+        guard let icon = button.image(for: .normal)?.withRenderingMode(.alwaysTemplate) else { return }
+        button.setImage(icon, for: .normal)
+        button.tintColor = .white
+        didSetupWhiteTintColorForClearTextFieldButton = true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setupTintColorForTextFieldClearButtonIfNeeded()
+        setUpTintColorForTextFieldClearButtonIfNeeded()
+    }
+    
+   
+    @objc func setButtonSelected(button : UIButton) {
+        signUp.backgroundColor = UIColor.black
+        
+        signUp.setTitle("Sign Up", for: .normal)
+        
+        signUp.layer.borderWidth = 1.6
+        
+        signUp.layer.borderColor = UIColor.white.cgColor
+        
+        signUp.layer.cornerRadius = signUp.frame.height / 2
+        signUp.setTitleColor(UIColor.white, for: .normal)
+        signUp.layer.shadowColor = UIColor.white.cgColor
+        signUp.layer.shadowRadius = 2
+        signUp.layer.shadowOpacity = 0.2
+        signUp.layer.shadowOffset = CGSize(width: 0, height: 0)    }
+    
+    @objc func setButtonUnselected(button : UIButton) {
+        
+        signUp.setTitle("Sign Up", for: .normal)
+        
+        signUp.backgroundColor = UIColor.clear
+        
+        signUp.layer.borderWidth = 1.6
+        
+        signUp.layer.borderColor = UIColor.white.cgColor
+        
+        signUp.layer.cornerRadius = signUp.frame.height / 2
+        signUp.setTitleColor(UIColor.white, for: .normal)
+        signUp.layer.shadowColor = UIColor.white.cgColor
+        signUp.layer.shadowRadius = 2
+        signUp.layer.shadowOpacity = 0.2
+        signUp.layer.shadowOffset = CGSize(width: 0, height: 0)    }
+    
+    
+    
+
+    
+    
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -448,6 +558,18 @@ override func didReceiveMemoryWarning() {
     }
     
     
+    
+    @IBAction func signUpPRESSED(_ sender: Any) {
+        
+        self.performSegue(withIdentifier: "showSignUp", sender: nil)
+        print("clicked")
+        
+        
+    }
+    
+    
+    
+    
     @IBAction func signinPRESSED(_ sender: Any){
         
         validator.validate(self)
@@ -460,7 +582,14 @@ override func didReceiveMemoryWarning() {
         Auth.auth().signIn(withEmail: self.email.text!, password: self.password.text!) { (user, error) in
             if user != nil {
                 
-                self.performSegue(withIdentifier: "homepageVC", sender: nil)
+               // self.performSegue(withIdentifier: "homepageVC", sender: nil)
+                //print(self.userID!)
+                
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let signinvc = storyboard.instantiateViewController(withIdentifier: "Home")
+                
+                self.present(signinvc, animated: true, completion: nil)
               
                 
                 

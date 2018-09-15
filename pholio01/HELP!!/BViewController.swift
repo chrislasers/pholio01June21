@@ -12,13 +12,33 @@ import FirebaseDatabase
 import FirebaseAuth
 import Firebase
 import FirebaseStorage
+import SwiftKeychainWrapper
 import SwiftValidator
-import Photos
+import FBSDKCoreKit
+import FBSDKLoginKit
+import FacebookLogin
+import FacebookCore
+import LBTAComponents
+import JGProgressHUD
+import MapKit
+import CoreLocation
+import GeoFire
 import FirebaseFirestore
-import FirebaseCore
 
-class BViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+
+class BViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, CLLocationManagerDelegate {
     
+    @IBOutlet weak var map: MKMapView!
+    
+    
+    @IBOutlet weak var locationLabel: UILabel!
+    
+    var locationManager = CLLocationManager()
+    var currentLocation: CLLocation!
+    
+    
+    var geoFireRef: DatabaseReference?
+    var geoFire: GeoFire!
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -28,17 +48,49 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     
     var usersArray = [UserModel]()
     
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        DBService.shared.getAllUsers { (usersArray) in
-            self.usersArray = usersArray
-            self.collectionView.reloadData()
+        DBService.shared.currentUser.observeSingleEvent(of: .value) { (snapshot) in
+            
+            guard let userDict = snapshot.value as? [String: AnyObject] else { return }
+            
+            let currentUser = UserModel(withUserId: snapshot.key, dictionary: userDict)
+            Helper.Pholio.currentUser = currentUser
+            
+            guard let pairingWith = currentUser.pairingWith else { return }
+            
+            DBService.shared.getAllUsers(pairingWith: pairingWith, completion: { (usersArray) in
+                
+                self.usersArray = usersArray
+                self.collectionView.reloadData()
+            })
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+       locationLabel.isHidden = true
+        
+        map.isHidden = true
+        map.showsUserLocation = true
+        
+        locationManager.delegate = self
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        locationManager.requestWhenInUseAuthorization()
+        
+    locationManager.startUpdatingLocation()
+        
+    geoFireRef = Database.database().reference()
+        
+        geoFire = GeoFire(firebaseRef: (geoFireRef!.child("user_locations")))
         
         ref = Database.database().reference()
         /*
@@ -62,12 +114,15 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
         
-        //collectionView.delegate = self
-        // collectionView.dataSource = self
-        //collectionView.reloadData()
+        collectionView.delegate = self
+         collectionView.dataSource = self
+        collectionView.reloadData()
+        
+        
         
         
         self.addSlideMenuButton()
+        
         // Do any additional setup after loading the view.
     }
     
@@ -82,10 +137,79 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         super.viewWillTransition(to: size, with: coordinator)
         collectionView.collectionViewLayout.invalidateLayout()
     }
+    
+    
     /////////////////////////////////////////////////////////////////////////////////////////////
     
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let location = locations[0]
+        
+       let spanz:MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
+        let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+        let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation,spanz)
+       map.setRegion(region, animated: true)
+        
+        guard locations.last != nil else { return }
+       geoFire!.setLocation(location, forKey: (Auth.auth().currentUser?.uid)!)
+        
+        
+        print(location.coordinate)
+       
+        self.map.showsUserLocation = true
+        
+    geoFireRef?.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Location": locationLabel.text!])
+        
+       CLGeocoder().reverseGeocodeLocation(location) { (placemark, error) in
+          if error != nil
+                
+           {
+                
+               print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
+            return
+            }
+            else
+            {
+               if let place = placemark?[0] {
+                    
+                    if place.thoroughfare != nil {
+                        
+                        
+                        
+                       self.locationLabel.text = "\(place.thoroughfare!),\(place.country!)"
+                        
+                        
+                    }
+                }
+            }
+        }
+    }
     
+    
+    @IBAction func messagesPressed(_ sender: Any) {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        if Helper.Pholio.currentUser == nil {
+            
+            DBService.shared.refreshUser(userId: userId) { (currentUser) in
+                
+                if currentUser.userId != nil {
+                    Helper.Pholio.currentUser = currentUser
+                    
+                    let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+                    let viewController = storyboard.instantiateViewController(withIdentifier: "NewMatchVC") as! NewMatchVC
+                    self.navigationController?.pushViewController(viewController, animated: true)
+                }
+            }
+            
+        } else {
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "NewMatchVC") as! NewMatchVC
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+        
+    }
     
     
     

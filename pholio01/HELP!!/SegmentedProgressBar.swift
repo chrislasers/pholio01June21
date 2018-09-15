@@ -41,7 +41,7 @@ class SegmentedProgressBar: UIView {
                 let segment = segments[currentAnimationIndex]
                 let layer = segment.topSegmentView.layer
                 let pausedTime = layer.timeOffset
-                layer.speed = 1.0
+                layer.speed = 0.5
                 layer.timeOffset = 0.0
                 layer.beginTime = 0.0
                 let timeSincePause = layer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
@@ -55,7 +55,7 @@ class SegmentedProgressBar: UIView {
     private var hasDoneLayout = false // hacky way to prevent layouting again
     var currentAnimationIndex = 0
     
-    init(numberOfSegments: Int, duration: TimeInterval = 5.0) {
+    init(numberOfSegments: Int, duration: TimeInterval = 8.0) {
         self.duration = duration
         super.init(frame: CGRect.zero)
         

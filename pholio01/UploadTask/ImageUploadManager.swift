@@ -27,7 +27,7 @@ var ref: DatabaseReference!
 class ImageUploadManager: NSObject {
     
     
-   
+    
     func uploadImage(_ image: UIImage, progressBlock: @escaping (_ percentage: Float) -> Void, completionBlock: @escaping (_ url: URL?, _ errorMessage: String?) -> Void) {
         
         
@@ -35,12 +35,12 @@ class ImageUploadManager: NSObject {
         let storageReference = storage.reference()
         
         _ = storageReference.child("User-Gallery").child((Auth.auth().currentUser?.uid)!)
-
+        
         let uid = Auth.auth().currentUser?.uid
         let imgName = NSUUID().uuidString + ".jpg"
         // storage/carImages/image.jpg
         let imagesReference = storageReference.child("User-Gallery").child((Auth.auth().currentUser?.uid)!).child("\(uid!)/photos/\(imgName)")
-
+        
         
         if let imageData = UIImageJPEGRepresentation(image, 0.8) {
             let metadata = StorageMetadata()
@@ -57,6 +57,8 @@ class ImageUploadManager: NSObject {
                         // Make you download string
                         let downloadString = downloadUrl.absoluteString
                         print(downloadString)
+                        self.uploadGalleryUrlToUserNode(contentType: "image", item: downloadString)
+                        
                         completionBlock(downloadUrl, nil)
                     } else {
                         // Do something if error
@@ -76,6 +78,14 @@ class ImageUploadManager: NSObject {
             completionBlock(nil, "Image couldn't be converted to Data.")
         }
         
+    }
+    
+    
+    func uploadGalleryUrlToUserNode(contentType: String, item: String) {
+        let galleryDict = ["content": contentType,
+                           "item": item]
+        
+        DBService.shared.currentUser.child("User-Gallery").childByAutoId().updateChildValues(galleryDict)
     }
     
 }

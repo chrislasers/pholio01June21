@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class BaseViewController: UIViewController, SlideMenuDelegate {
     
@@ -26,12 +27,12 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         switch(index){
         case 0:
             print("Home\n", terminator: "")
-
+            
             self.openViewControllerBasedOnIdentifier("Home")
             
             break
         case 1:
-            print("Play\n", terminator: "")
+            print("Subscription\n", terminator: "")
             
             self.openViewControllerBasedOnIdentifier("Transactions")
             
@@ -66,6 +67,36 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             self.openViewControllerBasedOnIdentifier("Settings")
             
             break
+        case 7:
+            print("LogOut\n", terminator: "")
+            
+            
+            let signOutAction = UIAlertAction(title: "Sign Out", style: .destructive) { (action) in
+                let firebaseAuth = Auth.auth()
+                
+                do {
+                    
+                    try firebaseAuth.signOut()
+                    
+                    print("User Signed Out")
+                    
+                    
+                } catch let signOutError as NSError {
+                    
+                    Service.showAlert(on: self, style: .alert, title: "Sign Out Error", message: NSLocalizedDescriptionKey)
+                    
+                    print ("Error signing out: %@", signOutError)
+                }
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let signinvc = storyboard.instantiateViewController(withIdentifier: "signinvc")
+                
+                self.present(signinvc, animated: true, completion: nil)
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            Service.showAlert(on: self, style: .actionSheet, title: nil, message: nil, actions: [signOutAction, cancelAction], completion: nil)
+            break
         default:
             print("default\n", terminator: "")
         }
@@ -91,7 +122,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         let customBarItem = UIBarButtonItem(customView: btnShowMenu)
         self.navigationItem.leftBarButtonItem = customBarItem;
     }
-
+    
     func defaultMenuImage() -> UIImage {
         var defaultMenuImage = UIImage()
         
@@ -110,7 +141,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         defaultMenuImage = UIGraphicsGetImageFromCurrentImageContext()!
         
         UIGraphicsEndImageContext()
-       
+        
         return defaultMenuImage;
     }
     
@@ -130,8 +161,8 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
                 viewMenuBack.frame = frameMenu
                 viewMenuBack.layoutIfNeeded()
                 viewMenuBack.backgroundColor = UIColor.clear
-                }, completion: { (finished) -> Void in
-                    viewMenuBack.removeFromSuperview()
+            }, completion: { (finished) -> Void in
+                viewMenuBack.removeFromSuperview()
             })
             
             return
@@ -153,6 +184,6 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
             menuVC.view.frame=CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
             sender.isEnabled = true
-            }, completion:nil)
+        }, completion:nil)
     }
 }

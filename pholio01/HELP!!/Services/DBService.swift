@@ -32,8 +32,9 @@ class DBService {
         return users.child((Auth.auth().currentUser?.uid)!)
     }
 
-    func getAllUsers(completion: @escaping ([UserModel]) -> Void) {
-        users.observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot) in
+    func getAllUsers(pairingWith: String?, completion: @escaping ([UserModel]) -> Void) {
+        
+        users.queryOrdered(byChild: "Usertype").queryEqual(toValue: pairingWith).observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot) in
             
             var usersArray = [UserModel]()
             
@@ -44,13 +45,25 @@ class DBService {
             
             for user in users {
                 if let userDict = user.value as? [String: AnyObject] {
-                    let key = user.key
-                    let beat = UserModel(withUserId: key, dictionary: userDict)
                     
-                    usersArray.append(beat)
+                    let key = user.key
+                    
+                    if let currentUserId = Auth.auth().currentUser?.uid {
+                        
+                        print("getAllUsers")
+                        // Check here if the user is the same as the current user
+                        // if it is dont add it to the user array
+                        if key != currentUserId {
+                            let beat = UserModel(withUserId: key, dictionary: userDict)
+                            usersArray.append(beat)
+                        }
+                        
+                        //let beat = UserModel(withUserId: key, dictionary: userDict)
+                        //usersArray.append(beat)
+                        
+                    }
                 }
             }
-            
             completion(usersArray)
         })
     }

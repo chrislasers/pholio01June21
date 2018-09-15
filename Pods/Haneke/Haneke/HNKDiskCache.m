@@ -121,14 +121,14 @@ NSString *const HNKExtendedFileAttributeKey = @"io.haneke.key";
     dispatch_async(_queue, ^{
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSError *error;
-        NSArray *contents = [fileManager contentsOfDirectoryAtPath:_directory error:&error];
+        NSArray *contents = [fileManager contentsOfDirectoryAtPath:self->_directory error:&error];
         if (!contents) {
             NSLog(@"Failed to list directory with error %@", error);
             return;
         }
         for (NSString *pathComponent in contents)
         {
-            NSString *path = [_directory stringByAppendingPathComponent:pathComponent];
+            NSString *path = [self->_directory stringByAppendingPathComponent:pathComponent];
             if (![fileManager removeItemAtPath:path error:&error])
             {
                 NSLog(@"Failed to remove file with error %@", error);
@@ -143,7 +143,7 @@ NSString *const HNKExtendedFileAttributeKey = @"io.haneke.key";
 - (void)enumerateDataByAccessDateUsingBlock:(void(^)(NSString *key, NSData *data, NSDate *accessDate, BOOL *stop))block
 {
     dispatch_async(_queue, ^{
-        [[NSFileManager defaultManager] hnk_enumerateContentsOfDirectoryAtPath:_directory orderedByProperty:NSURLContentModificationDateKey ascending:NO usingBlock:^(NSURL *url, NSUInteger idx, BOOL *stop) {
+        [[NSFileManager defaultManager] hnk_enumerateContentsOfDirectoryAtPath:self->_directory orderedByProperty:NSURLContentModificationDateKey ascending:NO usingBlock:^(NSURL *url, NSUInteger idx, BOOL *stop) {
             NSDate *accessDate;
             [url getResourceValue:&accessDate forKey:NSURLContentModificationDateKey error:nil];
             

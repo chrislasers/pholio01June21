@@ -29,6 +29,9 @@ class ContentViewController: UIViewController, UIPageViewControllerDataSource, U
         pageViewController!.setViewControllers(viewControllers , direction: .forward, animated: false, completion: nil)
         pageViewController!.view.frame = view.bounds
         
+        
+        
+        
         addChildViewController(pageViewController!)
         view.addSubview(pageViewController!.view)
         view.sendSubview(toBack: pageViewController!.view)
@@ -93,6 +96,7 @@ class ContentViewController: UIViewController, UIPageViewControllerDataSource, U
         let startingViewController: PreViewController = viewControllerAtIndex(index: position)!
         let viewControllers = [startingViewController]
         pageViewController!.setViewControllers(viewControllers , direction: .forward, animated: true, completion: nil)
+        
     }
     
     // MARK: - Button Actions
