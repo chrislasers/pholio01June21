@@ -16,7 +16,7 @@ class Car: NSObject {
     
     convenience init!(dictionary: [String: Any]!, objectID: String, imageURLs: String) {
         if let dictionary = dictionary, let imageURLsDict = dictionary["images"] as? [String: String] {
-            let images = imageURLsDict.compactMap({ $0.value as? String })
+            let images = imageURLsDict.compactMap({ $0.value  })
             self.init(objectID: objectID, imageURLs: images)
         } else {
             return nil

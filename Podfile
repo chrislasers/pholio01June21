@@ -51,6 +51,10 @@ platform :ios, '11.0'
 
 	pod 'SDWebImage'
 	
-    pod 'SwiftyJSON'
+   	pod 'SwiftyJSON'
+
+	pod "CTSlidingUpPanel"
+	
+	pod 'TextFieldEffects'
 
 end

@@ -8,6 +8,8 @@
 
 import UIKit
 import FirebaseAuth
+import Firebase
+
 
 protocol SlideMenuDelegate {
     func slideMenuItemSelectedAtIndex(_ index : Int32)
@@ -42,13 +44,60 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet var userProfileImage: UIImageView!
     
+    @IBOutlet weak var username: UILabel!
+    
+    @IBOutlet weak var usertype: UILabel!
+    
+    var ref: DatabaseReference!
+
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getProfileImage()
-        tblMenuOptions.tableFooterView = UIView()
-        // Do any additional setup after loading the view.
-    }
+        self.tblMenuOptions.tableFooterView = UIView()
+        
+        let userID: String = (Auth.auth().currentUser?.uid)!
+        
+        
+        ref = Database.database().reference()
+
+
+        self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
+        self.userProfileImage.layer.borderColor = UIColor.red.cgColor
+        self.userProfileImage.layer.borderWidth = 3
+        self.userProfileImage.clipsToBounds = true
+        userProfileImage.contentMode = .scaleAspectFill
+
+        
+        
+        ref = Database.database().reference().child("Users").child(userID)
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let snap = snapshot.value as? [String : AnyObject] {
+                if let result = snap["Username"] as? String {
+                    self.username.text = result
+                }else {
+                    print("USERNAME not displayed")            }
+        }else{
+            print("maybe USER UID not exist in database ")
+        }
+            })
+        
+        ref = Database.database().reference().child("Users").child(userID)
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let snap = snapshot.value as? [String : AnyObject] {
+                if let result = snap["Usertype"] as? String {
+                    self.usertype.text = result
+                }else {
+                    print("USERTYPE not displayed")
+                }
+            }else{
+                print("maybe USER UID not exist in database ")
+            }
+        })
+    
+}
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -63,12 +112,14 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func updateArrayMenuOptions(){
         arrayMenuOptions.append(["title":"Home", "icon":"HomeIcon"])
-        arrayMenuOptions.append(["title":"Transactions", "icon":"PlayIcon"])
+        arrayMenuOptions.append(["title":"Subscription", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Favorites", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Bookings", "icon":"HomeIcon"])
         arrayMenuOptions.append(["title":"Notifications", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Get Help", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Settings", "icon":"PlayIcon"])
+        arrayMenuOptions.append(["title":"Log Out", "icon":"PlayIcon"])
+        
         
         tblMenuOptions.reloadData()
     }

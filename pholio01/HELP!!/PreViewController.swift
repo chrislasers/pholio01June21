@@ -8,6 +8,9 @@
 import UIKit
 import AVFoundation
 import AVKit
+import Firebase
+import CTSlidingUpPanel
+
 
 class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     
@@ -15,6 +18,13 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     @IBOutlet weak var imagePreview: UIImageView!
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var lblUserName: UILabel!
+    
+    
+    @IBAction func menuBTN(_ sender: Any) {
+        
+        
+    }
+    
     
     var pageIndex : Int = 0
     var items = [[String: Any]]()
@@ -27,6 +37,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
         //userProfileImage.image = UIImage(named: items[pageIndex]["pro-image"] as! String)
         
@@ -38,10 +49,14 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             DispatchQueue.main.async {
                 let profileImage = UIImage(data: imageData! as Data)
                 self.userProfileImage.image = profileImage
+                self.lblUserName.text = user.username
+
             }
         }
         
-lblUserName.text = user.username
+        
+        
+        
         //item = self.items[pageIndex]["items"] as! [[String : String]]
         item = user.itemsConverted
         
@@ -109,14 +124,33 @@ lblUserName.text = user.username
                 self.dismiss(animated: true, completion: nil)
             }
             
-            
             if imagePreview.center.x > (view.bounds.width / 2 + 100) {
                 print("Interested")
                 
-                self.dismiss(animated: true, completion: nil)
+                let matchedUser = usersArray[pageIndex]
+                Helper.Pholio.matchedUser = matchedUser
+                
+                guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+                
+                DBService.shared.refreshUser(userId: matchedUser.userId!) { (updatedUser) in
+                    
+                    let matched = updatedUser.matchedUsers[currentUserId] as? Bool
+                    
+                    if matched == true {
+                        DBService.shared.currentUser.child("Matched-Users").child(matchedUser.userId!).setValue(true)
+                        
+                    } else if matched == false {
+                        DBService.shared.currentUser.child("Matched-Users").child(matchedUser.userId!).setValue(true)
+                        DBService.shared.users.child(matchedUser.userId!).child("Matched-Users").child(currentUserId).setValue(true)
+                        
+                    } else {
+                        // Not matched yet
+                        DBService.shared.currentUser.child("Matched-Users").child(matchedUser.userId!).setValue(false)
+                    }
+                    
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
-            
-            
             
             rotation = CGAffineTransform(rotationAngle: 0)
             
@@ -175,7 +209,7 @@ lblUserName.text = user.username
             self.dismiss(animated: true, completion: nil)
         }
         else {
-            _ = ContentViewControllerVC.goNextPage(fowardTo: pageIndex + 1)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -201,6 +235,10 @@ lblUserName.text = user.username
                     self.imagePreview.image = contentImage
                 }
             }
+            let user = usersArray[pageIndex]
+
+            lblUserName.text = user.username
+
             
             //self.imagePreview.image = UIImage(named: item[index]["item"]!)
         }

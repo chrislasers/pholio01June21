@@ -32,15 +32,45 @@ class chooseusertypeVC: UIViewController {
     let Woman: String = "Woman"
     
     
+    @IBOutlet weak var firstType: UIButton!
     
+    @IBOutlet weak var secondType: UIButton!
     
+    @IBOutlet weak var thridType: UIButton!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
+        firstType.backgroundColor = UIColor.black
+        firstType.layer.borderWidth = 1.5
+        firstType.layer.borderColor = UIColor.white.cgColor
+        firstType.layer.cornerRadius = firstType.frame.height / 2
+        firstType.layer.shadowColor = UIColor.white.cgColor
+        firstType.layer.shadowRadius = 7
+        firstType.layer.shadowOpacity = 0.2
+        firstType.layer.shadowOffset = CGSize(width: 0, height: 0)
         
+        
+        secondType.backgroundColor = UIColor.black
+        secondType.layer.borderWidth = 1.5
+        secondType.layer.borderColor = UIColor.white.cgColor
+        secondType.layer.cornerRadius = firstType.frame.height / 2
+        secondType.layer.shadowColor = UIColor.white.cgColor
+        secondType.layer.shadowRadius = 7
+        secondType.layer.shadowOpacity = 0.2
+        secondType.layer.shadowOffset = CGSize(width: 0, height: 0)
+        
+        
+        thridType.backgroundColor = UIColor.black
+        thridType.layer.borderWidth = 1.5
+        thridType.layer.borderColor = UIColor.white.cgColor
+        thridType.layer.cornerRadius = firstType.frame.height / 2
+        thridType.layer.shadowColor = UIColor.white.cgColor
+        thridType.layer.shadowRadius = 7
+        thridType.layer.shadowOpacity = 0.2
+        thridType.layer.shadowOffset = CGSize(width: 0, height: 0)
         
         
         ref =
@@ -103,19 +133,26 @@ class chooseusertypeVC: UIViewController {
     
     @IBAction func mPressed(_ sender: Any) {
         
-        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["User Type": Woman])
+        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Usertype": Woman])
         
         performSegue(withIdentifier: "toPair", sender: nil)
         
-        
         print("Model Stored")
-        
-        
     }
     
     
     
     
+    @IBAction func gPressed(_ sender: Any) {
+        
+        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Usertype": Guest])
+        
+        performSegue(withIdentifier: "toPair", sender: nil)
+        
+        print("Guest Stored")
+        
+        
+    }
     
     
     
