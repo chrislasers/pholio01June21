@@ -48,11 +48,23 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     
     var usersArray = [UserModel]()
     
+    lazy var refreshControl:UIRefreshControl = {
+        
+        let refreshControl = UIRefreshControl()
+         refreshControl.tintColor = .red
+        
+        refreshControl.addTarget(self, action: #selector(requestData), for: .valueChanged)
+        
+        return refreshControl
+        
+    }()
+    
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+       
         DBService.shared.currentUser.observeSingleEvent(of: .value) { (snapshot) in
             
             guard let userDict = snapshot.value as? [String: AnyObject] else { return }
@@ -73,6 +85,11 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
+        
+        collectionView.refreshControl = refreshControl
+       
         
         
        locationLabel.isHidden = true
@@ -118,9 +135,6 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
          collectionView.dataSource = self
         collectionView.reloadData()
         
-        
-        
-        
         self.addSlideMenuButton()
         
         // Do any additional setup after loading the view.
@@ -140,6 +154,37 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     
     
     /////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    
+    @objc func requestData() {
+        
+        
+        DBService.shared.currentUser.observeSingleEvent(of: .value) { (snapshot) in
+            
+            guard let userDict = snapshot.value as? [String: AnyObject] else { return }
+            
+            let currentUser = UserModel(withUserId: snapshot.key, dictionary: userDict)
+            Helper.Pholio.currentUser = currentUser
+            
+            guard let pairingWith = currentUser.pairingWith else { return }
+            
+            DBService.shared.getAllUsers(pairingWith: pairingWith, completion: { (usersArray) in
+                
+                self.usersArray = usersArray
+                self.collectionView.reloadData()
+            })
+        }
+        
+        
+        print("REQUEST DATA!!!")
+        
+        let deadline = DispatchTime.now() + .milliseconds(700)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+        self.refreshControl.endRefreshing()
+        }
+        
+    }
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

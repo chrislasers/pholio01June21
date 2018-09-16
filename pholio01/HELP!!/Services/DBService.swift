@@ -34,7 +34,9 @@ class DBService {
 
     func getAllUsers(pairingWith: String?, completion: @escaping ([UserModel]) -> Void) {
         
-        users.queryOrdered(byChild: "Usertype").queryEqual(toValue: pairingWith).observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot) in
+
+        
+        users.queryOrdered(byChild: "Usertype").queryEqual(toValue: pairingWith).queryLimited(toFirst: 6).observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot) in
             
             var usersArray = [UserModel]()
             
