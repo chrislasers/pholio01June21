@@ -25,6 +25,19 @@ class UserModel: NSObject {
     var timestamp: NSNumber?
     var toId: String?
     
+    var genderFilter: GenderFilter!
+    var pairingFilter: PairingFilter!
+    var ageFilter: Int!
+    var milesFilter: Int!
+    
+    var gender: String!
+    var age: Int!
+    var userType: String!
+    var lat_lon: String!
+    
+    var featured: Bool!
+    var featuredFilter: Bool!
+    
     init(withUserId userId: String, dictionary: [String: Any]) {
         self.userId = userId
         
@@ -52,7 +65,7 @@ class UserModel: NSObject {
         self.text = dictionary["text"] as? String
         self.toId = dictionary["toId"] as? String
         self.timestamp = dictionary["timestamp"] as? NSNumber
-      
+        
         
         let userGalleryItems = dictionary["User-Gallery"] as? [String: Any]
         
@@ -77,6 +90,67 @@ class UserModel: NSObject {
         func chatPartnerId() -> String? {
             return fromId == Auth.auth().currentUser?.uid ? toId : fromId
         }
+        
+        if let genderFilter = dictionary["GenderFilter"] as? String {
+            self.genderFilter = GenderFilter(rawValue: genderFilter)
+        } else {
+            // if no filter exists set to the default which is both genders
+            self.genderFilter = .both
+        }
+        
+        if let pairingFilter = dictionary["PairingFilter"] as? String {
+            self.pairingFilter = PairingFilter(rawValue: pairingFilter)
+        } else {
+            // if no filter exists set to the default which is all user types
+            self.pairingFilter = .all
+        }
+        
+        if let ageFilter = dictionary["AgeFilter"] as? Int {
+            self.ageFilter = ageFilter
+        } else {
+            // if no filter exists set to the default which is 0
+            self.ageFilter = 0
+        }
+        
+        if let milesFilter = dictionary["MilesFilter"] as? Int {
+            self.milesFilter = milesFilter
+        } else {
+            // if no filter exists set to the default which is 0
+            self.milesFilter = 0
+        }
+        
+        if let gender = dictionary["Gender"] as? String {
+            self.gender = gender
+        } else {
+            self.gender = GenderFilter.male.rawValue
+        }
+        
+        if let age = dictionary["Age"] as? Int {
+            self.age = age
+        } else {
+            self.age = 18
+        }
+        
+        self.userType = dictionary["Usertype"] as! String
+        
+        if let lat_lon = dictionary["lat_lon"] as? String {
+            self.lat_lon = lat_lon
+        } else {
+            self.lat_lon = ""
+        }
+        
+        if let featured = dictionary["Featured"] as? Bool {
+            self.featured = featured
+        } else {
+            self.featured = false
+        }
+        
+        if let featuredFilter = dictionary["FeaturedFilter"] as? Bool {
+            self.featuredFilter = featuredFilter
+        } else {
+            self.featuredFilter = false
+        }
+        
     }
     
     

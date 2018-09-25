@@ -398,8 +398,8 @@ typedef NS_ENUM(NSInteger, FBSDKLoginManagerState) {
 
   void(^completion)(BOOL, NSString *, NSError *) = ^void(BOOL didPerformLogIn, NSString *authMethod, NSError *error) {
     if (didPerformLogIn) {
-      [_logger startAuthMethod:authMethod];
-      _state = FBSDKLoginManagerStatePerformingLogin;
+        [self->_logger startAuthMethod:authMethod];
+        self->_state = FBSDKLoginManagerStatePerformingLogin;
     } else if (error && [error.domain isEqualToString:SFVCCanceledLogin]) {
       [self handleImplicitCancelOfLogIn];
     } else {

@@ -55,6 +55,21 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            
+            if Auth.auth().currentUser != nil
+            {
+                print("User Signed In")
+                //self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
+                
+            }  else {
+                
+                
+                print("User Not Signed In")
+            }
+        }
+        
         getProfileImage()
         self.tblMenuOptions.tableFooterView = UIView()
         
@@ -65,10 +80,13 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
 
         self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
-        self.userProfileImage.layer.borderColor = UIColor.red.cgColor
+        self.userProfileImage.layer.borderColor = UIColor.white.cgColor
         self.userProfileImage.layer.borderWidth = 3
         self.userProfileImage.clipsToBounds = true
         userProfileImage.contentMode = .scaleAspectFill
+        self.userProfileImage.layer.shadowRadius = 7
+        self.userProfileImage.layer.shadowOpacity = 0.6
+        self.userProfileImage.layer.shadowOffset = CGSize(width: 0, height: 0)
 
         
         
@@ -111,14 +129,11 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func updateArrayMenuOptions(){
-        arrayMenuOptions.append(["title":"Home", "icon":"HomeIcon"])
-        arrayMenuOptions.append(["title":"Subscription", "icon":"PlayIcon"])
-        arrayMenuOptions.append(["title":"Favorites", "icon":"PlayIcon"])
-        arrayMenuOptions.append(["title":"Bookings", "icon":"HomeIcon"])
-        arrayMenuOptions.append(["title":"Notifications", "icon":"PlayIcon"])
-        arrayMenuOptions.append(["title":"Get Help", "icon":"PlayIcon"])
-        arrayMenuOptions.append(["title":"Settings", "icon":"PlayIcon"])
-        arrayMenuOptions.append(["title":"Log Out", "icon":"PlayIcon"])
+        arrayMenuOptions.append(["title":"Home", "icon":"home"])
+        arrayMenuOptions.append(["title":"Filters", "icon":"filter"])
+        arrayMenuOptions.append(["title":"Get Help", "icon":"info"])
+        arrayMenuOptions.append(["title":"Settings", "icon":"settings"])
+        arrayMenuOptions.append(["title":"Log Out", "icon":"external"])
         
         
         tblMenuOptions.reloadData()

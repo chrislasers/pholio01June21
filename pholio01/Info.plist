@@ -10,6 +10,10 @@
 	<string>This app requires access to the photo library.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Can PHOLIO use your location?</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Privacy - Location Always and When In Use Usage Description</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Privacy - Location Always Usage Description</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

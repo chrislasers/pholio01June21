@@ -18,6 +18,24 @@ import FBSDKLoginKit
 import CoreLocation
 import FirebaseFirestore
 
+enum GenderFilter: String {
+    case male = "Male"
+    case female = "Female"
+    case both = "Both"
+}
+
+enum PairingFilter: String {
+    case photographer = "Photographer"
+    case model = "Model"
+    case guest = "Guest"
+    
+    case photographerAndModel = "PhotographerAndModel"
+    case photographerAndGuest = "PhotographerAndGuest"
+    case modelAndGuest = "ModelAndGuest"
+    
+    case all = "All"
+}
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,7 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         //FirebaseApp.configure()
-
         
         let db = Firestore.firestore()
         let settings = db.settings

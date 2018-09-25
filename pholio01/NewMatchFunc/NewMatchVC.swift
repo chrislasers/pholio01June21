@@ -13,7 +13,7 @@ import Firebase
 class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDataSource, UITableViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return matchedUsers.count
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -97,7 +97,38 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
             
         }, withCancel: nil)
     }
+    
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer){
+        if gestureRecognizer.state == .ended {
+            let touchPoint = gestureRecognizer.location(in: self.matchTable)
+            if let indexPath = matchTable.indexPathForRow(at: touchPoint) {
+                
+                if indexPath != nil {
 
+                
+                let signOutAction = UIAlertAction(title: "Report User", style: .destructive) { (action) in
+                    
+                   //Code that sends reported users to Firebase Database
+                    
+                    
+                    
+                    
+                }
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                Service.showAlert(on: self, style: .actionSheet, title: nil, message: nil, actions: [signOutAction, cancelAction], completion: nil)
+            }
+            }
+        }
+    }
+        
+        func setupLongPressGesture() {
+            let longPressGesture:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress))
+            longPressGesture.minimumPressDuration = 1.0 // 1 second press
+            longPressGesture.delegate = self as? UIGestureRecognizerDelegate
+            self.matchTable.addGestureRecognizer(longPressGesture)
+        }
+    
     let cellId = "cellId"
     
     var currentUser: UserModel!
@@ -116,7 +147,10 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
+        setupLongPressGesture()
+
+        
         Auth.auth().addStateDidChangeListener { (auth, user) in
             
             if Auth.auth().currentUser?.uid != nil {
@@ -124,7 +158,7 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
                 self.fetchUser()
                 
                 
-                 self.checkIfUserIsLoggedIn()
+                self.checkIfUserIsLoggedIn()
                 
                 print("User In MatchVC")
                 
@@ -141,7 +175,7 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
         
         currentUser = Helper.Pholio.currentUser
         
-       // navigationItem.title = currentUser.username
+        // navigationItem.title = currentUser.username
         
         getMatchedUsers()
         
@@ -157,17 +191,17 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
         matchTable.reloadData()
         
         matchTable.register(NewMatchTableViewCell.self, forCellReuseIdentifier: cellId)
-
+        
         matchTable.allowsMultipleSelectionDuringEditing = true
-
+        
         
     }
     
-     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         guard let userID = Auth.auth().currentUser?.uid else {
             return
@@ -238,9 +272,9 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
                 
                 self.messagesDictionary.removeValue(forKey: snapshot.key)
                 self.attemptReloadofTable()
-
+                
             }, withCancel: nil)
-    })
+        })
     }
     
     private func attemptReloadofTable() {
@@ -379,7 +413,7 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
     
     var messagesController: ChatLogController?
     /////////////////////////////////////////
-        
+    
     func signOut() {
         
         
@@ -409,27 +443,28 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         Service.showAlert(on: self, style: .actionSheet, title: nil, message: nil, actions: [signOutAction, cancelAction], completion: nil)
     }
-        
+    
     func getMatchedUsers() {
         matchedUsers.removeAll()
         
-        let matchedUserIds = Helper.Pholio.currentUser.matchedUsers.keys
-        
-        for userId in matchedUserIds {
+        for matchedUser in Helper.Pholio.currentUser.matchedUsers {
             
-            DBService.shared.refreshUser(userId: userId) { (userModel) in
+            guard let matched = matchedUser.value as? Bool else { continue }
+            
+            if matched {
                 
-                if userModel.userId != nil {
-                    self.matchedUsers.append(userModel)
-                    self.newMatch.reloadData()
-                    self.matchTable.reloadData()
-
+                let userId = matchedUser.key
+                
+                DBService.shared.refreshUser(userId: userId) { (userModel) in
                     
+                    if userModel.userId != nil {
+                        self.matchedUsers.append(userModel)
+                        self.newMatch.reloadData()
+                        self.matchTable.reloadData()
+                    }
                 }
             }
         }
-       
-
-       
-}
+        
+    }
 }

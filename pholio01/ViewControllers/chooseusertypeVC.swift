@@ -32,6 +32,10 @@ class chooseusertypeVC: UIViewController {
     let Woman: String = "Woman"
     
     
+    let photographer = "Photographer"
+    let model = "Model"
+    
+    
     @IBOutlet weak var firstType: UIButton!
     
     @IBOutlet weak var secondType: UIButton!
@@ -118,12 +122,10 @@ class chooseusertypeVC: UIViewController {
     
     @IBAction func pPressed(_ sender: Any) {
         
-        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Usertype": Photographer])
-        
+        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Usertype": photographer])
         
         
         self.performSegue(withIdentifier: "toPair", sender: nil)
-        
         
         print("Photographer Stored")
     }
@@ -133,7 +135,7 @@ class chooseusertypeVC: UIViewController {
     
     @IBAction func mPressed(_ sender: Any) {
         
-        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Usertype": Model])
+        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Usertype": model])
         
         performSegue(withIdentifier: "toPair", sender: nil)
         

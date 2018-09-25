@@ -33,6 +33,9 @@ class SelectImageVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     @IBOutlet weak var pageControl: UIPageControl!
     
     
+    @IBOutlet weak var pickImageBTN: UIButton!
+    
+    
     @IBOutlet weak var progressView: UIProgressView!
     
     private var uploadPresenter: UploadPresenter!
@@ -45,6 +48,35 @@ class SelectImageVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            
+            if Auth.auth().currentUser != nil
+            {
+                print("User Signed In")
+                //self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
+                
+            }  else {
+                
+                
+                print("User Not Signed In")
+            }
+        }
+        
+        
+        self.pickImageBTN.backgroundColor = UIColor.black
+        pickImageBTN.setTitle("Select An Image", for: .normal)
+        pickImageBTN.layer.borderWidth = 1
+        pickImageBTN.layer.borderColor = UIColor.black.cgColor
+        pickImageBTN.setTitleColor(UIColor.white, for: .normal)
+        pickImageBTN.layer.shadowColor = UIColor.white.cgColor
+        pickImageBTN.layer.shadowRadius = 5
+        pickImageBTN.layer.shadowOpacity = 0.3
+        pickImageBTN.layer.shadowOffset = CGSize(width: 0, height: 0)
+        
+        
+        
+        // pickImageBTN.frame = CGRect(x: 300, y: 100, width: 50, height: 50)
         
         Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
             
@@ -183,12 +215,9 @@ picker.dismiss(animated: true, completion: nil)    }
         }
 }
     
-    
-   
-    
-    
-    
-    
 }
+
+
+
 
 

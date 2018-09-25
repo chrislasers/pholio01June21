@@ -5,14 +5,22 @@
 //  Created by Chris  Ransom on 4/9/18.
 //  Copyright © 2018 Chris Ransom. All rights reserved.
 //
-
 import UIKit
 import FirebaseCore
 import FirebaseDatabase
 import FirebaseAuth
 import Firebase
 import FirebaseStorage
+import SwiftKeychainWrapper
 import SwiftValidator
+import FBSDKCoreKit
+import FBSDKLoginKit
+import FacebookLogin
+import FacebookCore
+import LBTAComponents
+import JGProgressHUD
+
+
 import Photos
 import FirebaseFirestore
 
@@ -41,6 +49,13 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             error.errorLabel?.isHidden = false
         }
     }
+    
+    let hud: JGProgressHUD = {
+        let hud = JGProgressHUD(style: .light)
+        hud.interactionType = .blockAllTouches
+        return hud
+    }()
+    
 
     
     @IBOutlet weak var email: UITextField!
@@ -57,6 +72,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     @IBOutlet weak var passwordValid: UILabel!
     
     
+    @IBOutlet weak var fbValid: UILabel!
     
     
     
@@ -75,6 +91,46 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     
     override func viewDidLoad() {
         
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            
+            if Auth.auth().currentUser != nil
+            {
+                print("User Signed In")
+                //self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
+                
+            }  else {
+                
+                
+                print("User Not Signed In")
+            }
+        }
+        
+        
+        var signInWithFbButton: UIButton {
+            
+            // Add a custom login button to your app
+            let myLoginButton = UIButton(type: .custom)
+            myLoginButton.backgroundColor = UIColor(r: 73, g: 103, b: 173)
+            myLoginButton.frame = CGRect(x: 50, y: 560, width: view.frame.width - 105, height: 47)
+            myLoginButton.setTitle("Login with Facebook", for: .normal)
+            myLoginButton.setTitleColor(UIColor.white, for: .normal)
+            myLoginButton.layer.cornerRadius = 7
+            
+            myLoginButton.setImage(#imageLiteral(resourceName: "flogo_RGB_HEX-144").withRenderingMode(.automatic), for: .normal)
+            myLoginButton.tintColor = .white
+            myLoginButton.contentMode = .scaleAspectFill
+            
+            
+            myLoginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize:  16)
+            myLoginButton.layer.masksToBounds = true
+            // Handle clicks on the button
+            myLoginButton.addTarget(self, action: #selector(loginButtonClicked), for: .touchUpInside)
+            return myLoginButton
+        }
+        // Add the button to the view
+        view.addSubview(signInWithFbButton)
+        
+        
         
         password.keyboardType = .default
         password.placeholder = "Password"
@@ -85,16 +141,14 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         super.viewDidLoad()
         
+        fbValid.isHidden = true
+
+        
         
         self.signUpButton.backgroundColor = UIColor.black
-        
         signUpButton.setTitle("Continue", for: .normal)
-        
         signUpButton.layer.borderWidth = 1
-        
         signUpButton.layer.borderColor = UIColor.white.cgColor
-        
-      
         signUpButton.setTitleColor(UIColor.white, for: .normal)
         signUpButton.layer.shadowColor = UIColor.white.cgColor
         signUpButton.layer.shadowRadius = 5
@@ -232,6 +286,60 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         email.resignFirstResponder()
         password.resignFirstResponder()
             }
+    
+    
+    
+    //FACEBOOK INTEGRATION
+    
+    @objc func loginButtonClicked() {
+        
+        hud.textLabel.text =  "Logging in with Facebook..."
+        hud.show(in: view, animated: true)
+        
+        let loginManager = LoginManager()
+        loginManager.logIn(readPermissions:
+        [ .publicProfile, .email], viewController: self) { (result) in
+            switch result {
+            case .success(grantedPermissions: _, declinedPermissions: _, token: _):
+                
+                
+                print("Successfully logged into Facebook")
+                
+                
+                self.performSegue(withIdentifier: "toEditProfile", sender: nil)
+                
+                
+                
+                self.signIntoFirebase()
+                
+            case .failed(let error):
+                Service.dismissHud(self.hud, text: "Error", detailText: "Canceled getting Facebook user: \(error)", delay: 2)
+            case .cancelled:
+                Service.dismissHud(self.hud, text: "Error", detailText: "Canceled getting Facebook user", delay: 2)
+                break
+            }
+        }
+    }
+    
+    fileprivate func signIntoFirebase() {
+        
+        guard let authenticationToken = AccessToken.current?.authenticationToken else {return}
+        
+        let credential = FacebookAuthProvider.credential(withAccessToken: authenticationToken)
+        
+        Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+            if let error = error {
+                Service.dismissHud(self.hud, text: "Sign Up Error", detailText: error.localizedDescription, delay: 2)
+                return
+            }
+            
+            self.performSegue(withIdentifier: "toEditProfile", sender: nil)
+            print("Successfully logged into Firebase")
+            self.hud.dismiss(animated: true)
+            
+        }
+    }
+
 
    
     

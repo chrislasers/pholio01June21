@@ -69,6 +69,22 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     
     override func viewDidLoad() {
         
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            
+            if Auth.auth().currentUser != nil
+            {
+                print("User Signed In")
+                //self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
+                
+            }  else {
+                
+                
+                print("User Not Signed In")
+            }
+        }
+        
+        
+        
         
         
         imagePicker = UIImagePickerController()
@@ -81,6 +97,17 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         super.viewDidLoad()
         
+        self.signUpButton.backgroundColor = UIColor.black
+        signUpButton.setTitle("Continue", for: .normal)
+        signUpButton.layer.borderWidth = 1
+        signUpButton.layer.borderColor = UIColor.white.cgColor
+        signUpButton.setTitleColor(UIColor.white, for: .normal)
+        signUpButton.layer.shadowColor = UIColor.white.cgColor
+        signUpButton.layer.shadowRadius = 5
+        signUpButton.layer.shadowOpacity = 0.3
+        signUpButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+        
+        
         
         
         let db = Firestore.firestore()
@@ -91,7 +118,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         checkPermission()
         
         layoutProfile()
-        layoutChangePicButton()
+       layoutChangePicButton()
         
         
         configureTextFields()
@@ -145,6 +172,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         signUpButton.layer.shadowOpacity = 0.3
         signUpButton.layer.shadowOffset = CGSize(width: 0, height: 0)
         
+       
         
         
         
@@ -452,7 +480,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
                 tapToChangePic.heightAnchor.constraint(equalToConstant: 120),
                 tapToChangePic.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 //Prevent "Safe Area" in iPhone X
-                tapToChangePic.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 88)
+                tapToChangePic.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 150)
                 ])
         } else {
             // Fallback on earlier versions

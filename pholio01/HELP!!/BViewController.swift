@@ -47,11 +47,12 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     var arrImages: [[String: String]] = []
     
     var usersArray = [UserModel]()
+    var seenUsersArray = [UserModel]()
     
     lazy var refreshControl:UIRefreshControl = {
         
         let refreshControl = UIRefreshControl()
-         refreshControl.tintColor = .red
+        refreshControl.tintColor = .red
         
         refreshControl.addTarget(self, action: #selector(requestData), for: .valueChanged)
         
@@ -60,39 +61,37 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     }()
     
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-       
-        DBService.shared.currentUser.observeSingleEvent(of: .value) { (snapshot) in
-            
-            guard let userDict = snapshot.value as? [String: AnyObject] else { return }
-            
-            let currentUser = UserModel(withUserId: snapshot.key, dictionary: userDict)
-            Helper.Pholio.currentUser = currentUser
-            
-            guard let pairingWith = currentUser.pairingWith else { return }
-            
-            DBService.shared.getAllUsers(pairingWith: pairingWith, completion: { (usersArray) in
-                
-                self.usersArray = usersArray
-                self.collectionView.reloadData()
-            })
+        if Helper.Pholio.shouldRefreshFilteredList {
+            getFilteredUserList(refreshList: true)
+            Helper.Pholio.shouldRefreshFilteredList = false
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            
+            if Auth.auth().currentUser != nil
+            {
+                print("User Signed In")
+                //self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
+                
+            }  else {
+                
+                
+                print("User Not Signed In")
+            }
+        }
         
         
         
         collectionView.refreshControl = refreshControl
-       
         
-        
-       locationLabel.isHidden = true
+        locationLabel.isHidden = true
         
         map.isHidden = true
         map.showsUserLocation = true
@@ -103,9 +102,9 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         
         locationManager.requestWhenInUseAuthorization()
         
-    locationManager.startUpdatingLocation()
+        locationManager.startUpdatingLocation()
         
-    geoFireRef = Database.database().reference()
+        geoFireRef = Database.database().reference()
         
         geoFire = GeoFire(firebaseRef: (geoFireRef!.child("user_locations")))
         
@@ -132,13 +131,35 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         db.settings = settings
         
         collectionView.delegate = self
-         collectionView.dataSource = self
+        collectionView.dataSource = self
         collectionView.reloadData()
         
         self.addSlideMenuButton()
         
         // Do any additional setup after loading the view.
+        
+        getFilteredUserList(refreshList: false)
     }
+    
+    
+    
+    private func getFilteredUserList(refreshList: Bool) {
+        DBService.shared.currentUser.observeSingleEvent(of: .value) { (snapshot) in
+            
+            guard let userDict = snapshot.value as? [String: AnyObject] else { return }
+            
+            let currentUser = UserModel(withUserId: snapshot.key, dictionary: userDict)
+            Helper.Pholio.currentUser = currentUser
+            
+            DBService.shared.getFilteredUsers(refreshList: refreshList, completion: { (usersArray) in
+                self.usersArray = usersArray
+                self.collectionView.reloadData()
+            })
+            
+        }
+    }
+    
+    
     
     
     
@@ -152,6 +173,13 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        locationManager.stopUpdatingLocation()
+    }
+    
+    
+    
     
     /////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -159,29 +187,31 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     
     @objc func requestData() {
         
+        /*
+         DBService.shared.currentUser.observeSingleEvent(of: .value) { (snapshot) in
+         
+         guard let userDict = snapshot.value as? [String: AnyObject] else { return }
+         
+         let currentUser = UserModel(withUserId: snapshot.key, dictionary: userDict)
+         Helper.Pholio.currentUser = currentUser
+         
+         guard let pairingWith = currentUser.pairingWith else { return }
+         
+         DBService.shared.getAllUsers(pairingWith: pairingWith, completion: { (usersArray) in
+         
+         self.usersArray = usersArray
+         self.collectionView.reloadData()
+         })
+         }
+         */
         
-        DBService.shared.currentUser.observeSingleEvent(of: .value) { (snapshot) in
-            
-            guard let userDict = snapshot.value as? [String: AnyObject] else { return }
-            
-            let currentUser = UserModel(withUserId: snapshot.key, dictionary: userDict)
-            Helper.Pholio.currentUser = currentUser
-            
-            guard let pairingWith = currentUser.pairingWith else { return }
-            
-            DBService.shared.getAllUsers(pairingWith: pairingWith, completion: { (usersArray) in
-                
-                self.usersArray = usersArray
-                self.collectionView.reloadData()
-            })
-        }
-        
+        getFilteredUserList(refreshList: false)
         
         print("REQUEST DATA!!!")
         
         let deadline = DispatchTime.now() + .milliseconds(700)
         DispatchQueue.main.asyncAfter(deadline: deadline) {
-        self.refreshControl.endRefreshing()
+            self.refreshControl.endRefreshing()
         }
         
     }
@@ -191,38 +221,38 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         
         let location = locations[0]
         
-       let spanz:MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
+        let spanz:MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
         let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
         let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation,spanz)
-       map.setRegion(region, animated: true)
+        map.setRegion(region, animated: true)
         
         guard locations.last != nil else { return }
-       geoFire!.setLocation(location, forKey: (Auth.auth().currentUser?.uid)!)
+        geoFire!.setLocation(location, forKey: (Auth.auth().currentUser?.uid)!)
         
         
         print(location.coordinate)
-       
+        
         self.map.showsUserLocation = true
         
-    geoFireRef?.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Location": locationLabel.text!])
+        geoFireRef?.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Location": locationLabel.text!])
         
-       CLGeocoder().reverseGeocodeLocation(location) { (placemark, error) in
-          if error != nil
+        CLGeocoder().reverseGeocodeLocation(location) { (placemark, error) in
+            if error != nil
                 
-           {
+            {
                 
-               print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
-            return
+                print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
+                return
             }
             else
             {
-               if let place = placemark?[0] {
+                if let place = placemark?[0] {
                     
                     if place.thoroughfare != nil {
                         
                         
                         
-                       self.locationLabel.text = "\(place.thoroughfare!),\(place.country!)"
+                        self.locationLabel.text = "\(place.thoroughfare!),\(place.country!)"
                         
                         
                     }
@@ -322,5 +352,7 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     
     
 }
+
+
 
 

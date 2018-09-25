@@ -196,6 +196,7 @@
 				2A2F227920C4B47E00D05D01 /* EditGalleryVC.swift */,
 				2A2F227B20C4B5A400D05D01 /* SelectImageVC.swift */,
 				2AEED8F2213B10590082B110 /* UpdateVC.swift */,
+				2AEDED742142485200D03B1F /* PopUpVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -245,7 +246,6 @@
 				2A6DB00920FFA7BE00762C06 /* Other */,
 				2A31E1E3207BC769006CFF24 /* Main.storyboard */,
 				2A31E1E6207BC76A006CFF24 /* Assets.xcassets */,
-				2AEDED742142485200D03B1F /* PopUpVC.swift */,
 				2A31E1E8207BC76A006CFF24 /* LaunchScreen.storyboard */,
 				2A31E1EB207BC76A006CFF24 /* Info.plist */,
 				2A5C39192147A11E0094E5EB /* GoogleService-Info.plist */,

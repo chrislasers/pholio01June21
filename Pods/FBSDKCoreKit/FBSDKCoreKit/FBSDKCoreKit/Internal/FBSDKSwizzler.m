@@ -124,7 +124,7 @@ static void fb_swizzleMethod_4_io(id self, SEL _cmd, NSInteger arg, id arg2)
   }
 }
 
-static void (*fb_swizzledMethods[MAX_ARGS - MIN_ARGS + 1])() = {fb_swizzledMethod_2, fb_swizzledMethod_3, fb_swizzledMethod_4, fb_swizzledMethod_5};
+static void (*fb_swizzledMethods[MAX_ARGS - MIN_ARGS + 1])(void) = {fb_swizzledMethod_2, fb_swizzledMethod_3, fb_swizzledMethod_4, fb_swizzledMethod_5};
 
 @implementation FBSDKSwizzler
 

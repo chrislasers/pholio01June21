@@ -13,6 +13,11 @@ class Helper {
     struct Pholio {
         static var currentUser: UserModel!
         static var matchedUser: UserModel!
+        
+        static var shouldRefreshFilteredList = false
+        
+        static var allUsers = [UserModel]()
+        static var seenUsers = [UserModel]()
     }
     
 }

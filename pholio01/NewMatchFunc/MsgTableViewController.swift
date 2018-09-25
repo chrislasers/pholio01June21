@@ -11,7 +11,7 @@ import Firebase
 
 class ChatLogController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
     
-   
+    
     var user: UserModel? {
         didSet {
             
@@ -26,12 +26,12 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     var messagesDictionary = [String: Message]()
     
     func observeUserMessages() {
-       
+        
         guard let userID = Auth.auth().currentUser?.uid, let toId = user?.userId else {
             return
         }
         
-      
+        
         let ref = Database.database().reference().child("user-messages").child(userID).child(toId)
         ref.observe(.childAdded, with: { (snapshot) in
             
@@ -47,7 +47,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                     message.fromId = dictionary["fromId"] as? String ?? "Sender not found"
                     message.toId = dictionary["toId"] as? String ?? "Reciever not found"
                     message.timestamp = dictionary["timestamp"] as? NSNumber
-                   
+                    
                     
                     self.messages.append(message)
                     
@@ -80,15 +80,27 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         super.viewDidLoad()
         
         
-        
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            
+            if Auth.auth().currentUser != nil
+            {
+                print("User Signed In")
+                //self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
+                
+            }  else {
+                
+                
+                print("User Not Signed In")
+            }
+        }
         
         collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
-
+        
         collectionView?.alwaysBounceVertical = true
         collectionView?.backgroundColor = UIColor.white
         collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
         collectionView?.keyboardDismissMode = .interactive
-}
+    }
     
     
     
@@ -135,7 +147,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     
     
     let cellId = "cellId"
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
     }
@@ -147,11 +159,11 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         cell.textView.text = message.text
         
         setupCell(cell: cell, message: message)
-
+        
         
         
         //lets modify the bubbleView's width somehow???
-
+        
         if let text = message.text {
             cell.bubbleWidthAnchor?.constant = estimateFrameforText(text: text).width + 32
         }
@@ -170,25 +182,25 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         }
         
         
-       
+        
         
         if message.fromId == Auth.auth().currentUser?.uid {
             //outgoing blue bubbles
             cell.bubbleView.backgroundColor = ChatMessageCell.blueColor
             cell.textView.textColor = UIColor.white
             cell.profileImageView.isHidden = true
-
+            
             
             cell.bubbleViewRightAnchor?.isActive = true
             cell.bubbleViewLeftAnchor?.isActive = false
-
+            
             
         } else {
             //omcoming grey
             cell.bubbleView.backgroundColor = UIColor(r: 220, g: 220, b: 220)
             cell.textView.textColor = UIColor.black
             cell.profileImageView.isHidden = false
-
+            
             
             cell.bubbleViewRightAnchor?.isActive = false
             cell.bubbleViewLeftAnchor?.isActive = true
@@ -221,7 +233,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     var containerViewBottomAnchor: NSLayoutConstraint?
-
+    
     
     lazy var inputContainerView: UIView = {
         let containerView = UIView()
@@ -288,18 +300,18 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     private func sendMessageWithProperties(properties: [String: Any]) {
         let ref = Database.database().reference().child("messages")
         let childRef = ref.childByAutoId()
-        //is it there best thing to include the name inside of the message node        
-       // let profileImageUrl = user!.profileImageUrl
+        //is it there best thing to include the name inside of the message node
+        // let profileImageUrl = user!.profileImageUrl
         let toId = user!.userId!
         let fromId = Auth.auth().currentUser!.uid
         let timestamp = Int(Date().timeIntervalSince1970)
         var values = [ "toId": toId, "fromId": fromId, "timestamp": timestamp] as [String : Any]
-       // childRef.updateChildValues(values)
+        // childRef.updateChildValues(values)
         
         properties.forEach({values[$0.0] = $0.1})
-
         
-
+        
+        
         
         childRef.updateChildValues(values) { (error, ref) in
             if error != nil {
@@ -309,7 +321,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
             
             
             self.inputTextField.text = nil
-
+            
             let userMessagesRef = Database.database().reference().child("user-messages").child(fromId).child(toId)
             
             let messageId = childRef.key

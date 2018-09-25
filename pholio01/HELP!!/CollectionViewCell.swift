@@ -23,6 +23,8 @@ class CollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var storyImages: UIImageView!
     
+    
+    
    
 
     
@@ -30,9 +32,13 @@ class CollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
                 
         self.storyImages.layer.cornerRadius = self.storyImages.frame.size.height / 2;
-        self.storyImages.layer.borderColor = UIColor.red.cgColor
+        self.storyImages.layer.borderColor = UIColor.white.cgColor
         self.storyImages.layer.borderWidth = 3
         self.storyImages.clipsToBounds = true
+        storyImages.contentMode = .scaleAspectFill
+        self.storyImages.layer.shadowRadius = 7
+        self.storyImages.layer.shadowOpacity = 0.6
+        self.storyImages.layer.shadowOffset = CGSize(width: 0, height: 0)
     }
     
     override func prepareForReuse() {

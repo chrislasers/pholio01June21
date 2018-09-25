@@ -87,8 +87,8 @@ static NSString *const FBSDKVideoUploaderEdge = @"videos";
       } else if (offsetDictionary == nil) {
         return;
       }
-      _uploadSessionID = uploadSessionID;
-      _videoID = videoID;
+        self->_uploadSessionID = uploadSessionID;
+        self->_videoID = videoID;
       [self _startTransferRequestWithOffsetDictionary:offsetDictionary];
     }
   };
@@ -131,13 +131,13 @@ static NSString *const FBSDKVideoUploaderEdge = @"videos";
       }
       dispatch_async(dispatch_get_main_queue(), ^{
         FBSDKGraphRequestDataAttachment *dataAttachment = [[FBSDKGraphRequestDataAttachment alloc] initWithData:data
-                                                                                                       filename:_videoName
+                                                                                                       filename:self->_videoName
                                                                                                     contentType:nil];
-        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:_graphPath
+          FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:self->_graphPath
                                                                        parameters:@{
                                                                                     FBSDK_SHARE_VIDEO_UPLOAD_PHASE: FBSDK_SHARE_VIDEO_UPLOAD_PHASE_TRANSFER,
                                                                                     FBSDK_SHARE_VIDEO_START_OFFSET: offsetDictionary[FBSDK_SHARE_VIDEO_START_OFFSET],
-                                                                                    FBSDK_SHARE_VIDEO_UPLOAD_SESSION_ID: _uploadSessionID,
+                                                                                    FBSDK_SHARE_VIDEO_UPLOAD_SESSION_ID: self->_uploadSessionID,
                                                                                     FBSDK_SHARE_VIDEO_FILE_CHUNK: dataAttachment,
                                                                                     }
                                                                        HTTPMethod:@"POST"];

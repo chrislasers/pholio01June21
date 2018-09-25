@@ -96,19 +96,15 @@ class PairWithVC: UIViewController {
     
     
     @IBAction func pPressed(_ sender: Any) {
-        
         self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Pairing With": Photographer])
+        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["PairingFilter": PairingFilter.photographer.rawValue])
         
         self.performSegue(withIdentifier: "toEditProfile", sender: nil)
-        
     }
-    
-    
-    
     
     @IBAction func mPressed(_ sender: Any) {
         self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Pairing With": Model])
-        
+        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["PairingFilter": PairingFilter.model.rawValue])
         self.performSegue(withIdentifier: "toEditProfile", sender: nil)
     }
     

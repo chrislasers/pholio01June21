@@ -74,6 +74,9 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
     @IBOutlet weak var signUpButton: UIButton!
     
     
+    @IBOutlet weak var locationName: UILabel!
+    
+    
     let validator = Validator()
 
     
@@ -105,6 +108,42 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         
         
         super.viewDidLoad()
+        
+        
+        genderTapped.backgroundColor = UIColor.black
+        genderTapped.layer.borderWidth = 1.5
+        genderTapped.layer.borderColor = UIColor.white.cgColor
+        genderTapped.layer.cornerRadius = genderTapped.frame.height / 2
+        genderTapped.layer.shadowColor = UIColor.white.cgColor
+        genderTapped.layer.shadowRadius = 7
+        genderTapped.layer.shadowOpacity = 0.2
+        genderTapped.layer.shadowOffset = CGSize(width: 0, height: 0)
+        
+        self.signUpButton.backgroundColor = UIColor.black
+        signUpButton.setTitle("Continue", for: .normal)
+        signUpButton.layer.borderWidth = 1
+        signUpButton.layer.borderColor = UIColor.white.cgColor
+        signUpButton.setTitleColor(UIColor.white, for: .normal)
+        signUpButton.layer.shadowColor = UIColor.white.cgColor
+        signUpButton.layer.shadowRadius = 5
+        signUpButton.layer.shadowOpacity = 0.3
+        signUpButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+        
+        
+        
+        
+        
+         genderTapped.frame = CGRect(x: 50, y: 660, width: view.frame.width - 105, height: 60)
+        
+         HourlyRate.frame = CGRect(x: 50, y: 600, width: view.frame.width - 105, height: 47)
+        
+        Age.frame = CGRect(x: 50, y: 580, width: view.frame.width - 105, height: 47)
+        
+          locationLabel.frame = CGRect(x: 50, y: 475, width: view.frame.width - 105, height: 47)
+        
+         locationName.frame = CGRect(x: 50, y: 500, width: view.frame.width - 105, height: 47)
+        
+        
         
         validator.styleTransformers(success:{ (validationRule) -> Void in
             print("here")
@@ -220,6 +259,7 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
    
    
     
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let location = locations[0]
@@ -232,6 +272,8 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         guard locations.last != nil else { return }
         geoFire!.setLocation(location, forKey: (Auth.auth().currentUser?.uid)!)
         
+        let locationRef = Database.database().reference().child("Users").child(Auth.auth().currentUser!.uid)
+        locationRef.child("lat_lon").setValue("\(location.coordinate.latitude)_\(location.coordinate.longitude)")
         
         print(location.coordinate)
         
@@ -240,28 +282,28 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         geoFireRef?.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Location": locationLabel.text!])
         
         CLGeocoder().reverseGeocodeLocation(location) { (placemark, error) in
-          if error != nil
-            
-          {
-
-            print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
-            return
+            if error != nil
+                
+            {
+                
+                print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
+                return
             }
             else
-          {
-            if let place = placemark?[0] {
-                
-                if place.thoroughfare != nil {
+            {
+                if let place = placemark?[0] {
                     
-                   
-                
-               self.locationLabel.text = "\(place.thoroughfare!),\(place.country!)"
-                    
-                
+                    if place.thoroughfare != nil {
+                        
+                        
+                        
+                        self.locationLabel.text = "\(place.thoroughfare!),\(place.country!)"
+                        
+                        
+                    }
                 }
             }
-            }
-    }
+        }
     }
     
     @objc func keyboardWillChange(notification: Notification) {
@@ -294,8 +336,11 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         super.viewWillDisappear(animated)
         Age.resignFirstResponder()
         HourlyRate.resignFirstResponder()
+        locationManager.stopUpdatingLocation()
+
     }
     
+  
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -476,14 +521,31 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
     @IBAction func confirmBTN(_ sender: Any) {
         
         validator.validate(self)
-
-         guard let Age = Age.text, let hourlyRate = HourlyRate.text else {return}
         
-        self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).childByAutoId().setValue(["Age": Int(Age), "Hourly Rate": Int(hourlyRate)])
+        guard let Age = Age.text, let hourlyRate = HourlyRate.text else {return}
+        
+        //self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).childByAutoId().setValue(["Age": Int(Age), "Hourly Rate": Int(hourlyRate)])
+        
+        let childUpdates: [String: Any] = [
+            "/dateCreated": Date().timeIntervalSince1970,
+            "/Age": Int(Age) ?? 0,
+            "/Hourly Rate": Int(hourlyRate) ?? 0,
+            "/GenderFilter": GenderFilter.both.rawValue // this is the default value can be changed to .male and .female
+        ]
+        
+        let userRef = ref.child("Users").child(Auth.auth().currentUser!.uid)
+        userRef.updateChildValues(childUpdates)
+        
+        // set the age
+        //userRef.child("Age").setValue(Int(Age))
+        
+        // set the hourly rate
+        //userRef.child("Hourly Rate").setValue(Int(hourlyRate))
         
         self.performSegue(withIdentifier: "toHomePage", sender: self)
-
+        
     }
+    
     
     
     
@@ -502,13 +564,17 @@ extension EditProfile: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // update the gender
+        let genderRef = ref.child("Users").child(Auth.auth().currentUser!.uid).child("Gender")
+        genderRef.setValue(list[indexPath.row])
+        
         genderTapped.setTitle("\(list[indexPath.row])", for: .normal)
         animate(toggle: false, type: genderTapped)
     }
-
+    
     
 }
-
 
 
 

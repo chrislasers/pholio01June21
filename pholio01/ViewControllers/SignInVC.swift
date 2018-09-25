@@ -100,7 +100,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         // Add a custom login button to your app
             let myLoginButton = UIButton(type: .custom)
         myLoginButton.backgroundColor = UIColor(r: 73, g: 103, b: 173)
-        myLoginButton.frame = CGRect(x: 15, y: 660, width: view.frame.width - 30, height: 47)
+        myLoginButton.frame = CGRect(x: 50, y: 660, width: view.frame.width - 105, height: 47)
             myLoginButton.setTitle("Login with Facebook", for: .normal)
             myLoginButton.setTitleColor(UIColor.white, for: .normal)
             myLoginButton.layer.cornerRadius = 7
@@ -161,19 +161,20 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         
-        
-        //Auth.auth().addStateDidChangeListener { (auth, user) in
+        Auth.auth().addStateDidChangeListener { (auth, user) in
             
-         //if Auth.auth().currentUser != nil
-           // {
-           //     print("User Signed In")
-            //    self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
-             //
-          //  else {
-           //     print("User Not Signed In")
-                // ...
-           // }
-       // }
+         if Auth.auth().currentUser != nil
+            {
+                print("User Signed In")
+                //self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
+            
+         }  else {
+                
+                
+            print("User Not Signed In")
+            }
+       }
+        
         
         configureTextFields()
         

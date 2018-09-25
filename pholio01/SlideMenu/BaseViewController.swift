@@ -21,6 +21,8 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
     func slideMenuItemSelectedAtIndex(_ index: Int32) {
         let topViewController : UIViewController = self.navigationController!.topViewController!
         print("View Controller is : \(topViewController) \n", terminator: "")
@@ -32,42 +34,24 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             
             break
         case 1:
-            print("Subscription\n", terminator: "")
+            print("Filters\n", terminator: "")
             
-            self.openViewControllerBasedOnIdentifier("Transactions")
+            self.openViewControllerBasedOnIdentifier("Filters")
             
             break
         case 2:
             print("Favorites\n", terminator: "")
             
-            self.openViewControllerBasedOnIdentifier("Favorites")
-            
-            break
-        case 3:
-            print("Home\n", terminator: "")
-            
-            self.openViewControllerBasedOnIdentifier("Bookings")
-            
-            break
-        case 4:
-            print("Play\n", terminator: "")
-            
-            self.openViewControllerBasedOnIdentifier("Notifications")
-            
-            break
-        case 5:
-            print("Favorites\n", terminator: "")
-            
             self.openViewControllerBasedOnIdentifier("GetHelp")
             
             break
-        case 6:
-            print("Favorites\n", terminator: "")
+        case 3:
+            print("Settings\n", terminator: "")
             
             self.openViewControllerBasedOnIdentifier("Settings")
             
             break
-        case 7:
+        case 4:
             print("LogOut\n", terminator: "")
             
             
