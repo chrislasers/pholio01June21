@@ -233,50 +233,49 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     }
     
     
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        let location = locations[0]
-        
-        let spanz:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
-        let region:MKCoordinateRegion = MKCoordinateRegion(center: myLocation,span: spanz)
-        map.setRegion(region, animated: true)
-        
-       guard locations.last != nil else { return }
-        
-        geoFire!.setLocation(location, forKey: (Auth.auth().currentUser?.uid)!)
-        
-        
-        print(location.coordinate)
-        
-        self.map.showsUserLocation = true
-        
-        geoFireRef?.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Location": locationLabel.text!])
-        
-        CLGeocoder().reverseGeocodeLocation(location) { (placemark, error) in
-            if error != nil
-                
-            {
-                
-                print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
-                return
-            }
-            else
-            {
-                if let place = placemark?[0] {
+        if let userId = Auth.auth().currentUser?.uid {
+            
+            let location = locations[0]
+            
+            let spanz:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+            let region:MKCoordinateRegion = MKCoordinateRegion(center: myLocation,span: spanz)
+            map.setRegion(region, animated: true)
+            
+            guard locations.last != nil else { return }
+            
+            geoFire!.setLocation(location, forKey: (userId))
+            
+            print(location.coordinate)
+            
+            self.map.showsUserLocation = true
+            
+            geoFireRef?.child("Users").child(userId).updateChildValues(["Location": locationLabel.text!])
+            
+            CLGeocoder().reverseGeocodeLocation(location) { (placemark, error) in
+                if error != nil
                     
-                    if place.thoroughfare != nil {
+                {
+                    
+                    print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
+                    return
+                }
+                else
+                {
+                    if let place = placemark?[0] {
                         
-                        
-                        
-                        self.locationLabel.text = "\(place.thoroughfare!),\(place.country!)"
-                        
-                        
+                        if place.thoroughfare != nil {
+                            
+                            self.locationLabel.text = "(place.thoroughfare!),(place.country!)"
+                            
+                        }
                     }
                 }
             }
         }
+        
     }
     
     

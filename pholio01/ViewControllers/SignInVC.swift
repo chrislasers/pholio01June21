@@ -160,23 +160,17 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate, CLLoc
         signUp.addTarget(self, action: #selector(setButtonUnselected(button:)), for: .touchUpInside)
         
         
+        if Auth.auth().currentUser != nil {
+            print("User Signed In")
+            self.performSegue(withIdentifier: "homepageVC", sender: nil)
+        } else {
+            print("User Not Signed In")
+
+        }
         
         
         
-       Auth.auth().addStateDidChangeListener { (auth, user) in
-            
-       if Auth.auth().currentUser != nil
-         {
-             print("User Signed In")
-               self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
-            
-    else {
-                
-    
-          print("User Not Signed In")
-        
-           }
-}
+       
         
         
         configureTextFields()
@@ -590,7 +584,7 @@ override func didReceiveMemoryWarning() {
         guard let email = email.text, let password = password.text else {return}
 
         
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+        Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error)  in
             if user != nil {
                 
                self.performSegue(withIdentifier: "homepageVC", sender: nil)
@@ -615,7 +609,7 @@ override func didReceiveMemoryWarning() {
                 
                 }
                         
-            }
+            })
         }
     }
 
