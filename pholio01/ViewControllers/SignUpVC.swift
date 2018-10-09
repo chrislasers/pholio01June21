@@ -11,7 +11,6 @@ import FirebaseDatabase
 import FirebaseAuth
 import Firebase
 import FirebaseStorage
-import SwiftKeychainWrapper
 import SwiftValidator
 import FBSDKCoreKit
 import FBSDKLoginKit
@@ -19,8 +18,6 @@ import FacebookLogin
 import FacebookCore
 import LBTAComponents
 import JGProgressHUD
-
-
 import Photos
 import FirebaseFirestore
 
@@ -43,7 +40,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             
             if let field = field as? UITextField {
                 field.layer.borderColor = UIColor.red.cgColor
-                field.layer.borderWidth = 1.0
+                field.layer.borderWidth = 0.2
             }
             error.errorLabel?.text = error.errorMessage // works if you added labels
             error.errorLabel?.isHidden = false
@@ -75,6 +72,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     @IBOutlet weak var fbValid: UILabel!
     
     
+    @IBOutlet var orBTN: UILabel!
     
     var imagePicker:UIImagePickerController!
     var selectedImage: UIImage!
@@ -111,7 +109,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             // Add a custom login button to your app
             let myLoginButton = UIButton(type: .custom)
             myLoginButton.backgroundColor = UIColor(r: 73, g: 103, b: 173)
-            myLoginButton.frame = CGRect(x: 50, y: 560, width: view.frame.width - 105, height: 47)
+            myLoginButton.frame = CGRect(x: 50, y: 465, width: view.frame.width - 105, height: 47)
             myLoginButton.setTitle("Login with Facebook", for: .normal)
             myLoginButton.setTitleColor(UIColor.white, for: .normal)
             myLoginButton.layer.cornerRadius = 7
@@ -121,7 +119,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             myLoginButton.contentMode = .scaleAspectFill
             
             
-            myLoginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize:  16)
+            myLoginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize:  18)
             myLoginButton.layer.masksToBounds = true
             // Handle clicks on the button
             myLoginButton.addTarget(self, action: #selector(loginButtonClicked), for: .touchUpInside)
@@ -133,11 +131,11 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         password.keyboardType = .default
-        password.placeholder = "Password"
+        //password.placeholder = "Password"
         
         
         email.keyboardType = .emailAddress
-        email.placeholder = "Email Address"
+        //email.placeholder = "Email Address"
         
         super.viewDidLoad()
         
@@ -145,12 +143,12 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
 
         
         
-        self.signUpButton.backgroundColor = UIColor.black
+        self.signUpButton.backgroundColor = UIColor.orange
         signUpButton.setTitle("Continue", for: .normal)
         signUpButton.layer.borderWidth = 1
-        signUpButton.layer.borderColor = UIColor.white.cgColor
+        signUpButton.layer.borderColor = UIColor.orange.cgColor
         signUpButton.setTitleColor(UIColor.white, for: .normal)
-        signUpButton.layer.shadowColor = UIColor.white.cgColor
+        signUpButton.layer.shadowColor = UIColor.black.cgColor
         signUpButton.layer.shadowRadius = 5
         signUpButton.layer.shadowOpacity = 0.3
         signUpButton.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -174,7 +172,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             validationRule.errorLabel?.text = ""
             if let textField = validationRule.field as? UITextField {
                 textField.layer.borderColor = UIColor.green.cgColor
-                textField.layer.borderWidth = 0.5
+                textField.layer.borderWidth = 0.2
                 
             }
         }, error:{ (validationError) -> Void in
@@ -245,24 +243,24 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
     
         //////////////Listens For Keyboard Events
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
     }
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     @objc func keyboardWillChange(notification: Notification) {
         
-        guard ((notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil else {
+        guard ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil else {
             return
         }
-        if notification.name == Notification.Name.UIKeyboardWillShow ||
-            notification.name == Notification.Name.UIKeyboardWillChangeFrame {
+        if notification.name == UIResponder.keyboardWillShowNotification ||
+            notification.name == UIResponder.keyboardWillChangeFrameNotification {
             view.frame.origin.y = -160
         } else {
             
@@ -277,7 +275,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: UIResponder.keyboardWillShowNotification, object: nil)
         
     }
     
@@ -287,6 +285,14 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         password.resignFirstResponder()
             }
     
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        // sender object is an instance of UITouch in this case
+        let touch = sender as! UITouch
+        
+        // Access the circleOrigin property and assign preferred CGPoint
+        (segue as! OHCircleSegue).circleOrigin = touch.location(in: view)
+    }
     
     
     //FACEBOOK INTEGRATION
@@ -420,7 +426,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         }
     
         
-        func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+    private func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
             return
         }
     
@@ -495,8 +501,10 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     
     
     @IBAction func cancelPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let signinvc = storyboard.instantiateViewController(withIdentifier: "signinvc")
+        
+        self.present(signinvc, animated: true, completion: nil)    }
     
     func signUpButton(enabled:Bool) {
         
@@ -528,12 +536,27 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         guard let email = email.text, let password = password.text else {return}
        
+        Auth.auth().fetchProviders(forEmail: self.email.text!, completion: {
+            (providers, error) in
+            
+            if let error = error {
+                print(error.localizedDescription)
+                print("Email Address Already In Use")
+            } else if let providers = providers {
+                print(providers)
+            }
+        })
 
    
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
             
             if error != nil {
                 print(error?.localizedDescription as Any)
+                
+                let emailNotSentAlert = UIAlertController(title: "Email Verification", message: "Email failed to send: \(String(describing: error?.localizedDescription) as Any)", preferredStyle: .alert)
+                  emailNotSentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                   self.present(emailNotSentAlert, animated: true, completion: nil)
+                
                 return
                 }
             else

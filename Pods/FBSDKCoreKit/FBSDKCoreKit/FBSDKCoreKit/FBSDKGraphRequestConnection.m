@@ -76,7 +76,8 @@ static FBSDKAccessToken *_CreateExpiredAccessToken(FBSDKAccessToken *accessToken
                                                  appID:accessToken.appID
                                                 userID:accessToken.userID
                                         expirationDate:expirationDate
-                                           refreshDate:expirationDate];
+                                           refreshDate:expirationDate
+                                           dataAccessExpirationDate:expirationDate];
 }
 #endif
 
@@ -726,9 +727,9 @@ NSURLSessionDataDelegate
 
 #if !TARGET_OS_TV
     if (resultError && ![metadata.request isGraphErrorRecoveryDisabled] && isSingleRequestToRecover) {
-        self->_recoveringRequestMetadata = metadata;
-        self->_errorRecoveryProcessor = [[FBSDKGraphErrorRecoveryProcessor alloc] init];
-        if ([self->_errorRecoveryProcessor processError:resultError request:metadata.request delegate:self]) {
+      self->_recoveringRequestMetadata = metadata;
+      self->_errorRecoveryProcessor = [[FBSDKGraphErrorRecoveryProcessor alloc] init];
+      if ([self->_errorRecoveryProcessor processError:resultError request:metadata.request delegate:self]) {
         return;
       }
     }
@@ -753,9 +754,9 @@ NSURLSessionDataDelegate
     }
     [metadata invokeCompletionHandlerForConnection:self withResults:body error:error];
 
-      if (--self->_expectingResults == 0) {
-          if (canNotifyDelegate && [self->_delegate respondsToSelector:@selector(requestConnectionDidFinishLoading:)]) {
-          [self->_delegate requestConnectionDidFinishLoading:self];
+    if (--self->_expectingResults == 0) {
+      if (canNotifyDelegate && [self->_delegate respondsToSelector:@selector(requestConnectionDidFinishLoading:)]) {
+        [self->_delegate requestConnectionDidFinishLoading:self];
       }
     }
   };
@@ -793,7 +794,7 @@ NSURLSessionDataDelegate
           adapter.forceBlockingRenew = YES;
         } else {
           [adapter renewSystemAuthorization:^(ACAccountCredentialRenewResult result, NSError *renewError) {
-              NSOperationQueue *queue = self->_delegateQueue ?: [NSOperationQueue mainQueue];
+            NSOperationQueue *queue = self->_delegateQueue ?: [NSOperationQueue mainQueue];
             [queue addOperationWithBlock:^{
               clearToken(errorSubcode);
               finishAndInvokeCompletionHandler();
@@ -806,7 +807,7 @@ NSURLSessionDataDelegate
     } else if (errorCode >= 200 && errorCode < 300) {
       // permission error
       [adapter renewSystemAuthorization:^(ACAccountCredentialRenewResult result, NSError *renewError) {
-          NSOperationQueue *queue = self->_delegateQueue ?: [NSOperationQueue mainQueue];
+        NSOperationQueue *queue = self->_delegateQueue ?: [NSOperationQueue mainQueue];
         [queue addOperationWithBlock:finishAndInvokeCompletionHandler];
       }];
       return;
@@ -1028,8 +1029,8 @@ totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend
     FBSDKGraphRequestMetadata *retryMetadata = [[FBSDKGraphRequestMetadata alloc] initWithRequest:retryRequest completionHandler:_recoveringRequestMetadata.completionHandler batchParameters:_recoveringRequestMetadata.batchParameters];
     [retryRequest startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *retriedError) {
       [self processResultBody:result error:retriedError metadata:retryMetadata canNotifyDelegate:YES];
-        self->_errorRecoveryProcessor = nil;
-        self->_recoveringRequestMetadata = nil;
+      self->_errorRecoveryProcessor = nil;
+      self->_recoveringRequestMetadata = nil;
     }];
   } else {
     [self processResultBody:nil error:error metadata:_recoveringRequestMetadata canNotifyDelegate:YES];

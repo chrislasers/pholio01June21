@@ -35,6 +35,7 @@
 		2A4A4B1C20826AAC0069D5C6 /* PairWithVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A4B1B20826AAC0069D5C6 /* PairWithVC.swift */; };
 		2A4A4B2020826BF70069D5C6 /* HomePageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A4B1F20826BF70069D5C6 /* HomePageVC.swift */; };
 		2A4D91E320A9E58B0018A3D1 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4D91E220A9E58A0018A3D1 /* Service.swift */; };
+		2A5B22032164075600C9F6C2 /* OHCircleSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5B22022164075600C9F6C2 /* OHCircleSegue.swift */; };
 		2A5C391A2147A11E0094E5EB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A5C39192147A11E0094E5EB /* GoogleService-Info.plist */; };
 		2A6789D1208987C1003FAAA9 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6789D0208987C1003FAAA9 /* AlertController.swift */; };
 		2A78E439214C6D0A00FE0728 /* FilterButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A78E438214C6D0A00FE0728 /* FilterButtons.swift */; };
@@ -55,6 +56,13 @@
 		2AC47CB720F2CB2400CA5B4D /* output.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2AC47CB420F2CB2400CA5B4D /* output.mp4 */; };
 		2AC47CB820F2CB2400CA5B4D /* output3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2AC47CB520F2CB2400CA5B4D /* output3.mp4 */; };
 		2AC47CB920F2CB2400CA5B4D /* output2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2AC47CB620F2CB2400CA5B4D /* output2.mp4 */; };
+		2AC817E8215EB6EF00A02A3B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AC817E7215EB6EF00A02A3B /* MapKit.framework */; };
+		2AD953082166B0E400DACDC0 /* selectUserTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD953072166B0E400DACDC0 /* selectUserTypeVC.swift */; };
+		2AD9530E2167B6F300DACDC0 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD9530D2167B6F300DACDC0 /* SettingsVC.swift */; };
+		2AD953102167B70D00DACDC0 /* GetHelpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD9530F2167B70D00DACDC0 /* GetHelpVC.swift */; };
+		2AD953122167BACE00DACDC0 /* NewUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD953112167BACE00DACDC0 /* NewUpdateVC.swift */; };
+		2AD953142167BAF200DACDC0 /* NewSelectImagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD953132167BAF200DACDC0 /* NewSelectImagesVC.swift */; };
+		2AD953162167BCAC00DACDC0 /* NewUploadPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD953152167BCAC00DACDC0 /* NewUploadPresenter.swift */; };
 		2AEDED6F213F73FF00D03B1F /* CTBottomSlideController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDED6C213F73FF00D03B1F /* CTBottomSlideController.swift */; };
 		2AEDED70213F73FF00D03B1F /* CTBottomSlideTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDED6D213F73FF00D03B1F /* CTBottomSlideTableDelegate.swift */; };
 		2AEDED71213F73FF00D03B1F /* CTPanGestureRecognizerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDED6E213F73FF00D03B1F /* CTPanGestureRecognizerExtension.swift */; };
@@ -112,6 +120,7 @@
 		2A4A4B1B20826AAC0069D5C6 /* PairWithVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairWithVC.swift; sourceTree = "<group>"; };
 		2A4A4B1F20826BF70069D5C6 /* HomePageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageVC.swift; sourceTree = "<group>"; };
 		2A4D91E220A9E58A0018A3D1 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		2A5B22022164075600C9F6C2 /* OHCircleSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OHCircleSegue.swift; sourceTree = "<group>"; };
 		2A5C39192147A11E0094E5EB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2A6789D0208987C1003FAAA9 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		2A78E438214C6D0A00FE0728 /* FilterButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtons.swift; sourceTree = "<group>"; };
@@ -132,6 +141,13 @@
 		2AC47CB420F2CB2400CA5B4D /* output.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = output.mp4; sourceTree = "<group>"; };
 		2AC47CB520F2CB2400CA5B4D /* output3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = output3.mp4; sourceTree = "<group>"; };
 		2AC47CB620F2CB2400CA5B4D /* output2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = output2.mp4; sourceTree = "<group>"; };
+		2AC817E7215EB6EF00A02A3B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		2AD953072166B0E400DACDC0 /* selectUserTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectUserTypeVC.swift; sourceTree = "<group>"; };
+		2AD9530D2167B6F300DACDC0 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		2AD9530F2167B70D00DACDC0 /* GetHelpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHelpVC.swift; sourceTree = "<group>"; };
+		2AD953112167BACE00DACDC0 /* NewUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUpdateVC.swift; sourceTree = "<group>"; };
+		2AD953132167BAF200DACDC0 /* NewSelectImagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSelectImagesVC.swift; sourceTree = "<group>"; };
+		2AD953152167BCAC00DACDC0 /* NewUploadPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUploadPresenter.swift; sourceTree = "<group>"; };
 		2AEDED6C213F73FF00D03B1F /* CTBottomSlideController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTBottomSlideController.swift; sourceTree = "<group>"; };
 		2AEDED6D213F73FF00D03B1F /* CTBottomSlideTableDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTBottomSlideTableDelegate.swift; sourceTree = "<group>"; };
 		2AEDED6E213F73FF00D03B1F /* CTPanGestureRecognizerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTPanGestureRecognizerExtension.swift; sourceTree = "<group>"; };
@@ -162,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A42585F20BBC3B8006B0146 /* CoreLocation.framework in Frameworks */,
+				2AC817E8215EB6EF00A02A3B /* MapKit.framework in Frameworks */,
 				FFDD85588F312A161005339E /* Pods_pholio01.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				2A2F226D20C2622000D05D01 /* UploadPresenter.swift */,
+				2AD953152167BCAC00DACDC0 /* NewUploadPresenter.swift */,
 				2A2F227320C269C100D05D01 /* UploadimageCell.swift */,
 				2A2F227D20C4C35C00D05D01 /* UploadImagePresenter.swift */,
 				2A0B0CA420CB3665009675B8 /* UploadImageOperation.swift */,
@@ -190,6 +208,7 @@
 				2A31E1F5207BD0DE006CFF24 /* SignInVC.swift */,
 				2A31E1F7207BD0F7006CFF24 /* SignUpVC.swift */,
 				2A4A4B1F20826BF70069D5C6 /* HomePageVC.swift */,
+				2AD953072166B0E400DACDC0 /* selectUserTypeVC.swift */,
 				2AF4D9662092579A005D3C66 /* chooseusertypeVC.swift */,
 				2A4A4B1B20826AAC0069D5C6 /* PairWithVC.swift */,
 				2A40223F20B6BEB0001F2F38 /* EditProfile.swift */,
@@ -197,6 +216,10 @@
 				2A2F227B20C4B5A400D05D01 /* SelectImageVC.swift */,
 				2AEED8F2213B10590082B110 /* UpdateVC.swift */,
 				2AEDED742142485200D03B1F /* PopUpVC.swift */,
+				2AD9530D2167B6F300DACDC0 /* SettingsVC.swift */,
+				2AD9530F2167B70D00DACDC0 /* GetHelpVC.swift */,
+				2AD953112167BACE00DACDC0 /* NewUpdateVC.swift */,
+				2AD953132167BAF200DACDC0 /* NewSelectImagesVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -232,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				2AEED90D213F06270082B110 /* pholio01.entitlements */,
+				2A5B22022164075600C9F6C2 /* OHCircleSegue.swift */,
 				2A31E1DF207BC769006CFF24 /* AppDelegate.swift */,
 				2A31E1E1207BC769006CFF24 /* ViewController.swift */,
 				2A4D91E220A9E58A0018A3D1 /* Service.swift */,
@@ -357,6 +381,7 @@
 		FDD0BAD480B8D7C7C7DFC32E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2AC817E7215EB6EF00A02A3B /* MapKit.framework */,
 				2A42585E20BBC3B8006B0146 /* CoreLocation.framework */,
 				2F49E4E484B4A53584B7ECEC /* Pods_pholio01.framework */,
 			);
@@ -401,7 +426,13 @@
 						LastSwiftMigration = 0940;
 						SystemCapabilities = {
 							com.apple.Keychain = {
-								enabled = 0;
+								enabled = 1;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
 							};
 						};
 					};
@@ -451,9 +482,6 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-pholio01/Pods-pholio01-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/BSGridCollectionViewLayout/BSGridCollectionViewLayout.framework",
-				"${BUILT_PRODUCTS_DIR}/BSImagePicker/BSImagePicker.framework",
-				"${BUILT_PRODUCTS_DIR}/BSImageView/BSImageView.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/CTSlidingUpPanel/CTSlidingUpPanel.framework",
@@ -471,13 +499,13 @@
 				"${BUILT_PRODUCTS_DIR}/LBTAComponents/LBTAComponents.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftValidator/SwiftValidator.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
 				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
@@ -487,9 +515,6 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSGridCollectionViewLayout.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSImagePicker.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSImageView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CTSlidingUpPanel.framework",
@@ -507,13 +532,13 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LBTAComponents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftValidator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
@@ -600,6 +625,7 @@
 				2AEDED73213FEAAB00D03B1F /* TSSlidingUpPanelManager.swift in Sources */,
 				2A0F047620EAA5A300AC6827 /* BaseViewController.swift in Sources */,
 				2A78E443214C752600FE0728 /* FilterButton05.swift in Sources */,
+				2AD953122167BACE00DACDC0 /* NewUpdateVC.swift in Sources */,
 				2A40224020B6BEB0001F2F38 /* EditProfile.swift in Sources */,
 				2AEED8FF213C881B0082B110 /* Extensions.swift in Sources */,
 				2A78E43F214C750300FE0728 /* FilterButton03.swift in Sources */,
@@ -608,8 +634,10 @@
 				2A4A4B2020826BF70069D5C6 /* HomePageVC.swift in Sources */,
 				2AEDED70213F73FF00D03B1F /* CTBottomSlideTableDelegate.swift in Sources */,
 				2A0F048A20ED476E00AC6827 /* CollectionViewCell.swift in Sources */,
+				2AD953082166B0E400DACDC0 /* selectUserTypeVC.swift in Sources */,
 				2AEDED752142485200D03B1F /* PopUpVC.swift in Sources */,
 				2A0B0C9F20CACF17009675B8 /* AbstractOperation.swift in Sources */,
+				2AD953102167B70D00DACDC0 /* GetHelpVC.swift in Sources */,
 				2AF4D9672092579A005D3C66 /* chooseusertypeVC.swift in Sources */,
 				2A31E1E2207BC769006CFF24 /* ViewController.swift in Sources */,
 				2A78E43B214C6DDE00FE0728 /* Constants.swift in Sources */,
@@ -622,6 +650,7 @@
 				2AC47CB220F2CB1400CA5B4D /* ContentViewController.swift in Sources */,
 				2A2F226E20C2622000D05D01 /* UploadPresenter.swift in Sources */,
 				2A78E44B214C756400FE0728 /* FilterButton09.swift in Sources */,
+				2A5B22032164075600C9F6C2 /* OHCircleSegue.swift in Sources */,
 				2A2F227620C48B8700D05D01 /* CustomImageFlowLayout.swift in Sources */,
 				2AEED8F7213C87BA0082B110 /* User.swift in Sources */,
 				2AEED90A213CD4710082B110 /* NewMatchCollectionViewCell.swift in Sources */,
@@ -629,11 +658,14 @@
 				2AEED8F5213C87AF0082B110 /* UserModel.swift in Sources */,
 				2A2F227C20C4B5A400D05D01 /* SelectImageVC.swift in Sources */,
 				2A0F047720EAA5A300AC6827 /* MenuViewController.swift in Sources */,
+				2AD9530E2167B6F300DACDC0 /* SettingsVC.swift in Sources */,
 				2AEED905213CD4590082B110 /* MsgTableViewController.swift in Sources */,
 				2A2F227A20C4B47E00D05D01 /* EditGalleryVC.swift in Sources */,
 				2AC47CB120F2CB1400CA5B4D /* PreViewController.swift in Sources */,
 				2A0B0CA120CACF94009675B8 /* ImageUploadManager.swift in Sources */,
+				2AD953142167BAF200DACDC0 /* NewSelectImagesVC.swift in Sources */,
 				2A4A4B1C20826AAC0069D5C6 /* PairWithVC.swift in Sources */,
+				2AD953162167BCAC00DACDC0 /* NewUploadPresenter.swift in Sources */,
 				2AEDED71213F73FF00D03B1F /* CTPanGestureRecognizerExtension.swift in Sources */,
 				2A31E1F6207BD0DE006CFF24 /* SignInVC.swift in Sources */,
 				2A4D91E320A9E58B0018A3D1 /* Service.swift in Sources */,
@@ -718,7 +750,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -772,7 +804,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -787,20 +819,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = pholio01/pholio01.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4NPGUH6AXZ;
 				INFOPLIST_FILE = pholio01/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.chrisransom.pholio01;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "pholio01/pholio01-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -811,19 +846,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = pholio01/pholio01.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4NPGUH6AXZ;
 				INFOPLIST_FILE = pholio01/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.chrisransom.pholio01;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "pholio01/pholio01-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -54,7 +54,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                     DispatchQueue.main.async(execute: {
                         self.collectionView?.reloadData()
                         //called scroll to last item once when area loaded
-                        self.collectionView?.scrollToItem(at: IndexPath(item: self.messages.count - 1, section: 0), at: UICollectionViewScrollPosition.bottom, animated: false)
+                        self.collectionView?.scrollToItem(at: IndexPath(item: self.messages.count - 1, section: 0), at: UICollectionView.ScrollPosition.bottom, animated: false)
                     })
                 }
                 
@@ -115,9 +115,9 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     func setupKeyboardObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -127,8 +127,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     @objc func handleKeyboardWillShow(_ notification: Notification) {
-        let keyboardFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
-        let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
+        let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
+        let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
         
         containerViewBottomAnchor?.constant = -keyboardFrame!.height
         UIView.animate(withDuration: keyboardDuration!, animations: {
@@ -137,7 +137,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     @objc func handleKeyboardWillHide(_ notification: Notification) {
-        let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
+        let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
         
         containerViewBottomAnchor?.constant = 0
         UIView.animate(withDuration: keyboardDuration!, animations: {
@@ -229,7 +229,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         let size = CGSize(width: 200, height: 1000)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         
-        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)] , context: nil)
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0)] , context: nil)
     }
     
     var containerViewBottomAnchor: NSLayoutConstraint?
@@ -253,7 +253,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         uploadImageView.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
         let sendButton = UIButton(type: .system)
-        sendButton.setTitle("Send", for: UIControlState())
+        sendButton.setTitle("Send", for: UIControl.State())
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         containerView.addSubview(sendButton)
@@ -325,10 +325,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
             let userMessagesRef = Database.database().reference().child("user-messages").child(fromId).child(toId)
             
             let messageId = childRef.key
-            userMessagesRef.updateChildValues([messageId: 1])
+            userMessagesRef.updateChildValues([messageId!: 1])
             
             let recipientUserMessagesRef = Database.database().reference().child("user-messages").child(toId).child(fromId)
-            recipientUserMessagesRef.updateChildValues([messageId: 1])
+            recipientUserMessagesRef.updateChildValues([messageId!: 1])
         }
         
     }

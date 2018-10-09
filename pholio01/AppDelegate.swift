@@ -18,6 +18,7 @@ import FBSDKLoginKit
 import CoreLocation
 import FirebaseFirestore
 
+
 enum GenderFilter: String {
     case male = "Male"
     case female = "Female"
@@ -46,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var locationManager: CLLocationManager?
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // Override point for customization after application launch.
         
@@ -75,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         let handled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
         
         return handled

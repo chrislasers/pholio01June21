@@ -10,8 +10,13 @@ import UIKit
 import Haneke
 import FirebaseUI
 import SDWebImage
+import Photos
 
 class UploadimageCell: UICollectionViewCell {
+    
+    
+    
+    
     
 
         
@@ -23,6 +28,15 @@ class UploadimageCell: UICollectionViewCell {
             super.prepareForReuse()
             self.imageView.image = nil
         }
+    
+    
+    
+
+    
+    
+    
+    
+    
     
     
     func fill(with object: Any) {

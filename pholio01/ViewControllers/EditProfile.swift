@@ -12,7 +12,6 @@ import FirebaseDatabase
 import FirebaseAuth
 import Firebase
 import FirebaseStorage
-import SwiftKeychainWrapper
 import SwiftValidator
 import FBSDKCoreKit
 import FBSDKLoginKit
@@ -45,7 +44,7 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
             
             if let field = field as? UITextField {
                 field.layer.borderColor = UIColor.red.cgColor
-                field.layer.borderWidth = 1.0
+                field.layer.borderWidth = 0.2
             }
             error.errorLabel?.text = error.errorMessage // works if you added labels
             error.errorLabel?.isHidden = false
@@ -55,7 +54,7 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
     
     
     
-    @IBOutlet weak var map: MKMapView!
+    @IBOutlet var map: MKMapView!
     
     @IBOutlet weak var genderTapped: UIButton!
     
@@ -93,6 +92,10 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
     let list = ["Male", "Female"]
     
     
+    
+    
+    
+    
 
     
 
@@ -119,10 +122,10 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         genderTapped.layer.shadowOpacity = 0.2
         genderTapped.layer.shadowOffset = CGSize(width: 0, height: 0)
         
-        self.signUpButton.backgroundColor = UIColor.black
+        self.signUpButton.backgroundColor = UIColor.orange
         signUpButton.setTitle("Continue", for: .normal)
         signUpButton.layer.borderWidth = 1
-        signUpButton.layer.borderColor = UIColor.white.cgColor
+        signUpButton.layer.borderColor = UIColor.orange.cgColor
         signUpButton.setTitleColor(UIColor.white, for: .normal)
         signUpButton.layer.shadowColor = UIColor.white.cgColor
         signUpButton.layer.shadowRadius = 5
@@ -152,7 +155,7 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
             validationRule.errorLabel?.text = ""
             if let textField = validationRule.field as? UITextField {
                 textField.layer.borderColor = UIColor.green.cgColor
-                textField.layer.borderWidth = 0.5
+                textField.layer.borderWidth = 0.2
                 
             }
         }, error:{ (validationError) -> Void in
@@ -161,9 +164,10 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
             validationError.errorLabel?.text = validationError.errorMessage
             if let textField = validationError.field as? UITextField {
                 textField.layer.borderColor = UIColor.red.cgColor
-                textField.layer.borderWidth = 1.0
+                textField.layer.borderWidth = 0.2
             }
         })
+        
         validator.registerField(HourlyRate, errorLabel: hrLabel , rules: [RequiredRule(), FloatRule(message: "This must be a number with or without a decimal")])
         
         
@@ -190,17 +194,18 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         map.isHidden = true
         map.showsUserLocation = true
         
-        locationManager.delegate = self 
-            
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            
-            locationManager.requestWhenInUseAuthorization()
-            
-            locationManager.startUpdatingLocation()
+        map.delegate = self as? MKMapViewDelegate
+        
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
         
         geoFireRef = Database.database().reference()
         
         geoFire = GeoFire(firebaseRef: (geoFireRef!.child("user_locations")))
+        
         
         ref = Database.database().reference()
         
@@ -233,15 +238,15 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         HourlyRate.addTarget(self, action: #selector(textFieldDidEndEditing(_:)), for: .editingDidEndOnExit )
         
         //////////////Listens For Keyboard Events
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
     }
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
 
     
@@ -256,7 +261,52 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         Age.delegate = self
         HourlyRate.delegate = self
     }
-   
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        locationAuthStatus()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Age.resignFirstResponder()
+        HourlyRate.resignFirstResponder()
+        locationManager.stopUpdatingLocation()
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    func locationAuthStatus() {
+        
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            
+            
+            
+            currentLocation = locationManager.location
+            
+            print(currentLocation.coordinate.longitude)
+            print(currentLocation.coordinate.latitude)
+            
+            
+        } else {
+            locationManager.requestWhenInUseAuthorization()
+            locationAuthStatus()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error")
+    }
    
     
     
@@ -264,9 +314,12 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         
         let location = locations[0]
         
-        let spanz:MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
+        let spanz:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        
         let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
-        let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation,spanz)
+        
+        let region:MKCoordinateRegion = MKCoordinateRegion(center: myLocation,span: spanz)
+        
         map.setRegion(region, animated: true)
         
         guard locations.last != nil else { return }
@@ -308,11 +361,11 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
     
     @objc func keyboardWillChange(notification: Notification) {
         
-        guard ((notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil else {
+        guard ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil else {
             return
         }
-        if notification.name == Notification.Name.UIKeyboardWillShow ||
-            notification.name == Notification.Name.UIKeyboardWillChangeFrame {
+        if notification.name == UIResponder.keyboardWillShowNotification ||
+            notification.name == UIResponder.keyboardWillChangeFrameNotification {
             view.frame.origin.y = -160
         } else {
             
@@ -327,18 +380,11 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         
         
         
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: UIResponder.keyboardWillShowNotification, object: nil)
         
     }
     
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        Age.resignFirstResponder()
-        HourlyRate.resignFirstResponder()
-        locationManager.stopUpdatingLocation()
-
-    }
     
   
     
@@ -374,7 +420,7 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
     }
     
     
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+    private func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         return
     }
     
@@ -444,28 +490,6 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
     }
    
     
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        
-        locationAuthStatus()
-    }
-    
-    func locationAuthStatus() {
-        
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            
-            currentLocation = locationManager.location
-            
-            print(currentLocation.coordinate.longitude)
-            print(currentLocation.coordinate.latitude)
-
-            
-        } else {
-            locationManager.requestWhenInUseAuthorization()
-            locationAuthStatus()
-        }
-    }
     
     
     

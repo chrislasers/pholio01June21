@@ -20,6 +20,7 @@ import FirebaseCore
 
 
 
+
 class SelectImageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UploadImagesPresenterDelegate   {
     func uploadImagesPresenterDidScrollTo(index: Int) {
         func uploadImagesPresenterDidScrollTo(index: Int) {
@@ -44,10 +45,17 @@ class SelectImageVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
    
    
     var ref: DocumentReference? = nil
-
+    var SelectedAssets = [PHAsset]()
+    var PhotoArray = [UIImage]()
+    
+    
+    let testVC = UploadimageCell()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         Auth.auth().addStateDidChangeListener { (auth, user) in
             
@@ -64,10 +72,10 @@ class SelectImageVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         }
         
         
-        self.pickImageBTN.backgroundColor = UIColor.black
-        pickImageBTN.setTitle("Select An Image", for: .normal)
+        pickImageBTN.backgroundColor = UIColor.orange
+        pickImageBTN.setTitle("Press Here To Select Image", for: .normal)
         pickImageBTN.layer.borderWidth = 1
-        pickImageBTN.layer.borderColor = UIColor.black.cgColor
+        pickImageBTN.layer.borderColor = UIColor.orange.cgColor
         pickImageBTN.setTitleColor(UIColor.white, for: .normal)
         pickImageBTN.layer.shadowColor = UIColor.white.cgColor
         pickImageBTN.layer.shadowRadius = 5
@@ -78,27 +86,27 @@ class SelectImageVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
         // pickImageBTN.frame = CGRect(x: 300, y: 100, width: 50, height: 50)
         
-        Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
+        //Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
             
-            if error != nil {
+          //  if error != nil {
                 
-                let emailNotSentAlert = UIAlertController(title: "Email Verification", message: "Verification failed to send: \(String(describing: error?.localizedDescription))", preferredStyle: .alert)
-                emailNotSentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(emailNotSentAlert, animated: true, completion: nil)
+            //    let emailNotSentAlert = UIAlertController(title: "Email Verification", message: "Verification failed to send: \(String(describing: error?.localizedDescription))", preferredStyle: .alert)
+            //    emailNotSentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            //    self.present(emailNotSentAlert, animated: true, completion: nil)
                 
-                print("Email Not Sent")
-            }
+            //    print("Email Not Sent")
+           // }
                 
-            else {
+           // else {
                 
-                let emailSentAlert = UIAlertController(title: "Email Verification", message: "Verification email has been sent. Please tap on the link in the email to verify your account before you can use the features assoicited within the app", preferredStyle: .alert)
-                emailSentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+           //     let emailSentAlert = UIAlertController(title: "Email Verification", message: "Verification email has been sent. Please tap on the link in the email to verify your account before you can use the features assoicited within the app", preferredStyle: .alert)
+                //emailSentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 
-                self.present(emailSentAlert, animated: true, completion: nil)
+               // self.present(emailSentAlert, animated: true, completion: nil)//
                 
-                print("Email Sent")
-            }
-        })
+             //   print("Email Sent")
+            //}
+       // })
         
         uploadPresenter = UploadPresenter(viewController: self)
         
@@ -132,19 +140,36 @@ class SelectImageVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
     
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        // sender object is an instance of UITouch in this case
+        let touch = sender as! UITouch
+        
+        // Access the circleOrigin property and assign preferred CGPoint
+        (segue as! OHCircleSegue).circleOrigin = touch.location(in: view)
+    }
+    
     @IBAction func cancelPressed(_ sender: Any) {
         
         dismiss(animated: true, completion: nil)
         
     }
     
-
+    
+    
+    
     @IBAction func savePressed(_ sender: Any) {
         
         guard uploadImagePresenter.images.count > 1, let images = uploadImagePresenter.images as? [UIImage] else
             
         {
             print("No Image Selected")
+            
+            
+             let emailNotSentAlert = UIAlertController(title: "Photo Selection", message: "Please select at least one more photo to continue", preferredStyle: .alert)
+              emailNotSentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+               self.present(emailNotSentAlert, animated: true, completion: nil)
+            
             return
         }
         
@@ -192,13 +217,15 @@ performSegue(withIdentifier: "toAddPhoto", sender: self)
         imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
+        
+       
     }
     
      func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
 picker.dismiss(animated: true, completion: nil)    }
     
     
-    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if PHPhotoLibrary.authorizationStatus() != PHAuthorizationStatus.authorized {
             PHPhotoLibrary.requestAuthorization({ (status: PHAuthorizationStatus) in
@@ -206,7 +233,7 @@ picker.dismiss(animated: true, completion: nil)    }
             })
             } else {
             
-            if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 
                userSelectedimage(image)
             }

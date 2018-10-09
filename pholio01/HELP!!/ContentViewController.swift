@@ -32,10 +32,10 @@ class ContentViewController: UIViewController, UIPageViewControllerDataSource, U
         
         
         
-        addChildViewController(pageViewController!)
+        addChild(pageViewController!)
         view.addSubview(pageViewController!.view)
-        view.sendSubview(toBack: pageViewController!.view)
-        pageViewController!.didMove(toParentViewController: self)
+        view.sendSubviewToBack(pageViewController!.view)
+        pageViewController!.didMove(toParent: self)
     }
     
     override func didReceiveMemoryWarning() {

@@ -1412,7 +1412,7 @@ const int FrontViewPositionNone = 0xff;
         [self->_contentView layoutSubviews];
     
         if ([self->_delegate respondsToSelector:@selector(revealController:animateToPosition:)])
-            [self->_delegate revealController:self animateToPosition:_frontViewPosition];
+            [self->_delegate revealController:self animateToPosition:self->_frontViewPosition];
     };
     
     void (^completion)(BOOL) = ^(BOOL finished)

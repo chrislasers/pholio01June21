@@ -17,8 +17,6 @@ platform :ios, '11.0'
 
 	pod 'Firebase/Auth'
 
-	pod 'SwiftKeychainWrapper'
-
 	pod 'Firebase/Storage'
 
 	pod 'SwiftValidator', :git => 'https://github.com/jpotts18/SwiftValidator.git', :branch => 'master'
@@ -45,8 +43,6 @@ platform :ios, '11.0'
 	
 	pod 'Alamofire', '~>4.0' 
 	
-	pod 'BSImagePicker'
-
 	pod 'FirebaseUI', '~> 5.0'
 
 	pod 'SDWebImage'
@@ -54,7 +50,8 @@ platform :ios, '11.0'
    	pod 'SwiftyJSON'
 
 	pod "CTSlidingUpPanel"
-	
+
 	pod 'TextFieldEffects'
+	
 
 end

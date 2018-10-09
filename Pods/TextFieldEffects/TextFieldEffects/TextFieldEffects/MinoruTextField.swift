@@ -11,7 +11,7 @@ import UIKit
 /**
  A MinoruTextField is a subclass of the TextFieldEffects object, is a control that displays an UITextField with a customizable visual effect around the edges of the control.
  */
- open class MinoruTextField: TextFieldEffects {
+@IBDesignable open class MinoruTextField: TextFieldEffects {
     /**
      The color of the placeholder text.
      
@@ -78,7 +78,7 @@ import UIKit
     }
     
     override open func animateViewsForTextEntry() {
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.6, options: .beginFromCurrentState, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.6, options: UIView.AnimationOptions.beginFromCurrentState, animations: {
         
             self.borderLayer.borderColor = self.textColor?.cgColor
             self.borderLayer.shadowOffset = CGSize.zero
@@ -94,7 +94,7 @@ import UIKit
     
     override open func animateViewsForTextDisplay() {
         if text!.isEmpty {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.6, options: .beginFromCurrentState, animations: {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.6, options: UIView.AnimationOptions.beginFromCurrentState, animations: {
 
                 self.borderLayer.borderColor = nil
                 self.borderLayer.shadowOffset = CGSize.zero

@@ -46,10 +46,40 @@ class chooseusertypeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        firstType.center.x = self.view.frame.width + 30
+        secondType.center.x = self.view.frame.width + 30
+        thridType.center.x = self.view.frame.width + 30
+
         
-        firstType.backgroundColor = UIColor.black
+        
+        UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 1.0,initialSpringVelocity: 5, options: [], //options: nil
+            animations: ({
+            
+                self.firstType.center.x = self.view.frame.width / 2
+            
+        
+        }), completion: nil)
+        
+        UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1.0,initialSpringVelocity: 6, options: [], //options: nil
+            animations: ({
+                
+                self.secondType.center.x = self.view.frame.width / 2
+                
+                
+            }), completion: nil)
+        
+        UIView.animate(withDuration: 2.0, delay: 0, usingSpringWithDamping: 1.0,initialSpringVelocity: 4, options: [], //options: nil
+            animations: ({
+                
+                self.thridType.center.x = self.view.frame.width / 2
+                
+                
+            }), completion: nil)
+        
+        
+        firstType.backgroundColor = UIColor.orange
         firstType.layer.borderWidth = 1.5
-        firstType.layer.borderColor = UIColor.white.cgColor
+        firstType.layer.borderColor = UIColor.orange.cgColor
         firstType.layer.cornerRadius = firstType.frame.height / 2
         firstType.layer.shadowColor = UIColor.white.cgColor
         firstType.layer.shadowRadius = 7
@@ -57,9 +87,9 @@ class chooseusertypeVC: UIViewController {
         firstType.layer.shadowOffset = CGSize(width: 0, height: 0)
         
         
-        secondType.backgroundColor = UIColor.black
+        secondType.backgroundColor = UIColor.orange
         secondType.layer.borderWidth = 1.5
-        secondType.layer.borderColor = UIColor.white.cgColor
+        secondType.layer.borderColor = UIColor.orange.cgColor
         secondType.layer.cornerRadius = firstType.frame.height / 2
         secondType.layer.shadowColor = UIColor.white.cgColor
         secondType.layer.shadowRadius = 7
@@ -67,9 +97,9 @@ class chooseusertypeVC: UIViewController {
         secondType.layer.shadowOffset = CGSize(width: 0, height: 0)
         
         
-        thridType.backgroundColor = UIColor.black
+        thridType.backgroundColor = UIColor.orange
         thridType.layer.borderWidth = 1.5
-        thridType.layer.borderColor = UIColor.white.cgColor
+        thridType.layer.borderColor = UIColor.orange.cgColor
         thridType.layer.cornerRadius = firstType.frame.height / 2
         thridType.layer.shadowColor = UIColor.white.cgColor
         thridType.layer.shadowRadius = 7

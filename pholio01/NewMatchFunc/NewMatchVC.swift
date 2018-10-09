@@ -1,15 +1,13 @@
 //
-//  NewMatchVC.swift
-//  pholio01
+// NewMatchVC.swift
+// pholio01
 //
-//  Created by Chris  Ransom on 8/23/18.
-//  Copyright © 2018 Chris Ransom. All rights reserved.
+// Created by Chris Ransom on 8/23/18.
+// Copyright :copyright: 2018 Chris Ransom. All rights reserved.
 //
 
 import UIKit
 import Firebase
-
-
 class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDataSource, UITableViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return matchedUsers.count
@@ -22,8 +20,6 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
         let imageView = cell.viewWithTag(69) as! UIImageView
         
         let matchedUser = matchedUsers[indexPath.row]
-        
-        
         
         DispatchQueue.global(qos: .background).async {
             let imageData = NSData(contentsOf: URL(string: matchedUser.profileImageUrl!)!)
@@ -50,9 +46,6 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
         return 1
     }
     
-    
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
         
@@ -65,9 +58,6 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
         let message = messages[indexPath.row]
         
         cell.message = message
-        
-        
-        
         
         return cell
     }
@@ -104,30 +94,73 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
             if let indexPath = matchTable.indexPathForRow(at: touchPoint) {
                 
                 if indexPath != nil {
-
-                
-                let signOutAction = UIAlertAction(title: "Report User", style: .destructive) { (action) in
                     
-                   //Code that sends reported users to Firebase Database
+                    let signOutAction = UIAlertAction(title: "Report User", style: .destructive) { (action) in
+                        
+                        //Code that sends reported users to Firebase Database
+                        
+                        let currentUserId = Auth.auth().currentUser!.uid
+                        
+                        var blockUserId: String
+                        
+                        let message = self.messages[indexPath.row]
+                        
+                        if currentUserId == message.fromId {
+                            blockUserId = message.toId ?? ""
+                        } else {
+                            blockUserId = message.fromId ?? ""
+                        }
+                        
+                        let messageRef = Database.database().reference().child("user-messages")
+                        messageRef.child(currentUserId).child(blockUserId).removeValue()
+                        messageRef.child(blockUserId).child(currentUserId).removeValue()
+                        
+                        let userRef = Database.database().reference().child("Users")
+                        userRef.child(currentUserId).child("Matched-Users").child(blockUserId).setValue(false)
+                        userRef.child(blockUserId).child("Matched-Users").child(currentUserId).setValue(false)
+                        
+                        Helper.Pholio.currentUser.matchedUsers[blockUserId] = false
+                        
+                        self.currentUser = Helper.Pholio.currentUser
+                        
+                        self.getMatchedUsers()
+                        
+                        for (index, mes) in self.messages.enumerated() {
+                            if mes.fromId == currentUserId && mes.toId == blockUserId || mes.fromId == blockUserId && mes.toId == currentUserId {
+                                
+                                self.messages.remove(at: index)
+                            }
+                        }
+                        
+                        self.attemptReloadofTable()
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                            let successAlert = UIAlertController(title: "Reported", message: "Incident has been reported and further investigation will occur shortly", preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                            successAlert.addAction(okAction)
+                            self.present(successAlert, animated: true, completion: nil)
+                            
+                            self.newMatch.reloadData()
+                            self.matchTable.reloadData()
+                            
+                            Database.database().reference().child("reported-users").childByAutoId().child("userId").setValue(blockUserId)
+                        })
+                        
+                    }
                     
-                    
-                    
-                    
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    Service.showAlert(on: self, style: .actionSheet, title: nil, message: nil, actions: [signOutAction, cancelAction], completion: nil)
                 }
-                
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                Service.showAlert(on: self, style: .actionSheet, title: nil, message: nil, actions: [signOutAction, cancelAction], completion: nil)
-            }
             }
         }
     }
-        
-        func setupLongPressGesture() {
-            let longPressGesture:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress))
-            longPressGesture.minimumPressDuration = 1.0 // 1 second press
-            longPressGesture.delegate = self as? UIGestureRecognizerDelegate
-            self.matchTable.addGestureRecognizer(longPressGesture)
-        }
+    
+    func setupLongPressGesture() {
+        let longPressGesture:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress))
+        longPressGesture.minimumPressDuration = 1.0 // 1 second press
+        longPressGesture.delegate = self as? UIGestureRecognizerDelegate
+        self.matchTable.addGestureRecognizer(longPressGesture)
+    }
     
     let cellId = "cellId"
     
@@ -143,13 +176,10 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
     
     @IBOutlet weak var matchTable: UITableView!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLongPressGesture()
-
         
         Auth.auth().addStateDidChangeListener { (auth, user) in
             
@@ -157,11 +187,9 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
                 
                 self.fetchUser()
                 
-                
                 self.checkIfUserIsLoggedIn()
                 
                 print("User In MatchVC")
-                
                 
             }
                 
@@ -194,14 +222,13 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
         
         matchTable.allowsMultipleSelectionDuringEditing = true
         
-        
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    private func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         guard let userID = Auth.auth().currentUser?.uid else {
             return
@@ -220,9 +247,9 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
                 self.messagesDictionary.removeValue(forKey: chatPartnerId)
                 self.attemptReloadofTable()
                 
-                //                //this is one way of updating the table, but its actually not that safe..
-                //                self.messages.removeAtIndex(indexPath.row)
-                //                self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                // //this is one way of updating the table, but its actually not that safe..
+                // self.messages.removeAtIndex(indexPath.row)
+                // self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
                 
             })
         }
@@ -447,24 +474,28 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
     func getMatchedUsers() {
         matchedUsers.removeAll()
         
-        for matchedUser in Helper.Pholio.currentUser.matchedUsers {
+        DBService.shared.refreshUser(userId: Helper.Pholio.currentUser.userId!) { (updatedCurrentUser) in
             
-            guard let matched = matchedUser.value as? Bool else { continue }
+            Helper.Pholio.currentUser = updatedCurrentUser
             
-            if matched {
+            for matchedUser in Helper.Pholio.currentUser.matchedUsers {
                 
-                let userId = matchedUser.key
+                guard let matched = matchedUser.value as? Bool else { continue }
                 
-                DBService.shared.refreshUser(userId: userId) { (userModel) in
+                if matched {
                     
-                    if userModel.userId != nil {
-                        self.matchedUsers.append(userModel)
-                        self.newMatch.reloadData()
-                        self.matchTable.reloadData()
+                    let userId = matchedUser.key
+                    
+                    DBService.shared.refreshUser(userId: userId) { (userModel) in
+                        
+                        if userModel.userId != nil {
+                            self.matchedUsers.append(userModel)
+                            self.newMatch.reloadData()
+                            self.matchTable.reloadData()
+                        }
                     }
                 }
             }
         }
-        
     }
 }

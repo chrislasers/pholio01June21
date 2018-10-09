@@ -87,8 +87,8 @@ static NSString *const FBSDKVideoUploaderEdge = @"videos";
       } else if (offsetDictionary == nil) {
         return;
       }
-        self->_uploadSessionID = uploadSessionID;
-        self->_videoID = videoID;
+      self->_uploadSessionID = uploadSessionID;
+      self->_videoID = videoID;
       [self _startTransferRequestWithOffsetDictionary:offsetDictionary];
     }
   };
@@ -133,7 +133,7 @@ static NSString *const FBSDKVideoUploaderEdge = @"videos";
         FBSDKGraphRequestDataAttachment *dataAttachment = [[FBSDKGraphRequestDataAttachment alloc] initWithData:data
                                                                                                        filename:self->_videoName
                                                                                                     contentType:nil];
-          FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:self->_graphPath
+        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:self->_graphPath
                                                                        parameters:@{
                                                                                     FBSDK_SHARE_VIDEO_UPLOAD_PHASE: FBSDK_SHARE_VIDEO_UPLOAD_PHASE_TRANSFER,
                                                                                     FBSDK_SHARE_VIDEO_START_OFFSET: offsetDictionary[FBSDK_SHARE_VIDEO_START_OFFSET],
@@ -178,7 +178,7 @@ static NSString *const FBSDKVideoUploaderEdge = @"videos";
       NSMutableDictionary *shareResult = [[NSMutableDictionary alloc] init];
       shareResult[FBSDK_SHARE_VIDEO_UPLOAD_SUCCESS] = result[FBSDK_SHARE_VIDEO_UPLOAD_SUCCESS];
       shareResult[FBSDK_SHARE_RESULT_COMPLETION_GESTURE_KEY] = FBSDK_SHARE_RESULT_COMPLETION_GESTURE_VALUE_POST;
-      shareResult[FBSDK_SHARE_VIDEO_ID] = _videoID;
+      shareResult[FBSDK_SHARE_VIDEO_ID] = self->_videoID;
       [self.delegate videoUploader:self didCompleteWithResults:shareResult];
     }
   }];

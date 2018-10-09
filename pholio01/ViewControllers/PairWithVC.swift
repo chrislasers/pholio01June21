@@ -33,12 +33,33 @@ class PairWithVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        firstPair.center.x = self.view.frame.width + 30
+        secondPair.center.x = self.view.frame.width + 30
         
         
         
-        firstPair.backgroundColor = UIColor.black
+        UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 1.0,initialSpringVelocity: 5, options: [], //options: nil
+            animations: ({
+                
+                self.firstPair.center.x = self.view.frame.width / 2
+                
+                
+            }), completion: nil)
+        
+        UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1.0,initialSpringVelocity: 6, options: [], //options: nil
+            animations: ({
+                
+                self.secondPair.center.x = self.view.frame.width / 2
+                
+                
+            }), completion: nil)
+        
+        
+        
+        
+        firstPair.backgroundColor = UIColor.orange
         firstPair.layer.borderWidth = 1.5
-        firstPair.layer.borderColor = UIColor.white.cgColor
+        firstPair.layer.borderColor = UIColor.orange.cgColor
         firstPair.layer.cornerRadius = firstPair.frame.height / 2
         firstPair.layer.shadowColor = UIColor.white.cgColor
         firstPair.layer.shadowRadius = 7
@@ -46,9 +67,9 @@ class PairWithVC: UIViewController {
         firstPair.layer.shadowOffset = CGSize(width: 0, height: 0)
         
         
-        secondPair.backgroundColor = UIColor.black
+        secondPair.backgroundColor = UIColor.orange
         secondPair.layer.borderWidth = 1.5
-        secondPair.layer.borderColor = UIColor.white.cgColor
+        secondPair.layer.borderColor = UIColor.orange.cgColor
         secondPair.layer.cornerRadius = secondPair.frame.height / 2
         secondPair.layer.shadowColor = UIColor.white.cgColor
         secondPair.layer.shadowRadius = 7

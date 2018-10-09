@@ -12,7 +12,6 @@ import FirebaseDatabase
 import FirebaseAuth
 import Firebase
 import FirebaseStorage
-import SwiftKeychainWrapper
 import SwiftValidator
 import FBSDKCoreKit
 import FBSDKLoginKit
@@ -95,13 +94,14 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         
         map.isHidden = true
         map.showsUserLocation = true
+        map.delegate = self as? MKMapViewDelegate
+
         
+        
+        locationManager = CLLocationManager()
         locationManager.delegate = self
-        
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
         locationManager.requestWhenInUseAuthorization()
-        
         locationManager.startUpdatingLocation()
         
         geoFireRef = Database.database().reference()
@@ -176,6 +176,22 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         locationManager.stopUpdatingLocation()
+        locationManager.delegate = nil
+
+    }
+    
+   override func viewDidDisappear(_ animated: Bool) {
+          super.viewWillDisappear(animated)
+    DispatchQueue.main.asyncAfter(deadline: .now() + 8.0, execute: {
+        self.locationManager.stopUpdatingLocation()
+        
+        self.locationManager.delegate = nil
+        
+        self.map.showsUserLocation = false
+
+    })
+
+    
     }
     
     
@@ -217,16 +233,18 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     }
     
     
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let location = locations[0]
         
-        let spanz:MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
+        let spanz:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
-        let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation,spanz)
+        let region:MKCoordinateRegion = MKCoordinateRegion(center: myLocation,span: spanz)
         map.setRegion(region, animated: true)
         
-        guard locations.last != nil else { return }
+       guard locations.last != nil else { return }
+        
         geoFire!.setLocation(location, forKey: (Auth.auth().currentUser?.uid)!)
         
         

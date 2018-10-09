@@ -76,7 +76,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         SPB.isPaused = true
         SPB.currentAnimationIndex = 0
         view.addSubview(SPB)
-        view.bringSubview(toFront: SPB)
+        view.bringSubviewToFront(SPB)
         
         let tapGestureImage = UITapGestureRecognizer(target: self, action: #selector(self.tapOn(_:)))
         tapGestureImage.numberOfTapsRequired = 1

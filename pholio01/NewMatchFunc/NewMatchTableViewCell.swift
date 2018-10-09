@@ -93,7 +93,8 @@ class NewMatchTableViewCell: UITableViewCell {
         return label
     }()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         
         addSubview(profileImageView)

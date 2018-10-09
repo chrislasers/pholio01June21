@@ -32,7 +32,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             
             if let field = field as? UITextField {
                 field.layer.borderColor = UIColor.red.cgColor
-                field.layer.borderWidth = 1.0
+                field.layer.borderWidth = 0.2
             }
             error.errorLabel?.text = error.errorMessage // works if you added labels
             error.errorLabel?.isHidden = false
@@ -41,6 +41,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     
     @IBOutlet weak var username: UITextField!
     
+    @IBOutlet weak var stackView: UIStackView!
     
     
     
@@ -93,21 +94,21 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         username.keyboardType = .default
-        username.placeholder = "Username"
+        //username.placeholder = "Username"
         
         super.viewDidLoad()
         
-        self.signUpButton.backgroundColor = UIColor.black
+        self.signUpButton.backgroundColor = UIColor.orange
         signUpButton.setTitle("Continue", for: .normal)
         signUpButton.layer.borderWidth = 1
-        signUpButton.layer.borderColor = UIColor.white.cgColor
+        signUpButton.layer.borderColor = UIColor.orange.cgColor
         signUpButton.setTitleColor(UIColor.white, for: .normal)
         signUpButton.layer.shadowColor = UIColor.white.cgColor
         signUpButton.layer.shadowRadius = 5
         signUpButton.layer.shadowOpacity = 0.3
         signUpButton.layer.shadowOffset = CGSize(width: 0, height: 0)
         
-        
+          stackView.frame = CGRect(x: 50, y: 660, width: view.frame.width - 105, height: 60)
         
         
         let db = Firestore.firestore()
@@ -131,7 +132,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             validationRule.errorLabel?.text = ""
             if let textField = validationRule.field as? UITextField {
                 textField.layer.borderColor = UIColor.green.cgColor
-                textField.layer.borderWidth = 0.5
+                textField.layer.borderWidth = 0.2
                 
             }
         }, error:{ (validationError) -> Void in
@@ -143,6 +144,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
                 textField.layer.borderWidth = 1.0
             }
         })
+        
         validator.registerField(username, errorLabel: usernameValid , rules: [RequiredRule(), PasswordRule()])
         
         
@@ -157,18 +159,18 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         signUpButton(enabled: false)
         
         
-        self.signUpButton.backgroundColor = UIColor.black
+        self.signUpButton.backgroundColor = UIColor.orange
         
         signUpButton.setTitle("Continue", for: .normal)
         
         signUpButton.layer.borderWidth = 1
         
-        signUpButton.layer.borderColor = UIColor.white.cgColor
+        signUpButton.layer.borderColor = UIColor.orange.cgColor
         
         
         signUpButton.setTitleColor(UIColor.white, for: .normal)
         signUpButton.layer.shadowColor = UIColor.white.cgColor
-        signUpButton.layer.shadowRadius = 5
+        signUpButton.layer.shadowRadius = 2
         signUpButton.layer.shadowOpacity = 0.3
         signUpButton.layer.shadowOffset = CGSize(width: 0, height: 0)
         
@@ -201,24 +203,25 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         //////////////Listens For Keyboard Events
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name:
+            UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
     }
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     @objc func keyboardWillChange(notification: Notification) {
         
-        guard ((notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil else {
+        guard ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil else {
             return
         }
-        if notification.name == Notification.Name.UIKeyboardWillShow ||
-            notification.name == Notification.Name.UIKeyboardWillChangeFrame {
+        if notification.name == UIResponder.keyboardWillShowNotification ||
+            notification.name == UIResponder.keyboardWillChangeFrameNotification {
             view.frame.origin.y = -160
         } else {
             
@@ -233,7 +236,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: UIResponder.keyboardWillShowNotification, object: nil)
         
     }
     
@@ -246,7 +249,14 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(getter: tapToChangePic)))
     }
     
-    
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        // sender object is an instance of UITouch in this case
+        let touch = sender as! UITouch
+        
+        // Access the circleOrigin property and assign preferred CGPoint
+        (segue as! OHCircleSegue).circleOrigin = touch.location(in: view)
+    }
     
     
     ////TextFIeldDelegates
@@ -317,7 +327,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     }
     
     
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+    private func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         return
     }
     
@@ -423,7 +433,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         let uploadMetaData = StorageMetadata()
         uploadMetaData.contentType = "image/jpeg"
         
-        guard let imageData = UIImageJPEGRepresentation(self.profileImageView.image!, 0.6)  else {return }
+        guard let imageData = profileImageView.image?.jpegData(compressionQuality: 0.6)  else {return }
         
         profileImageRef.putData(imageData, metadata: uploadMetaData) { (uploadMetaData, error) in
             
@@ -520,7 +530,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         guard let username = username.text else {return}
         
-        guard let image = UIImageJPEGRepresentation(self.profileImageView.image!, 0.6)  else { return }
+        guard let image = profileImageView.image?.jpegData(compressionQuality: 0.6)   else { return }
         guard let img = UIImage(named: "profile") else {return}
         
         
@@ -570,7 +580,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
 
 
 extension UpdateVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if PHPhotoLibrary.authorizationStatus() != PHAuthorizationStatus.authorized {
             PHPhotoLibrary.requestAuthorization({ (status: PHAuthorizationStatus) in
@@ -578,7 +588,7 @@ extension UpdateVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
             })
         } else {
             
-            if let profileImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+            if let profileImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
             {
                 
                 picker.dismiss(animated: true, completion:nil)

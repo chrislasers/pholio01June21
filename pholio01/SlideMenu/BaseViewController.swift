@@ -8,6 +8,9 @@
 
 import UIKit
 import Firebase
+import FBSDKCoreKit
+import FBSDKLoginKit
+import FacebookLogin
 
 class BaseViewController: UIViewController, SlideMenuDelegate {
     
@@ -56,11 +59,21 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             
             
             let signOutAction = UIAlertAction(title: "Sign Out", style: .destructive) { (action) in
+                
+                
                 let firebaseAuth = Auth.auth()
                 
                 do {
                     
                     try firebaseAuth.signOut()
+                    
+                    FBSDKLoginManager().logOut()
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let signinvc = storyboard.instantiateViewController(withIdentifier: "signinvc")
+                    
+                    self.present(signinvc, animated: true, completion: nil)
+
                     
                     print("User Signed Out")
                     
@@ -71,11 +84,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
                     
                     print ("Error signing out: %@", signOutError)
                 }
-                
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let signinvc = storyboard.instantiateViewController(withIdentifier: "signinvc")
-                
-                self.present(signinvc, animated: true, completion: nil)
+        
             }
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -99,10 +108,10 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
     }
     
     func addSlideMenuButton(){
-        let btnShowMenu = UIButton(type: UIButtonType.system)
-        btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
+        let btnShowMenu = UIButton(type: UIButton.ButtonType.system)
+        btnShowMenu.setImage(self.defaultMenuImage(), for: UIControl.State())
         btnShowMenu.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControlEvents.touchUpInside)
+        btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControl.Event.touchUpInside)
         let customBarItem = UIBarButtonItem(customView: btnShowMenu)
         self.navigationItem.leftBarButtonItem = customBarItem;
     }
@@ -159,7 +168,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         menuVC.btnMenu = sender
         menuVC.delegate = self
         self.view.addSubview(menuVC.view)
-        self.addChildViewController(menuVC)
+        self.addChild(menuVC)
         menuVC.view.layoutIfNeeded()
         
         

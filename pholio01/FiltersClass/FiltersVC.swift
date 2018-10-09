@@ -71,17 +71,17 @@ class FiltersVC: UIViewController {
         }
         
         switch Helper.Pholio.currentUser.genderFilter {
-        case .male:
+        case .male?:
             male.activateButton(bool: true)
             female.activateButton(bool: false)
             both.activateButton(bool: false)
             
-        case .female:
+        case .female?:
             male.activateButton(bool: false)
             female.activateButton(bool: true)
             both.activateButton(bool: false)
             
-        case .both:
+        case .both?:
             male.activateButton(bool: false)
             female.activateButton(bool: false)
             both.activateButton(bool: true)
@@ -91,7 +91,7 @@ class FiltersVC: UIViewController {
         }
         
         switch Helper.Pholio.currentUser.pairingFilter {
-        case .photographer:
+        case .photographer?:
             photographer.activateButton(bool: true)
             model.activateButton(bool: false)
             guest.activateButton(bool: false)
@@ -99,7 +99,7 @@ class FiltersVC: UIViewController {
             pairingWithArray.removeAll()
             pairingWithArray.append(.photographer)
             
-        case .model:
+        case .model?:
             photographer.activateButton(bool: false)
             model.activateButton(bool: true)
             guest.activateButton(bool: false)
@@ -107,7 +107,7 @@ class FiltersVC: UIViewController {
             pairingWithArray.removeAll()
             pairingWithArray.append(.model)
             
-        case .guest:
+        case .guest?:
             photographer.activateButton(bool: false)
             model.activateButton(bool: false)
             guest.activateButton(bool: true)
@@ -115,7 +115,7 @@ class FiltersVC: UIViewController {
             pairingWithArray.removeAll()
             pairingWithArray.append(.guest)
             
-        case .all:
+        case .all?:
             photographer.activateButton(bool: true)
             model.activateButton(bool: true)
             guest.activateButton(bool: true)
@@ -123,7 +123,7 @@ class FiltersVC: UIViewController {
             pairingWithArray.removeAll()
             pairingWithArray.append(contentsOf: [.photographer, .model, .guest])
             
-        case .photographerAndModel:
+        case .photographerAndModel?:
             photographer.activateButton(bool: true)
             model.activateButton(bool: true)
             guest.activateButton(bool: false)
@@ -131,7 +131,7 @@ class FiltersVC: UIViewController {
             pairingWithArray.removeAll()
             pairingWithArray.append(contentsOf: [.photographer, .model])
             
-        case .photographerAndGuest:
+        case .photographerAndGuest?:
             photographer.activateButton(bool: true)
             model.activateButton(bool: false)
             guest.activateButton(bool: true)
@@ -139,7 +139,7 @@ class FiltersVC: UIViewController {
             pairingWithArray.removeAll()
             pairingWithArray.append(contentsOf: [.photographer, .guest])
             
-        case .modelAndGuest:
+        case .modelAndGuest?:
             photographer.activateButton(bool: false)
             model.activateButton(bool: true)
             guest.activateButton(bool: true)

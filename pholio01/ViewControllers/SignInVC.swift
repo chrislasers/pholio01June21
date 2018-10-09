@@ -12,7 +12,6 @@ import FirebaseDatabase
 import FirebaseAuth
 import Firebase
 import FirebaseStorage
-import SwiftKeychainWrapper
 import SwiftValidator
 import FBSDKCoreKit
 import FBSDKLoginKit
@@ -20,10 +19,13 @@ import FacebookLogin
 import FacebookCore
 import LBTAComponents
 import JGProgressHUD
+import MapKit
+import CoreLocation
+import GeoFire
 
 
 
-class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
+class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate, CLLocationManagerDelegate {
    
     
     func validationSuccessful() {
@@ -49,7 +51,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             
             if let field = field as? UITextField {
                 field.layer.borderColor = UIColor.red.cgColor
-                field.layer.borderWidth = 1.0
+                field.layer.borderWidth = 0.2
             }
             error.errorLabel?.text = error.errorMessage // works if you added labels
             error.errorLabel?.isHidden = false
@@ -100,7 +102,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         // Add a custom login button to your app
             let myLoginButton = UIButton(type: .custom)
         myLoginButton.backgroundColor = UIColor(r: 73, g: 103, b: 173)
-        myLoginButton.frame = CGRect(x: 50, y: 660, width: view.frame.width - 105, height: 47)
+        myLoginButton.frame = CGRect(x: 50, y: 520, width: view.frame.width - 105, height: 47)
             myLoginButton.setTitle("Login with Facebook", for: .normal)
             myLoginButton.setTitleColor(UIColor.white, for: .normal)
             myLoginButton.layer.cornerRadius = 7
@@ -131,9 +133,9 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         super.viewDidLoad()
         
         
-        signUp.backgroundColor = UIColor.black
+        signUp.backgroundColor = UIColor.orange
         signUp.setTitle("Sign Up", for: .normal)
-        signUp.layer.borderWidth = 2
+        signUp.layer.borderWidth = 1
         signUp.layer.borderColor = UIColor.white.cgColor
         signUp.layer.cornerRadius = signUp.frame.height / 2
         signUp.setTitleColor(UIColor.white, for: .normal)
@@ -144,9 +146,9 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         signIn.backgroundColor = UIColor.clear
-        signIn.layer.borderWidth = 2
+        signIn.layer.borderWidth = 1
         signIn.layer.borderColor = UIColor.white.cgColor
-        signIn.layer.cornerRadius = signIn.frame.height / 2.1
+        signIn.layer.cornerRadius = signIn.frame.height / 2
         signIn.setTitleColor(UIColor.white, for: .normal)
         signIn.layer.shadowColor = UIColor.white.cgColor
         signIn.layer.shadowRadius = 12
@@ -161,19 +163,20 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         
-        Auth.auth().addStateDidChangeListener { (auth, user) in
+       Auth.auth().addStateDidChangeListener { (auth, user) in
             
-         if Auth.auth().currentUser != nil
-            {
-                print("User Signed In")
-                //self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
+       if Auth.auth().currentUser != nil
+         {
+             print("User Signed In")
+               self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
             
-         }  else {
+    else {
                 
-                
-            print("User Not Signed In")
-            }
-       }
+    
+          print("User Not Signed In")
+        
+           }
+}
         
         
         configureTextFields()
@@ -186,7 +189,6 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         fbValid.isHidden = true
         
         
-        
         validator.styleTransformers(success:{ (validationRule) -> Void in
             print("here")
             // clear error label
@@ -194,7 +196,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             validationRule.errorLabel?.text = ""
             if let textField = validationRule.field as? UITextField {
                 textField.layer.borderColor = UIColor.green.cgColor
-                textField.layer.borderWidth = 0.5
+                textField.layer.borderWidth = 0.2
                 
             }
         }, error:{ (validationError) -> Void in
@@ -206,6 +208,8 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
                 textField.layer.borderWidth = 1.0
             }
         })
+        
+        
         
         
         
@@ -239,27 +243,27 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         //Listens For Keyboard Events
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
     }
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     
     
     @objc func keyboardWillChange(notification: Notification) {
         
-        guard ((notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil else {
+        guard ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil else {
             return
         }
-        if notification.name == Notification.Name.UIKeyboardWillShow ||
-            notification.name == Notification.Name.UIKeyboardWillChangeFrame {
-            view.frame.origin.y = -150
+        if notification.name == UIResponder.keyboardWillShowNotification ||
+            notification.name == UIResponder.keyboardWillChangeFrameNotification {
+            view.frame.origin.y = -157
     } else {
             
     view.frame.origin.y = 0
@@ -302,7 +306,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     
    
     @objc func setButtonSelected(button : UIButton) {
-        signUp.backgroundColor = UIColor.black
+        signUp.backgroundColor = UIColor.orange
         
         signUp.setTitle("Sign Up", for: .normal)
         
@@ -321,7 +325,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         signUp.setTitle("Sign Up", for: .normal)
         
-        signUp.backgroundColor = UIColor.clear
+        signUp.backgroundColor = UIColor.orange
         
         signUp.layer.borderWidth = 1.6
         
@@ -336,7 +340,14 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     
     
     
-
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        // sender object is an instance of UITouch in this case
+        let touch = sender as! UITouch
+        
+        // Access the circleOrigin property and assign preferred CGPoint
+        (segue as! OHCircleSegue).circleOrigin = touch.location(in: view)
+    }
     
     
 
@@ -346,7 +357,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: UIResponder.keyboardWillShowNotification, object: nil)
         
     }
     
@@ -420,6 +431,7 @@ Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
     
     
     
+    
     //UITextFieldDelegate
 
     private func configureTextFields() {
@@ -452,7 +464,7 @@ Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+    private func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
     }
     
     
@@ -575,32 +587,31 @@ override func didReceiveMemoryWarning() {
         
         validator.validate(self)
 
-       
-        guard email.text != nil else {return}
-        guard password.text != nil else {return}
+        guard let email = email.text, let password = password.text else {return}
+
         
-        
-        Auth.auth().signIn(withEmail: self.email.text!, password: self.password.text!) { (user, error) in
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if user != nil {
                 
-               // self.performSegue(withIdentifier: "homepageVC", sender: nil)
+               self.performSegue(withIdentifier: "homepageVC", sender: nil)
                 //print(self.userID!)
                 
                 
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let signinvc = storyboard.instantiateViewController(withIdentifier: "Home")
+               // let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                //let signinvc = storyboard.instantiateViewController(withIdentifier: "Home")
                 
-                self.present(signinvc, animated: true, completion: nil)
+               // self.present(signinvc, animated: true, completion: nil)
+                print("User has Signed In")
+
               
                 
                 
-            } else {
+            } else if error != nil{
             
                     
-                let loginAlert = UIAlertController(title: "Login Error", message: "\(error!.localizedDescription) Please Try Agin", preferredStyle: .alert)
+                let loginAlert = UIAlertController(title: "Login Error", message: "\(error!.localizedDescription) Please Try Again", preferredStyle: .alert)
                 loginAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(loginAlert, animated: true, completion: nil)
-                print("User has Signed In")
                 
                 }
                         
