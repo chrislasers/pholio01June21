@@ -160,15 +160,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate, CLLoc
         signUp.addTarget(self, action: #selector(setButtonUnselected(button:)), for: .touchUpInside)
         
         
-        if Auth.auth().currentUser != nil {
-            print("User Signed In")
-            self.performSegue(withIdentifier: "homepageVC", sender: nil)
-        } else {
-            print("User Not Signed In")
-
-        }
-        
-        
+      
         
        
         
@@ -334,14 +326,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate, CLLoc
     
     
     
-    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        // sender object is an instance of UITouch in this case
-        let touch = sender as! UITouch
-        
-        // Access the circleOrigin property and assign preferred CGPoint
-        (segue as! OHCircleSegue).circleOrigin = touch.location(in: view)
-    }
+    
     
     
 
@@ -363,6 +348,30 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate, CLLoc
         NotificationCenter.default.removeObserver(self)
     }
     
+    override func viewDidAppear(_ animated: Bool){
+        super.viewDidAppear(animated)
+        
+        if Auth.auth().currentUser != nil {
+            
+            DBService.shared.users.child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                print(snapshot.value as? [String: Any] as Any)
+                if (snapshot.value as? [String: Any]) != nil {
+                    print("User Signed In")
+                    self.performSegue(withIdentifier: "homepageVC", sender: nil)
+                } else {
+                    Auth.auth().currentUser?.delete(completion: nil)
+                }
+            })
+            
+        } else {
+            print("User Not Signed In")
+        }
+        
+        
+    }
+    
+    
+    
     
     
     
@@ -383,7 +392,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, ValidationDelegate, CLLoc
                 print("Successfully logged into Facebook")
                 
                 
-                self.performSegue(withIdentifier: "homepageVC", sender: nil)
+                //self.performSegue(withIdentifier: "homepageVC", sender: nil)
                 
                
                 
@@ -416,13 +425,6 @@ Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
     
         }
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
-    
     
     
     
@@ -577,30 +579,30 @@ override func didReceiveMemoryWarning() {
     
     
     
-    @IBAction func signinPRESSED(_ sender: Any){
+    @IBAction func signinPRESSED(_ sender: Any) {
+        
         
         validator.validate(self)
 
-        guard let email = email.text, let password = password.text else {return}
-
         
-        Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error)  in
-            if user != nil {
+        guard email.text != nil else {return}
+        guard password.text != nil else {return}
+        
+        
+        Auth.auth().signIn(withEmail: self.email.text!, password: self.password.text!) { (user, error) in
+            
+            if error != nil {
+            
                 
                self.performSegue(withIdentifier: "homepageVC", sender: nil)
-                //print(self.userID!)
-                
-                
-               // let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                //let signinvc = storyboard.instantiateViewController(withIdentifier: "Home")
-                
-               // self.present(signinvc, animated: true, completion: nil)
+                print(self.userID!)
+
                 print("User has Signed In")
 
               
                 
                 
-            } else if error != nil{
+            } else {
             
                     
                 let loginAlert = UIAlertController(title: "Login Error", message: "\(error!.localizedDescription) Please Try Again", preferredStyle: .alert)
@@ -609,7 +611,7 @@ override func didReceiveMemoryWarning() {
                 
                 }
                         
-            })
+            }
         }
     }
 

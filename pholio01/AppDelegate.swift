@@ -58,6 +58,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
         
+        Auth.auth().addStateDidChangeListener { auth, user in
+            
+            if user != nil {
+                
+                print("User Signed In")
+                
+            } else {
+                
+                print("User Not Signed In")
+            }
+        }
+        
         
         locationManager = CLLocationManager()
         

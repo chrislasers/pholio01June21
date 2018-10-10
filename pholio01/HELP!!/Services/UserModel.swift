@@ -131,7 +131,7 @@ class UserModel: NSObject {
             self.age = 18
         }
         
-        self.userType = dictionary["Usertype"] as! String
+        self.userType = dictionary["Usertype"] as? String
         
         if let lat_lon = dictionary["lat_lon"] as? String {
             self.lat_lon = lat_lon

@@ -148,7 +148,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         signUpButton.layer.borderWidth = 1
         signUpButton.layer.borderColor = UIColor.orange.cgColor
         signUpButton.setTitleColor(UIColor.white, for: .normal)
-        signUpButton.layer.shadowColor = UIColor.black.cgColor
+        signUpButton.layer.shadowColor = UIColor.white.cgColor
         signUpButton.layer.shadowRadius = 5
         signUpButton.layer.shadowOpacity = 0.3
         signUpButton.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -548,7 +548,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         })
 
    
-        Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
+        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             
             if error != nil {
                 print(error?.localizedDescription as Any)

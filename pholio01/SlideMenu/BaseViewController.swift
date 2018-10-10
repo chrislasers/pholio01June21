@@ -16,6 +16,20 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        Auth.auth().addStateDidChangeListener { auth, user in
+            
+            if user != nil {
+                
+                print("User In Sidebar")
+                
+                
+            } else {
+                print("User Not In Sidebar")
+                
+            }
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -60,12 +74,13 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             
             let signOutAction = UIAlertAction(title: "Sign Out", style: .destructive) { (action) in
                 
-                
-                let firebaseAuth = Auth.auth()
+                guard Auth.auth().currentUser != nil else {
+                    return
+                }
                 
                 do {
                     
-                    try firebaseAuth.signOut()
+                    try Auth.auth().signOut()
                     
                     FBSDKLoginManager().logOut()
                     
