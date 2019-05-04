@@ -125,7 +125,6 @@ static const CFTimeInterval kBFViewAnimationDuration = 0.25f;
     NSValue *rectValue = [[notification userInfo] valueForKey:UIApplicationStatusBarFrameUserInfoKey];
     CGRect newFrame;
     [rectValue getValue:&newFrame];
-
     if (_navigationController && !_view.closed) {
         if (CGRectGetHeight(newFrame) == 40) {
             UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;

@@ -15,6 +15,7 @@ import FirebaseStorage
 import SwiftValidator
 import Photos
 import FirebaseFirestore
+import Pastel
 
 class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     func validationSuccessful() {
@@ -58,6 +59,8 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     var imagePicker:UIImagePickerController!
     var selectedImage: UIImage!
     let validator = Validator()
+    
+    
     var ref: DatabaseReference!
     
     
@@ -69,6 +72,9 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     
     
     override func viewDidLoad() {
+        
+        
+        
         
         Auth.auth().addStateDidChangeListener { (auth, user) in
             
@@ -92,21 +98,53 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
         
+       
         
+        
+        let tf = CustomTextField(padding: 24, height: 44)
+        
+        tf.layer.cornerRadius =  tf.height / 2
+        
+        tf.placeholder = "Enter Username"
+        tf.backgroundColor = .white
         username.keyboardType = .default
-        //username.placeholder = "Username"
+        
+        
+        username.placeholder = "Enter Username"
         
         super.viewDidLoad()
         
-        self.signUpButton.backgroundColor = UIColor.orange
-        signUpButton.setTitle("Continue", for: .normal)
-        signUpButton.layer.borderWidth = 1
-        signUpButton.layer.borderColor = UIColor.orange.cgColor
+        
+        let button = UIButton(type: .custom)
+        //set image for button
+        button.setImage(UIImage(named: "back"), for: .normal)
+        //add function for button
+        button.addTarget(self, action: #selector(fbButtonPressed), for: .touchUpInside)
+        //set frame
+        button.frame = CGRect(x: 0, y: 0, width: 21, height: 21)
+        
+        let widthConstraint = button.widthAnchor.constraint(equalToConstant: 21)
+        let heightConstraint = button.heightAnchor.constraint(equalToConstant: 21)
+        heightConstraint.isActive = true
+        widthConstraint.isActive = true
+        
+        let barButton = UIBarButtonItem(customView: button)
+        //assign button to navigationbar
+        self.navigationItem.leftBarButtonItem = barButton
+        
+        
+        
+        
+        signUpButton.backgroundColor = UIColor.orange
+        signUpButton.setTitle("Sign Up", for: .normal)
+        signUpButton.layer.borderColor = UIColor.white.withAlphaComponent(0.12).cgColor
+        signUpButton.layer.borderWidth = 1.5
+        signUpButton.layer.cornerRadius = 4
         signUpButton.setTitleColor(UIColor.white, for: .normal)
-        signUpButton.layer.shadowColor = UIColor.white.cgColor
-        signUpButton.layer.shadowRadius = 5
-        signUpButton.layer.shadowOpacity = 0.3
-        signUpButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+        //signUp.layer.shadowColor = UIColor.white.cgColor
+        // signUp.layer.shadowRadius = 5
+        signUpButton.layer.shadowOpacity = 0.5
+        signUpButton.layer.shadowOffset = CGSize(width: 1, height: 1)
         
           stackView.frame = CGRect(x: 50, y: 660, width: view.frame.width - 105, height: 60)
         
@@ -145,7 +183,8 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             }
         })
         
-        validator.registerField(username, errorLabel: usernameValid , rules: [RequiredRule(), PasswordRule()])
+        validator.registerField(username, errorLabel: usernameValid , rules: [RequiredRule(), PasswordRule(message: "Must be 6 characters")])
+
         
         
         usernameValid.isHidden = true
@@ -237,6 +276,43 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        
+        let pastelView = PastelView(frame: view.bounds)
+        
+        //MARK: -  Custom Direction
+        pastelView.startPastelPoint = .bottomLeft
+        pastelView.endPastelPoint = .topRight
+        
+        //MARK: -  Custom Duration
+        
+        pastelView.animationDuration = 3.75
+
+        //MARK: -  Custom Color
+        pastelView.setColors([
+            
+            
+            // UIColor(red: 156/255, green: 39/255, blue: 176/255, alpha: 1.0),
+            
+            // UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
+            
+            UIColor(red: 135/255, green: 206/255, blue: 250/255, alpha: 1.0),
+            
+            
+            UIColor(red: 0/255, green: 0/255, blue: 100/255, alpha: 1.0)])
+        
+        
+        // UIColor(red: 32/255, green: 158/255, blue: 255/255, alpha: 1.0)])
+        
+        
+        //   UIColor(red: 90/255, green: 120/255, blue: 127/255, alpha: 1.0),
+        
+        
+        //  UIColor(red: 58/255, green: 255/255, blue: 217/255, alpha: 1.0)])
+        
+        pastelView.startAnimation()
+        view.insertSubview(pastelView, at: 1)
+        
         
     }
     
@@ -353,6 +429,9 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         signUpButton.isEnabled = false
         
+        validator.validate(self)
+
+        
         guard let username = username.text,
             
             username != "" else {
@@ -370,6 +449,8 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         signUpButton.isEnabled = false
         
+        validator.validate(self)
+
         
         
         guard let username = username.text,
@@ -382,6 +463,13 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         // set button to true whenever all textfield criteria is met.
         signUpButton.isEnabled = true
         
+    }
+    
+    @objc func fbButtonPressed() {
+        dismiss(animated: true, completion: nil)
+
+        
+        print("Bar Button Pressed")
     }
     
     
@@ -398,7 +486,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             signUpButton.isEnabled = true
             
         } else {
-            signUpButton.alpha = 0.9
+            signUpButton.alpha = 1.0
             signUpButton.isEnabled = false
         }
     }
@@ -433,7 +521,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         let uploadMetaData = StorageMetadata()
         uploadMetaData.contentType = "image/jpeg"
         
-        guard let imageData = profileImageView.image?.jpegData(compressionQuality: 0.6)  else {return }
+        guard let imageData = profileImageView.image?.jpegData(compressionQuality: 0.75)  else {return }
         
         profileImageRef.putData(imageData, metadata: uploadMetaData) { (uploadMetaData, error) in
             
@@ -447,17 +535,31 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
                         // Make you download string
                         let profileImageURL = downloadUrl.absoluteString
                         userReference.setValue(["profileImageURL": profileImageURL])
+                        
+                        let uid = Auth.auth().currentUser?.uid ?? ""
+                        let docData = ["uid": uid, "profileImageURL": profileImageURL]
+                        Firestore.firestore().collection("users").document(uid).setData(docData) { (err) in
+                            if let err = err {
+                                print(err)
+                                return
+                            } else {
+                                print(docData)
+                                
+                                print("Meta data of upload image \(String(describing: uploadMetaData))")
+                                
+                                print(profileImageURL)
+
+                            }
                         print(profileImageURL)
-                    } else {
-                        print("No ProPic-Download URL")
                     }
-                })
-                print("Meta data of upload image \(String(describing: uploadMetaData))")
-            }
+                }
+            })
             
             
         }
     }
+    }
+
     
     private func layoutProfile () {
         view.addSubview(profileImageView)
@@ -530,32 +632,35 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         guard let username = username.text else {return}
         
-        guard let image = profileImageView.image?.jpegData(compressionQuality: 0.6)   else { return }
-        guard let img = UIImage(named: "profile") else {return}
+        guard let image = profileImageView.image?.jpegData(compressionQuality: 0.7)   else { return }
         
-        
-        
-        
-        
-        
-        if self.profileImageView?.image != img  { //Now check if the img has changed or not:
+        let img = UIImage(named: "user")
+
+        if self.profileImageView?.image != img   {
+            //Now check if the img has changed or not:
             
             
-            self.uploadProfileImage(imageData: image) // upload image from here
+         
             
-            
-            self.performSegue(withIdentifier: "toGallery", sender: self)
-            
-            
-            self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).setValue(["Username": self.username.text!])
-            
-            
-            
+    
             let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
             changeRequest?.displayName = username
             changeRequest?.commitChanges { error in
                 
                 if error == nil {
+                    
+                    self.uploadProfileImage(imageData: image) // upload image from here
+                    
+                    
+                    self.performSegue(withIdentifier: "toGallery", sender: self)
+                    
+                  //  let settingsController = SettingsController()
+                    //settingsController.delegate = self
+                   // let navController = UINavigationController(rootViewController: settingsController)
+                  //  self.present(navController, animated: true)
+                    
+                    
+                    self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).setValue(["Username": self.username.text!])
                     
                     print("User display changed")
                     

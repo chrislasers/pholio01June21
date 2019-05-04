@@ -33,12 +33,15 @@ class CollectionViewCell: UICollectionViewCell {
                 
         self.storyImages.layer.cornerRadius = self.storyImages.frame.size.height / 2;
         self.storyImages.layer.borderColor = UIColor.white.cgColor
-        self.storyImages.layer.borderWidth = 3
+        self.storyImages.layer.borderWidth = 1.5
         self.storyImages.clipsToBounds = true
         storyImages.contentMode = .scaleAspectFill
+        
+         self.storyImages.layer.shadowColor = UIColor.white.cgColor
+
         self.storyImages.layer.shadowRadius = 7
-        self.storyImages.layer.shadowOpacity = 0.6
-        self.storyImages.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.storyImages.layer.shadowOpacity = 2
+        self.storyImages.layer.shadowOffset = CGSize(width: 1, height: 1)
     }
     
     override func prepareForReuse() {

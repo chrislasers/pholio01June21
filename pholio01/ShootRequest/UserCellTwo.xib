@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserCell" customModule="pholio01" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCellTwo" rowHeight="155" id="4fn-4T-5JP" customClass="UserCell" customModule="pholio01" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="560" height="175"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4fn-4T-5JP" id="cdm-uc-e3D">
+                <rect key="frame" x="0.0" y="0.0" width="560" height="174.66666666666666"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVv-eS-YZh">
+                        <rect key="frame" x="24.999999999999993" y="75" width="87.333333333333314" height="24.666666666666671"/>
+                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GsY-BT-eGh">
+                        <rect key="frame" x="355" y="0.0" width="205" height="176.66666666666666"/>
+                        <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="205" id="2sd-Hp-yw0"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="18"/>
+                        <state key="normal" title="Send Shoot Request"/>
+                        <connections>
+                            <action selector="buttonTapped:" destination="4fn-4T-5JP" eventType="touchUpInside" id="6Go-ok-zGy"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="GsY-BT-eGh" secondAttribute="trailing" constant="-20" id="0JP-aH-isZ"/>
+                    <constraint firstItem="NVv-eS-YZh" firstAttribute="centerY" secondItem="cdm-uc-e3D" secondAttribute="centerY" id="5hU-DX-H32"/>
+                    <constraint firstItem="NVv-eS-YZh" firstAttribute="leading" secondItem="cdm-uc-e3D" secondAttribute="leadingMargin" constant="5" id="K7o-Qd-6y3"/>
+                    <constraint firstItem="GsY-BT-eGh" firstAttribute="top" secondItem="cdm-uc-e3D" secondAttribute="topMargin" constant="-55" id="LMp-lb-gu5"/>
+                    <constraint firstItem="GsY-BT-eGh" firstAttribute="centerY" secondItem="NVv-eS-YZh" secondAttribute="centerY" constant="1" id="o0Z-ft-L6N" userLabel="Button.centerY = Email Label.centerY + 25"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="button" destination="GsY-BT-eGh" id="bfF-OA-wpm"/>
+                <outlet property="emailLabel" destination="NVv-eS-YZh" id="oPK-OL-e6L"/>
+            </connections>
+            <point key="canvasLocation" x="334.39999999999998" y="353.57142857142861"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -8,6 +8,10 @@
 
 import UIKit
 import Firebase
+import Pastel
+import UserNotifications
+import Kingfisher
+
 class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDataSource, UITableViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return matchedUsers.count
@@ -17,29 +21,77 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MatchCell", for: indexPath) as! NewMatchCollectionViewCell
         
-        let imageView = cell.viewWithTag(69) as! UIImageView
+        var imageView = cell.viewWithTag(69) as! UIImageView
         
         let matchedUser = matchedUsers[indexPath.row]
         
-        DispatchQueue.global(qos: .background).async {
-            let imageData = NSData(contentsOf: URL(string: matchedUser.profileImageUrl!)!)
-            
-            DispatchQueue.main.async {
-                let profileImage = UIImage(data: imageData! as Data)
-                imageView.image = profileImage
-            }
-        }
+        let imageUrl = URL(string: matchedUser.profileImageUrl!)!
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(with: imageUrl)
+        
+        /*
+         DispatchQueue.global(qos: .background).async {
+         let imageData = NSData(contentsOf: URL(string: matchedUser.profileImageUrl!)!)
+         
+         DispatchQueue.main.async {
+         let profileImage = UIImage(data: imageData! as Data)
+         imageView.image = profileImage
+         
+         ImageService.getImage(withURL: URL(string: matchedUser.profileImageUrl!)!) { image in
+         imageView.image = profileImage              }
+         
+         }
+         }
+         */
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        print("Segue to Chat Completed")
         
-        let user = self.matchedUsers[indexPath.row]
         
-        self.showChatControllerForUser(user)
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let day = UIAlertAction(title: "Messages", style: .default) { action in
+            
+            print("Segue to Chat Completed")
+            
+            let user = self.matchedUsers[indexPath.row]
+            
+            self.showChatControllerForUser(user)        }
+        
+        let night = UIAlertAction(title: "User Gallery", style: .default) { action in
+            
+            
+            
+            
+            DBService.shared.refreshUser(userId: self.matchedUsers[indexPath.row].userId!) { (refreshedUser) in
+                
+                if refreshedUser.itemsConverted.count == 0 {
+                    // no images uploaded
+                    print("no images uploaded")
+                    
+                } else {
+                    self.matchedUsers[indexPath.row] = refreshedUser
+                    
+                    DispatchQueue.main.async {
+                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "NewContentViewController") as! NewContentViewController
+                        vc.modalPresentationStyle = .overFullScreen
+                        vc.pages = self.matchedUsers
+                        vc.currentIndex = indexPath.row
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                }
+                
+            }        }
+        
+        actionSheet.addAction(day)
+        actionSheet.addAction(night)
+        actionSheet.addAction(cancel)
+        
+        present(actionSheet, animated: true, completion: nil)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -155,9 +207,16 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
         }
     }
     
+    //func addGesture() {
+    //  let tap = UITapGestureRecognizer(target: self, action: #selector(NewMatchVC.collectionView(_:didSelectItemAt:)))
+    //  view.addGestureRecognizer(tap)
+    // }
+    
+    
+    
     func setupLongPressGesture() {
         let longPressGesture:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress))
-        longPressGesture.minimumPressDuration = 1.0 // 1 second press
+        longPressGesture.minimumPressDuration = 0.5 // 1 second press
         longPressGesture.delegate = self as? UIGestureRecognizerDelegate
         self.matchTable.addGestureRecognizer(longPressGesture)
     }
@@ -166,6 +225,9 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
     
     var currentUser: UserModel!
     var matchedUsers = [UserModel]()
+    
+    var usersArray = [UserModel]()
+    var seenUsersArray = [UserModel]()
     
     var user = [User]()
     
@@ -176,8 +238,73 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
     
     @IBOutlet weak var matchTable: UITableView!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            
+            if Auth.auth().currentUser?.uid != nil {
+                
+                self.fetchUser()
+                
+                self.fetchUserTwo()
+                
+                self.checkIfUserIsLoggedIn()
+                
+                print("User In MatchVC")
+                
+            }
+                
+            else {
+                print("User Not Signed In")
+                // ...
+            }
+        }
+        
+        
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // addGesture()
+        
+        
+        let pastelView = PastelView(frame: view.bounds)
+        
+        //MARK: -  Custom Direction
+        pastelView.startPastelPoint = .bottomLeft
+        pastelView.endPastelPoint = .topRight
+        
+        //MARK: -  Custom Duration
+        
+        pastelView.animationDuration = 3.75
+        
+        //MARK: -  Custom Color
+        pastelView.setColors([
+            
+            
+            // UIColor(red: 156/255, green: 39/255, blue: 176/255, alpha: 1.0),
+            
+            // UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
+            
+            UIColor(red: 135/255, green: 206/255, blue: 250/255, alpha: 1.0),
+            
+            
+            UIColor(red: 0/255, green: 0/255, blue: 100/255, alpha: 1.0)])
+        
+        
+        // UIColor(red: 32/255, green: 158/255, blue: 255/255, alpha: 1.0)])
+        
+        
+        //   UIColor(red: 90/255, green: 120/255, blue: 127/255, alpha: 1.0),
+        
+        
+        //  UIColor(red: 58/255, green: 255/255, blue: 217/255, alpha: 1.0)])
+        
+        pastelView.startAnimation()
+        view.insertSubview(pastelView, at: 0)
         
         setupLongPressGesture()
         
@@ -186,6 +313,8 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
             if Auth.auth().currentUser?.uid != nil {
                 
                 self.fetchUser()
+                
+                self.fetchUserTwo()
                 
                 self.checkIfUserIsLoggedIn()
                 
@@ -332,7 +461,7 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
         } else {
             observeUserMessages()
             
-            setupNavBarWithUser()
+            // setupNavBarWithUser()
         }
     }
     
@@ -356,64 +485,63 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
     
     
     
-    func setupNavBarWithUser() {
-        //commented section to imprvove speed
-        //        messages.removeAll()
-        //        messagesDictionary.removeAll()
-        //        tableView.reloadData()
-        
-        guard let userID = Auth.auth().currentUser?.uid else {
-            return
-        }
-        
-        Database.database().reference().child("Users").child(userID).observeSingleEvent(of: .value) { (DataSnapshot) in
-            
-            
-            if let dictionary = DataSnapshot.value as? [String: AnyObject] {
-                let name = dictionary["Username"] as? String
-                
-                let userProfilePicDictionary = dictionary["UserPro-Pic"] as? [String: Any]
-                let profileImageUrl = userProfilePicDictionary!["profileImageURL"] as? String
-                
-                let titleView = UIView()
-                titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
-                
-                let containerView = UIView()
-                containerView.translatesAutoresizingMaskIntoConstraints = false
-                
-                let nameLabel = UILabel()
-                nameLabel.text = name
-                nameLabel.translatesAutoresizingMaskIntoConstraints = false
-                
-                let profileImageView = UIImageView()
-                profileImageView.translatesAutoresizingMaskIntoConstraints = false
-                profileImageView.contentMode = .scaleAspectFill
-                profileImageView.layer.cornerRadius = 17
-                profileImageView.clipsToBounds = true
-                profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl!)
-                
-                titleView.addSubview(containerView)
-                containerView.addSubview(profileImageView)
-                containerView.addSubview(nameLabel)
-                
-                //contraints for navBar
-                profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-                profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-                profileImageView.widthAnchor.constraint(equalToConstant: 34).isActive = true
-                profileImageView.heightAnchor.constraint(equalToConstant: 34).isActive = true
-                
-                nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8).isActive = true
-                nameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
-                nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-                nameLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
-                
-                containerView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
-                containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
-                
-                self.navigationItem.titleView = titleView
-            }
-        }
-    }
+    // func setupNavBarWithUser() {
+    //commented section to imprvove speed
+    //        messages.removeAll()
+    //        messagesDictionary.removeAll()
+    //        tableView.reloadData()
+    
+    //  guard let userID = Auth.auth().currentUser?.uid else {
+    //    return
+    // }
+    
+    //Database.database().reference().child("Users").child(userID).observeSingleEvent(of: .value) { (DataSnapshot) in
+    
+    
+    //  if let dictionary = DataSnapshot.value as? [String: AnyObject] {
+    //     let name = dictionary["Username"] as? String
+    
+    //    let userProfilePicDictionary = dictionary["UserPro-Pic"] as? [String: Any]
+    //   let profileImageUrl = userProfilePicDictionary!["profileImageURL"] as? String
+    
+    //   let titleView = UIView()
+    //  titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
+    
+    // let containerView = UIView()
+    // containerView.translatesAutoresizingMaskIntoConstraints = false
+    //
+    // let nameLabel = UILabel()
+    //  nameLabel.text = name
+    // nameLabel.translatesAutoresizingMaskIntoConstraints = false
+    
+    //  let profileImageView = UIImageView()
+    // profileImageView.translatesAutoresizingMaskIntoConstraints = false
+    //  profileImageView.layer.cornerRadius = 17
+    //   profileImageView.clipsToBounds = true
+    //   profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl!)
+    
+    //  titleView.addSubview(containerView)
+    // containerView.addSubview(profileImageView)
+    // containerView.addSubview(nameLabel)
+    
+    //contraints for navBar
+    //  profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+    //  profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+    //  profileImageView.widthAnchor.constraint(equalToConstant: 34).isActive = true
+    //   profileImageView.heightAnchor.constraint(equalToConstant: 34).isActive = true
+    
+    //  nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8).isActive = true
+    //   nameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
+    //   nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+    //    nameLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
+    
+    //    containerView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
+    //   containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
+    
+    //    self.navigationItem.titleView = titleView
+    //       }
+    //    }
+    //    }
     
     
     func fetchUser() {
@@ -430,6 +558,25 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
             }
         })
     }
+    
+    func fetchUserTwo() {
+        Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).child("Matched-Users").observe(.childAdded, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                
+                self.currentUser.userId = snapshot.key
+                
+                
+                
+                
+                
+                print("Matched User Found")
+                
+                print(dictionary)
+            }
+        })
+    }
+    
     
     func showChatControllerForUser(_ user: UserModel) {
         let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())

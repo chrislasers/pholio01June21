@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>637834816107-5l5ns8i6k3jklvlndi335lngsvmui3vd.apps.googleusercontent.com</string>
+	<string>637834816107-0js9hhcaip5keds1pl81h7pjd9v43n0e.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.637834816107-5l5ns8i6k3jklvlndi335lngsvmui3vd</string>
+	<string>com.googleusercontent.apps.637834816107-0js9hhcaip5keds1pl81h7pjd9v43n0e</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBFTy5x0n2IuKjqEzQhsLNqhTBMZS7nnlE</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>co.chrisransom.pholio01</string>
+	<string>co.chrisransom.phollio01</string>
 	<key>PROJECT_ID</key>
 	<string>pholio-7ffc3</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:637834816107:ios:096b844957e0a625</string>
+	<string>1:637834816107:ios:86ee4de599ef7ad6</string>
 	<key>DATABASE_URL</key>
 	<string>https://pholio-7ffc3.firebaseio.com</string>
 </dict>

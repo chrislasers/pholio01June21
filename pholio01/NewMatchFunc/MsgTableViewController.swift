@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import FirebaseMessaging
+import Kingfisher
 
 class ChatLogController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -178,7 +180,12 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     private func setupCell(cell: ChatMessageCell, message: Message) {
         
         if let profileImageUrl = self.user?.profileImageUrl {
-            cell.profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
+            
+            let imageUrl = URL(string: profileImageUrl)!
+            //cell.profileImageView.kf.indicatorType = .activity
+            cell.profileImageView.kf.setImage(with: imageUrl)
+            
+            //cell.profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
         }
         
         
@@ -208,7 +215,15 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     
-    
+    func postToken(Token: [String : AnyObject]){
+        
+        print("FCM Token: \(Token)")
+        
+        let dbRef = Database.database().reference()
+        dbRef.child("fcmToken").child(Messaging.messaging().fcmToken!).setValue(Token)
+        
+        
+    }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

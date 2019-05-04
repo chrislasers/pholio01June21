@@ -28,7 +28,7 @@ class SettingsVC: UITableViewController {
     
     
     
-    var pets = ["Edit Profile"]
+    var pets = ["Edit Profile", "Update Gallery"]
     var segueIdentifiers = ["segueone", "seguetwo"]
     var myIndex = 0
     

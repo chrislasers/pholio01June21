@@ -20,8 +20,8 @@ struct Constants {
     }
     
 }
-let userID = Auth.auth().currentUser?.uid
 
+let userID = Auth.auth().currentUser?.uid
 var ref: DatabaseReference!
 
 
@@ -43,7 +43,7 @@ class ImageUploadManager: NSObject {
         let imagesReference = storageReference.child("User-Gallery").child((Auth.auth().currentUser?.uid)!).child("\(uid!)/photos/\(imgName)")
         
         
-        if let imageData =  image.jpegData(compressionQuality: 0.6)  {
+        if let imageData =  image.jpegData(compressionQuality: 1.0)  {
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             let uploadTask = imagesReference.putData(imageData, metadata: metadata, completion: { (metadata, error) in

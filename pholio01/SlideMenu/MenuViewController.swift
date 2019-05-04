@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import Kingfisher
 
 
 protocol SlideMenuDelegate {
@@ -49,7 +50,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var usertype: UILabel!
     
     var ref: DatabaseReference!
-
+    
     
     
     
@@ -77,17 +78,17 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         ref = Database.database().reference()
-
-
+        
+        
         self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
         self.userProfileImage.layer.borderColor = UIColor.white.cgColor
-        self.userProfileImage.layer.borderWidth = 3
+        self.userProfileImage.layer.borderWidth = 1.5
         self.userProfileImage.clipsToBounds = true
         userProfileImage.contentMode = .scaleAspectFill
         self.userProfileImage.layer.shadowRadius = 7
         self.userProfileImage.layer.shadowOpacity = 0.6
         self.userProfileImage.layer.shadowOffset = CGSize(width: 0, height: 0)
-
+        
         
         
         ref = Database.database().reference().child("Users").child(userID)
@@ -97,10 +98,10 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.username.text = result
                 }else {
                     print("USERNAME not displayed")            }
-        }else{
-            print("maybe USER UID not exist in database ")
-        }
-            })
+            }else{
+                print("maybe USER UID not exist in database ")
+            }
+        })
         
         ref = Database.database().reference().child("Users").child(userID)
         ref.observeSingleEvent(of: .value, with: { snapshot in
@@ -114,8 +115,8 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 print("maybe USER UID not exist in database ")
             }
         })
-    
-}
+        
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -129,11 +130,12 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func updateArrayMenuOptions(){
-        arrayMenuOptions.append(["title":"Home", "icon":"home"])
-        arrayMenuOptions.append(["title":"Filters", "icon":"filter"])
-        arrayMenuOptions.append(["title":"Get Help", "icon":"info"])
-        arrayMenuOptions.append(["title":"Settings", "icon":"settings"])
-        arrayMenuOptions.append(["title":"Log Out", "icon":"external"])
+        arrayMenuOptions.append(["title":"Home", "icon":"real-estate"])
+        arrayMenuOptions.append(["title":"Request", "icon":"add-user"])
+        arrayMenuOptions.append(["title":"Filters", "icon":"filter-3"])
+        arrayMenuOptions.append(["title":"Get Help", "icon":"question-2"])
+        //arrayMenuOptions.append(["title":"Settings", "icon":"gear-2"])
+        arrayMenuOptions.append(["title":"Log Out", "icon":"logout-2"])
         
         
         tblMenuOptions.reloadData()
@@ -142,14 +144,19 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func getProfileImage() {
         DBService.shared.refreshUser(userId: (Auth.auth().currentUser?.uid)!) { (user) in
             
-            DispatchQueue.global(qos: .background).async {
-                let imageData = NSData(contentsOf: URL(string: user.profileImageUrl!)!)
-                
-                DispatchQueue.main.async {
-                    let profileImage = UIImage(data: imageData! as Data)
-                    self.userProfileImage.image = profileImage
-                }
-            }
+            let imageUrl = URL(string: user.profileImageUrl!)!
+            self.userProfileImage.kf.indicatorType = .activity
+            self.userProfileImage.kf.setImage(with: imageUrl)
+            /*
+             DispatchQueue.global(qos: .background).async {
+             let imageData = NSData(contentsOf: URL(string: user.profileImageUrl!)!)
+             
+             DispatchQueue.main.async {
+             let profileImage = UIImage(data: imageData! as Data)
+             self.userProfileImage.image = profileImage
+             }
+             }
+             */
         }
     }
     

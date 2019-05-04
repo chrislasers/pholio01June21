@@ -10,20 +10,55 @@ import AVFoundation
 import AVKit
 import Firebase
 import CTSlidingUpPanel
-
+import Cosmos
+import Firebase
+import FirebaseAuth
+import Kingfisher
 
 class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     
     @IBOutlet weak var videoView: UIView!
     @IBOutlet weak var imagePreview: UIImageView!
     @IBOutlet weak var userProfileImage: UIImageView!
+    @IBOutlet var thumbImageView: UIImageView!
+    
+    @IBOutlet var userGender: UILabel!
+    @IBOutlet var userAge: UILabel!
+    @IBOutlet var userHR: UILabel!
+    
     @IBOutlet weak var lblUserName: UILabel!
+    
+    
+    @IBOutlet var popOver: UIView!
+    
+    
+    @IBOutlet var tableView: UITableView!
     
     
     @IBAction func menuBTN(_ sender: Any) {
         
         
+        UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 1.0,initialSpringVelocity: 5, options: [], //options: nil
+            animations: ({
+                
+                self.view.addSubview(self.popOver)
+                
+                
+                self.popOver.center.y = self.view.frame.width / 3
+                
+            }), completion: nil)
+        
+        
+        
+        self.view.addSubview(popOver)
+        
+        
+        
+        popOver.center = self.view.center
+        
     }
+    
+    
     
     
     var pageIndex : Int = 0
@@ -34,8 +69,82 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
     
     var usersArray = [UserModel]()
     
+    
+    // MARK: - Firebase references
+    /** The base Firebase reference */
+    let BASE_REF = Database.database().reference()
+    /* The user Firebase reference */
+    let USER_REF = Database.database().reference().child("users")
+    
+    /** The Firebase reference to the current user tree */
+    var CURRENT_USER_REF: DatabaseReference {
+        let id = Auth.auth().currentUser!.uid
+        return USER_REF.child("\(id)")
+    }
+    
+    /** The Firebase reference to the current user's friend tree */
+    var CURRENT_USER_FRIENDS_REF: DatabaseReference {
+        return CURRENT_USER_REF.child("friends")
+    }
+    
+    /** The Firebase reference to the current user's friend request tree */
+    var CURRENT_USER_REQUESTS_REF: DatabaseReference {
+        return CURRENT_USER_REF.child("requests")
+    }
+    
+    /** The current user's id */
+    var CURRENT_USER_ID: String {
+        let id = Auth.auth().currentUser!.uid
+        return id
+    }
+    
+    @IBOutlet var cosmosView: CosmosView!
+    
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //cosmosView.settings.updateOnTouch = true
+        
+        
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            
+            if Auth.auth().currentUser != nil
+            {
+                print("User Signed Into Swipe Mode")
+                //self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
+                
+            }  else {
+                
+                
+                print("User Not Signed In")
+            }
+        }
+        
+        
+        
+        
+        
+        popOver.layer.borderColor = UIColor.white.withAlphaComponent(0.12).cgColor
+        popOver.layer.borderWidth = 1.5
+        popOver.layer.cornerRadius = 7
+        
+        popOver.layer.shadowColor = UIColor.black.cgColor
+        popOver.layer.shadowRadius = 2
+        popOver.layer.shadowOpacity = 0.8
+        popOver.layer.shadowOffset = CGSize(width: 0, height: 0)
+        
+        FriendSystem.system.addFriendObserver {
+            self.tableView.reloadData()
+        }
+        
+        ref = Database.database().reference()
+        
+        
+        
         
         
         self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.size.height / 2;
@@ -43,19 +152,37 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         
         let user = usersArray[pageIndex]
         
-        DispatchQueue.global(qos: .background).async {
-            let imageData = NSData(contentsOf: URL(string: user.profileImageUrl!)!)
-            
-            DispatchQueue.main.async {
-                let profileImage = UIImage(data: imageData! as Data)
-                self.userProfileImage.image = profileImage
-                self.lblUserName.text = user.username
-
-            }
-        }
+        let imageUrl = URL(string: user.profileImageUrl!)!
+        self.userProfileImage.kf.indicatorType = .activity
+        self.userProfileImage.kf.setImage(with: imageUrl)
         
+        self.lblUserName.text = user.username
+        self.userGender.text = user.userType
+        self.userAge.text = String(user.age)
+        self.userHR.text = String(user.hourlyRate)
         
-        
+        /*
+         DispatchQueue.global(qos: .background).async {
+         let imageData = NSData(contentsOf: URL(string: user.profileImageUrl!)!)
+         
+         DispatchQueue.main.async {
+         let profileImage = UIImage(data: imageData! as Data)
+         self.userProfileImage.image = profileImage
+         self.lblUserName.text = user.username
+         self.userGender.text = user.userType
+         self.userAge.text = String(user.age)
+         self.userHR.text = String(user.hourlyRate)
+         
+         
+         ImageService.getImage(withURL: URL(string: user.profileImageUrl!)!) { image in
+         self.userProfileImage.image = profileImage
+         }
+         
+         
+         
+         }
+         }
+         */
         
         //item = self.items[pageIndex]["items"] as! [[String : String]]
         item = user.itemsConverted
@@ -94,6 +221,20 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         imagePreview.addGestureRecognizer(gesture)
     }
     
+    func resetCard() {
+        
+
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.imagePreview.alpha = 1
+            self.imagePreview.transform = .identity
+            self.imagePreview.center = self.view.center
+            self.thumbImageView.alpha = 0
+            
+
+        })
+    }
+    
     
     
     @objc func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
@@ -110,22 +251,47 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         
         imagePreview.transform = scaledAndRotated
         
+        // Set Thumb Image
+        if xFromCenter > 0 {
+            thumbImageView.image = #imageLiteral(resourceName: "ThumpDown")
+            thumbImageView.tintColor = UIColor.red
+        } else {
+            thumbImageView.image = #imageLiteral(resourceName: "ThumpUp")
+            thumbImageView.tintColor = UIColor.green
+            
+        }
+        
+        // Show Thumb Image
+        let alphaValue = abs(xFromCenter/view.center.x)
+        thumbImageView.alpha = alphaValue
+        
         if gestureRecognizer.state == .ended {
-            
-            
-            
-            
-            
             
             
             if imagePreview.center.x < (view.bounds.width / 2 - 100) {
                 print("Not Interested")
                 
+                // Thumbs Down
+                // Move off to the left
+                
                 self.dismiss(animated: true, completion: nil)
+                
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.imagePreview.center = CGPoint(x: self.imagePreview.center.x - 200, y: self.imagePreview.center.y + 100)
+                    self.imagePreview.alpha = 0
+                })
+                return
             }
             
             if imagePreview.center.x > (view.bounds.width / 2 + 100) {
                 print("Interested")
+                
+                // Thumbs Up
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.imagePreview.center = CGPoint(x:  self.imagePreview.center.x + 200, y:  self.imagePreview.center.y + 100)
+                    self.imagePreview.alpha = 0
+                })
+                
                 
                 let matchedUser = usersArray[pageIndex]
                 Helper.Pholio.matchedUser = matchedUser
@@ -136,8 +302,14 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
                     
                     let matched = updatedUser.matchedUsers[currentUserId] as? Bool
                     
+                    self.saveSwipeToFirestore(didLike: 1)
+
+
+                    
                     if matched == true {
                         DBService.shared.currentUser.child("Matched-Users").child(matchedUser.userId!).setValue(true)
+                        
+                        
                         
                     } else if matched == false {
                         DBService.shared.currentUser.child("Matched-Users").child(matchedUser.userId!).setValue(true)
@@ -148,7 +320,7 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
                         DBService.shared.currentUser.child("Matched-Users").child(matchedUser.userId!).setValue(false)
                     }
                     
-                    self.dismiss(animated: true, completion: nil)
+                    self.checkIfMatchExists(cardUID: currentUserId)
                 }
             }
             
@@ -160,7 +332,103 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             
             imagePreview.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
         }
+        
+        resetCard()
+        return
     }
+    
+    fileprivate func saveSwipeToFirestore(didLike: Int) {
+        
+        
+        
+        let matchedUser = usersArray[pageIndex]
+        Helper.Pholio.matchedUser = matchedUser
+        
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        
+        let documentData = [matchedUser.userId!: didLike]
+        
+        Firestore.firestore().collection("swipes").document(currentUserId).setData([ matchedUser.userId! : matchedUser.userId! ])
+        
+        Firestore.firestore().collection("swipes").document(currentUserId).getDocument { (snapshot, err) in
+            if let err = err {
+                print("Failed to fetch swipe document:", err)
+                return
+            }
+            
+            if snapshot?.exists == true {
+                Firestore.firestore().collection("swipes").document(currentUserId).updateData(documentData) { (err) in
+                    if let err = err {
+                        print("Failed to save swipe data:", err)
+                        return
+                    }
+                    print("Successfully updated swipe....")
+                    
+                    if didLike == 1 {
+                        self.checkIfMatchExists(cardUID: currentUserId)
+                    }
+                }
+            } else {
+                Firestore.firestore().collection("swipes").document(currentUserId).setData(documentData) { (err) in
+                    if let err = err {
+                        print("Failed to save swipe data:", err)
+                        return
+                    }
+                    print("Successfully saved swipe....")
+                    
+                    if didLike == 1 {
+                        self.checkIfMatchExists(cardUID: currentUserId)
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
+    fileprivate func checkIfMatchExists(cardUID: String) {
+        // How to detect our match between two users?
+        print("Detecting match")
+        
+        let matchedUser = usersArray[pageIndex]
+        Helper.Pholio.matchedUser = matchedUser
+        
+
+        
+       // guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+
+        
+        Firestore.firestore().collection("swipes").document(matchedUser.userId!).getDocument { (snapshot, err) in
+            if let err = err {
+                print("Failed to fetch document for card user:", err)
+                return
+            }
+            
+            guard let data = snapshot?.data() else { return }
+            print(data)
+            
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            
+            let hasMatched = data[uid] as? Int == 1
+            
+            if hasMatched {
+                print("Has matched")
+                self.presentMatchView(cardUID: cardUID)
+
+                //self.presentMatchView(cardUID: cardUID)
+            }
+        }
+    }
+    
+    
+    fileprivate func presentMatchView(cardUID: String) {
+        let matchView = MatchView()
+        view.addSubview(matchView)
+        matchView.fillSuperview()
+    }
+    
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -233,12 +501,16 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
                 DispatchQueue.main.async {
                     let contentImage = UIImage(data: imageData! as Data)
                     self.imagePreview.image = contentImage
+                    
+                    let user = self.usersArray[self.pageIndex]
+                    
+                    self.lblUserName.text = user.username
                 }
             }
-            let user = usersArray[pageIndex]
-
-            lblUserName.text = user.username
-
+            //let user = usersArray[pageIndex]
+            
+            // lblUserName.text = user.username
+            
             
             //self.imagePreview.image = UIImage(named: item[index]["item"]!)
         }
@@ -267,8 +539,99 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         }
     }
     
+    
+    func sendRequestToUser(_ userID: String) {
+        USER_REF.child(userID).child("requests").child(CURRENT_USER_ID).setValue(true)
+    }
+    
     //MARK: - Button actions
     @IBAction func close(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        
+        //sendRequestToUser(userID!)
+        
+        
+        
+        self.popOver.removeFromSuperview()
     }
 }
+
+
+extension PreViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return usersArray.index(after: 0)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Create cell
+        var cell = tableView.dequeueReusableCell(withIdentifier: "UserCell") as? UserCell
+        if cell == nil {
+            tableView.register(UINib(nibName: "UserCell", bundle: nil), forCellReuseIdentifier: "UserCell")
+            cell = tableView.dequeueReusableCell(withIdentifier: "UserCell") as? UserCell
+        }
+        
+        // Modify cell
+        // cell!.emailLabel.text = self.usersArray[self.pageIndex].email
+        
+        let user = self.usersArray[self.pageIndex]
+        
+        self.lblUserName.text = user.username
+        
+        cell!.setFunction {
+            
+            print("Interested")
+            
+            let matchedUser = self.usersArray[self.pageIndex]
+            Helper.Pholio.matchedUser = matchedUser
+            
+            guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+            
+            DBService.shared.refreshUser(userId: matchedUser.userId!) { (updatedUser) in
+                
+                let matched = updatedUser.matchedUsers[currentUserId] as? Bool
+                
+                if matched == true {
+                    DBService.shared.currentUser.child("Matched-Users").child(matchedUser.userId!).setValue(true)
+                    
+                } else if matched == false {
+                    DBService.shared.currentUser.child("Matched-Users").child(matchedUser.userId!).setValue(true)
+                    DBService.shared.users.child(matchedUser.userId!).child("Matched-Users").child(currentUserId).setValue(true)
+                    
+                } else {
+                    // Not matched yet
+                    DBService.shared.currentUser.child("Matched-Users").child(matchedUser.userId!).setValue(false)
+                    
+                    
+                    
+                    
+                    let user = self.usersArray[self.pageIndex].userId
+                    
+                    self.sendRequestToUser(user!)
+                    
+                    print("Request Sent")
+                    
+                    self.popOver.removeFromSuperview()
+                    
+                    
+                    let emailNotSentAlert = UIAlertController(title: "Request Status", message: "Shoot Request Succesfully Sent", preferredStyle: .alert)
+                    emailNotSentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(emailNotSentAlert, animated: true, completion: nil)
+                    
+                    
+                    
+                    //let id = FriendSystem.system.userList[indexPath.row].id
+                    //FriendSystem.system.sendRequestToUser(id!)
+                }
+            }
+        }
+        
+        // Return cell
+        return cell!
+    }
+    
+}
+

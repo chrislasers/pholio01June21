@@ -13,15 +13,16 @@ Panel supports Anchor points, TabBarController and NavigationController, also it
 
 # Cocoapods
 
-### Swift 4
+### Swift 4.2
 Add following to your Podfile:
 ```
 pod "CTSlidingUpPanel"
 ```
-### Swift 3
+### Swift 4.0
 ```
-pod "CTSlidingUpPanel", '~> 0.1.1'
+pod "CTSlidingUpPanel", '~> 1.0.4'
 ```
+
 
 ### How to Import
 
@@ -61,6 +62,13 @@ After that in your ViewController:
         //0 is bottom and 1 is top. 0.5 would be center                
         bottomController?.setAnchorPoint(anchor: 0.7)
     }
+    
+    ///Added in Version: 1.1.0 - To support Screen orientation changes!
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        bottomController?.viewWillTransition(to: size, with: coordinator)
+    }
+    
 ```
 And done, view you provided to bottomView should slide up and down.
 
@@ -97,7 +105,11 @@ bottomController = CTBottomSlideController(parent: parentView/*instead of view*/
                         tabController: self.tabBarController!,
                         navController: self.navigationController, visibleHeight: 64)
 ```
-### Delegation and stuff
+## Getting events from Sliding Controller
+There are 2 ways of doing this. One is with delegation and other is by using closures.
+
+### Delegation:
+
 1.  Add this to your ViewController
 ```swift 
    class ViewController: UIViewController, CTBottomSlideDelegate
@@ -114,6 +126,26 @@ bottomController = CTBottomSlideController(parent: parentView/*instead of view*/
   func didPanelAnchor();
   func didPanelMove(panelOffset: CGFloat);
 ```
+
+### Closures:
+```swift
+ bottomController?.onPanelExpanded = {
+      print("Panel Expanded in closure")
+ }
+        
+ bottomController?.onPanelCollapsed = {
+      print("Panel Collapsed in closure")
+ }
+        
+ bottomController?.onPanelAnchored = {
+      print("On Panel anchored")
+ }
+        
+ bottomController?.onPanelMoved = { offset in
+      print("Panel moved in closure " + offset.description)
+ }
+```
+
 ### Methods and Other stuff
 Use this if you want sliding panel to slide up or down depending on TableViews offset:
 ```swift

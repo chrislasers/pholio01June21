@@ -1,10 +1,13 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '11.0'
 
-target 'pholio01' do
 
 
     use_frameworks!
+
+target 'pholio01' do
+
+
 source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, '11.0'
@@ -19,13 +22,10 @@ platform :ios, '11.0'
 
 	pod 'Firebase/Storage'
 
-	pod 'SwiftValidator', :git => 'https://github.com/jpotts18/SwiftValidator.git', :branch => 'master'
+	pod 'SwiftValidator', :git => 'https://github.com/jpotts18/SwiftValidator.git', :tag => '4.2.0'
 
-    	pod 'FBSDKLoginKit'
 
-	pod 'FBSDKCoreKit'
-
-	pod 'FBSDKShareKit'
+	pod 'FacebookShare'
 
 	pod 'FacebookCore'
 
@@ -39,11 +39,11 @@ platform :ios, '11.0'
 
 	pod 'Firebase/Firestore'
 
-	pod 'Haneke', '~> 1.0'
+	pod 'Haneke'
 	
-	pod 'Alamofire', '~>4.0' 
+	pod 'Alamofire'
 	
-	pod 'FirebaseUI', '~> 5.0'
+	pod 'FirebaseUI'
 
 	pod 'SDWebImage'
 	
@@ -52,6 +52,33 @@ platform :ios, '11.0'
 	pod "CTSlidingUpPanel"
 
 	pod 'TextFieldEffects'
-	
 
+	pod "Pastel"
+
+	pod 'Cosmos'
+
+	pod 'Firebase/Messaging'
+
+	pod "BSImagePicker"
+	
+	pod 'Fusuma'
+
+	pod 'FirebaseInstanceID'
+
+	pod 'UICircularProgressRing'
+
+	pod 'InstagramLogin'
+
+	pod 'YPImagePicker'
+
+	pod 'Kingfisher'
+
+end
+
+post_install do |installer|
+  installer.pods_project.build_configurations.each do |config|
+    config.build_settings['LD_RUNPATH_SEARCH_PATHS'] = [
+      '$(FRAMEWORK_SEARCH_PATHS)'
+    ]
+  end
 end

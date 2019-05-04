@@ -97,7 +97,8 @@ class NewUploadPresenter: NSObject {
                 print("Queue Error Occured")
                 print(error.localizedDescription)
             } else {
-                self.viewController?.performSegue(withIdentifier: "toAddPhoto", sender: nil)
+                print("Update Success")
+                //self.viewController?.performSegue(withIdentifier: "toAddPhoto", sender: nil)
             }
             
         }

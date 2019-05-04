@@ -53,21 +53,27 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         case 1:
             print("Filters\n", terminator: "")
             
-            self.openViewControllerBasedOnIdentifier("Filters")
+            self.openViewControllerBasedOnIdentifier("Request")
             
             break
         case 2:
-            print("Favorites\n", terminator: "")
+            print("Filters\n", terminator: "")
+            
+            self.openViewControllerBasedOnIdentifier("Filters")
+            
+            break
+        case 3:
+            print("GetHelp\n", terminator: "")
             
             self.openViewControllerBasedOnIdentifier("GetHelp")
             
             break
-        case 3:
-            print("Settings\n", terminator: "")
+       // case 4:
+        //    print("Settings\n", terminator: "")
             
-            self.openViewControllerBasedOnIdentifier("Settings")
+         //   self.openViewControllerBasedOnIdentifier("Settings")
             
-            break
+          //  break
         case 4:
             print("LogOut\n", terminator: "")
             
@@ -82,6 +88,8 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
                     
                     try Auth.auth().signOut()
                     
+                    FBSDKAccessToken.setCurrent(nil)
+                    FBSDKProfile.setCurrent(nil)
                     FBSDKLoginManager().logOut()
                     
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)

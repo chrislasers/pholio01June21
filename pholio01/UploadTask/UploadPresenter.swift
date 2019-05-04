@@ -22,6 +22,12 @@ class UploadPresenter: NSObject {
     
      weak var viewController: SelectImageVC?
     
+    let userID = Auth.auth().currentUser?.uid
+    var ref: DatabaseReference!
+    
+    
+    //let collection = Firestore.firestore().collection("PHOTOS").document((Auth.auth().currentUser?.uid)!).updateData
+    
     
      let collection = Firestore.firestore().collection("PHOTOS")
     
@@ -91,7 +97,12 @@ class UploadPresenter: NSObject {
     }
     
      func CreateCar(imageURLs: [String]) {
+        
+        
+        
         let car = Car(objectID: nil, imageURLs: imageURLs)
+        
+        
         collection.addDocument(data: car.dictionary()) { [unowned self] (error) in
                 if let error = error {
                     print("Queue Error Occured")
@@ -99,7 +110,7 @@ class UploadPresenter: NSObject {
                 } else {
                     self.viewController?.performSegue(withIdentifier: "toAddPhoto", sender: nil)
                 }
-            
         }
+        
     }
 }

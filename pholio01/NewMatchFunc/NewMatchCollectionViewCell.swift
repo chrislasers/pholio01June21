@@ -22,7 +22,7 @@ class NewMatchCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         self.imageARRAY.layer.cornerRadius = self.imageARRAY.frame.size.height / 2;
         self.imageARRAY.layer.borderColor = UIColor.blue.cgColor
-        self.imageARRAY.layer.borderWidth = 2
+        self.imageARRAY.layer.borderWidth = 1.0
         self.imageARRAY.clipsToBounds = true
         
         

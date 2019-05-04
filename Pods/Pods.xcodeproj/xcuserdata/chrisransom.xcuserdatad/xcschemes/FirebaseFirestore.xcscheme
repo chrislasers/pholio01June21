@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1000"
+   LastUpgradeVersion = "1010"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "36D4CA1E21D168DBFA96D216AE6DA15B"
+               BlueprintIdentifier = "B5F114B17D08F9B29875879458EC9D4A"
                BuildableName = "FirebaseFirestore.framework"
                BlueprintName = "FirebaseFirestore"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "36D4CA1E21D168DBFA96D216AE6DA15B"
+            BlueprintIdentifier = "B5F114B17D08F9B29875879458EC9D4A"
             BuildableName = "FirebaseFirestore.framework"
             BlueprintName = "FirebaseFirestore"
             ReferencedContainer = "container:Pods.xcodeproj">

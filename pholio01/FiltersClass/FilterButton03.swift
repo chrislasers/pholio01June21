@@ -40,7 +40,7 @@ class FilterButton03: UIButton {
         isOn = bool
         
         let color = bool ? Colors.twitterBlue : .clear
-        let title = bool ? "Photographer" : "Photgraphers"
+        let title = bool ? "Photographer" : "Photographers"
         let titleColor = bool ? .white : Colors.twitterBlue
         
         setTitle(title, for: .normal)

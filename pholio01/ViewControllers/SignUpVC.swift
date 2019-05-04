@@ -16,10 +16,15 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import FacebookLogin
 import FacebookCore
+import FacebookShare
 import LBTAComponents
 import JGProgressHUD
 import Photos
 import FirebaseFirestore
+import Pastel
+import InstagramLogin
+
+
 
 class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     func validationSuccessful() {
@@ -80,14 +85,64 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     var ref: DatabaseReference!
     
     
+    
     let userID = Auth.auth().currentUser?.uid
     
     let storage = Storage.storage()
     
     let metaData = StorageMetadata()
+    
+    // MARK: - Firebase references
+    /** The base Firebase reference */
+    let BASE_REF = Database.database().reference()
+    /* The user Firebase reference */
+    let USER_REF = Database.database().reference().child("users")
+    
+    /** The Firebase reference to the current user tree */
+    var CURRENT_USER_REF: DatabaseReference {
+        let id = Auth.auth().currentUser?.uid
+        return USER_REF.child(id!)
+    }
+    
+    /** The Firebase reference to the current user's friend tree */
+    var CURRENT_USER_FRIENDS_REF: DatabaseReference {
+        return CURRENT_USER_REF.child("friends")
+    }
+    
+    /** The Firebase reference to the current user's friend request tree */
+    var CURRENT_USER_REQUESTS_REF: DatabaseReference {
+        return CURRENT_USER_REF.child("requests")
+    }
+    
+    /** The current user's id */
+    var CURRENT_USER_ID: String {
+        let id = Auth.auth().currentUser!.uid
+        return id
+    }
 
     
     override func viewDidLoad() {
+        
+        
+        let button = UIButton(type: .custom)
+        //set image for button
+        button.setImage(UIImage(named: "back"), for: .normal)
+        //add function for button
+        button.addTarget(self, action: #selector(fbButtonPressed), for: .touchUpInside)
+        //set frame
+        button.frame = CGRect(x: 0, y: 0, width: 21, height: 21)
+        
+        let widthConstraint = button.widthAnchor.constraint(equalToConstant: 21)
+        let heightConstraint = button.heightAnchor.constraint(equalToConstant: 21)
+        heightConstraint.isActive = true
+        widthConstraint.isActive = true
+        
+        let barButton = UIBarButtonItem(customView: button)
+        //assign button to navigationbar
+        self.navigationItem.leftBarButtonItem = barButton
+        
+        
+        
         
         Auth.auth().addStateDidChangeListener { (auth, user) in
             
@@ -109,11 +164,12 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             // Add a custom login button to your app
             let myLoginButton = UIButton(type: .custom)
             myLoginButton.backgroundColor = UIColor(r: 73, g: 103, b: 173)
-            myLoginButton.frame = CGRect(x: 50, y: 465, width: view.frame.width - 105, height: 47)
+            myLoginButton.frame = CGRect(x: 50, y: 470, width: view.frame.width - 105, height: 47)
             myLoginButton.setTitle("Login with Facebook", for: .normal)
             myLoginButton.setTitleColor(UIColor.white, for: .normal)
             myLoginButton.layer.cornerRadius = 7
             
+
             myLoginButton.setImage(#imageLiteral(resourceName: "flogo_RGB_HEX-144").withRenderingMode(.automatic), for: .normal)
             myLoginButton.tintColor = .white
             myLoginButton.contentMode = .scaleAspectFill
@@ -123,36 +179,60 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             myLoginButton.layer.masksToBounds = true
             // Handle clicks on the button
             myLoginButton.addTarget(self, action: #selector(loginButtonClicked), for: .touchUpInside)
+            
+            
+            
+            _ = UIDevice().type.rawValue
+            
+            switch UIDevice().type {
+                
+            case .iPhone5,.iPhone5S, .iPhoneSE:
+                
+                myLoginButton.frame = CGRect(x: 40, y: 450, width: 253, height: 47)
+            
+                
+            default:break
+            }
+            
+            
             return myLoginButton
         }
         // Add the button to the view
         view.addSubview(signInWithFbButton)
         
         
+        let tf = CustomTextField(padding: 24, height: 44)
+        
+        tf.layer.cornerRadius =  tf.height / 2
+        
+        tf.placeholder = "Enter Username"
+        tf.backgroundColor = .white
         
         password.keyboardType = .default
-        //password.placeholder = "Password"
+        password.placeholder = "Enter Password"
         
         
         email.keyboardType = .emailAddress
-        //email.placeholder = "Email Address"
+        email.placeholder = "Enter Email "
         
         super.viewDidLoad()
         
         fbValid.isHidden = true
-
         
-        
-        self.signUpButton.backgroundColor = UIColor.orange
-        signUpButton.setTitle("Continue", for: .normal)
-        signUpButton.layer.borderWidth = 1
-        signUpButton.layer.borderColor = UIColor.orange.cgColor
+        signUpButton.backgroundColor = UIColor.orange
+        signUpButton.setTitle("Sign Up", for: .normal)
+        signUpButton.layer.borderColor = UIColor.white.withAlphaComponent(0.12).cgColor
+        signUpButton.layer.borderWidth = 1.5
+        signUpButton.layer.cornerRadius = 4
         signUpButton.setTitleColor(UIColor.white, for: .normal)
-        signUpButton.layer.shadowColor = UIColor.white.cgColor
-        signUpButton.layer.shadowRadius = 5
-        signUpButton.layer.shadowOpacity = 0.3
-        signUpButton.layer.shadowOffset = CGSize(width: 0, height: 0)
-        
+        //signUp.layer.shadowColor = UIColor.white.cgColor
+        // signUp.layer.shadowRadius = 5
+        signUpButton.layer.shadowOpacity = 0.5
+        signUpButton.layer.shadowOffset = CGSize(width: 1, height: 1)
+
+
+     
+       
         
         
         let db = Firestore.firestore()
@@ -277,6 +357,42 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: UIResponder.keyboardWillShowNotification, object: nil)
         
+        let pastelView = PastelView(frame: view.bounds)
+        
+        //MARK: -  Custom Direction
+        pastelView.startPastelPoint = .bottomLeft
+        pastelView.endPastelPoint = .topRight
+        
+        //MARK: -  Custom Duration
+        
+        pastelView.animationDuration = 3.75
+
+        //MARK: -  Custom Color
+        pastelView.setColors([
+            
+            
+            // UIColor(red: 156/255, green: 39/255, blue: 176/255, alpha: 1.0),
+            
+            // UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
+            
+            UIColor(red: 135/255, green: 206/255, blue: 250/255, alpha: 1.0),
+            
+            
+            UIColor(red: 0/255, green: 0/255, blue: 100/255, alpha: 1.0)])
+        
+        
+        // UIColor(red: 32/255, green: 158/255, blue: 255/255, alpha: 1.0)])
+        
+        
+        //   UIColor(red: 90/255, green: 120/255, blue: 127/255, alpha: 1.0),
+        
+        
+        //  UIColor(red: 58/255, green: 255/255, blue: 217/255, alpha: 1.0)])
+        
+        pastelView.startAnimation()
+        view.insertSubview(pastelView, at: 1)
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -295,6 +411,17 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     }
     
     
+    @objc func fbButtonPressed() {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let signinvc = storyboard.instantiateViewController(withIdentifier: "signinvc")
+        
+        self.present(signinvc, animated: true, completion: nil)
+        
+        print("Bar Button Pressed")
+    }
+    
+    
     //FACEBOOK INTEGRATION
     
     @objc func loginButtonClicked() {
@@ -303,6 +430,17 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         hud.show(in: view, animated: true)
         
         let loginManager = LoginManager()
+        
+        
+        
+         //   loginManager.loginBehavior = .web
+        
+        
+        if let currentAccessToken = FBSDKAccessToken.current(), currentAccessToken.appID != FBSDKSettings.appID()
+        {
+            loginManager.logOut()
+        }
+        
         loginManager.logIn(readPermissions:
         [ .publicProfile, .email], viewController: self) { (result) in
             switch result {
@@ -339,6 +477,10 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
                 return
             }
             
+            self.getFacebookData()
+            
+
+            
             self.performSegue(withIdentifier: "toEditProfile", sender: nil)
             print("Successfully logged into Firebase")
             self.hud.dismiss(animated: true)
@@ -346,7 +488,52 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         }
     }
 
+    private func getFacebookData() {
+        
+  
+        let params: [String:String] = ["fields": "email, id"]
+        let graphRequest: FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: params)
+        graphRequest.start { (connection: FBSDKGraphRequestConnection?, result: Any?, error: Error?) in
+            
+            if error == nil {
+                if let facebookData = result as? NSDictionary {
+                    if let publicProfile = facebookData.value(forKey: FacebookPermission.PublicProfile) as? NSDictionary {
+                        print("fb public profile: \(publicProfile)")
+                    }
+                    
+                    if let email = facebookData.value(forKey: FacebookPermission.Email) as? String {
+                        
+                        var userInfo = [String: AnyObject]()
+                        userInfo = ["email": email as AnyObject]
+                        self.CURRENT_USER_REF.setValue(userInfo)
+                        print("fb email: \(email)")
+                    }
+                    
+                    if let userPhotos = facebookData.value(forKey: FacebookPermission.UserPhotos) as? NSDictionary {
+                        print("fb photos: \(userPhotos)")
+                    }
+                }
+                
+                
+                if let values: [String:AnyObject] = result as? [String : AnyObject] {
+                
+                // update our databse by using the child database reference above called usersReference
+                    
 
+                    self.CURRENT_USER_REF.setValue(values, withCompletionBlock: { (err, ref) in
+                    // if there's an error in saving to our firebase database
+                    if err != nil {
+                        print(err!)
+                        return
+                    }
+                    // no error, so it means we've saved the user into our firebase database successfully
+                    print("Save the user successfully into Firebase database")
+                })
+            }
+            }
+        }
+        
+    }
    
     
     
@@ -527,11 +714,42 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         picker.dismiss(animated: true, completion:nil)
     }
     
-
+    func presentSignupAlertView() {
+        let alertController = UIAlertController(title: "Error", message: "Couldn't create account", preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func presentLoginAlertView() {
+        let alertController = UIAlertController(title: "Error", message: "Email/password is incorrect", preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func postToken(Token: [String : AnyObject]){
+        
+        print("FCM Token: \(Token)")
+        
+       
+        ref.child("Users").child((Auth.auth().currentUser?.uid)!).child("fcmToken").child(Messaging.messaging().fcmToken!).updateChildValues(Token)
+        
+       // self.ref.child("Users").child(self.userID!).setValue(["tokenid":Token])
+        
+    }
+    
+    
+    
+   
     
     @IBAction func registerPressed(_ sender: AnyObject) {
         
         validator.validate(self)
+        
+        let token: [String: AnyObject] = [Messaging.messaging().fcmToken!: Messaging.messaging().fcmToken as AnyObject]
+        
+
         
         
         guard let email = email.text, let password = password.text else {return}
@@ -546,24 +764,35 @@ class SignUpVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
                 print(providers)
             }
         })
+        
+        
+        FriendSystem.system.createAccount(email, password: password) { (success) in
+            if success {
+                self.performSegue(withIdentifier: "toEditProfile", sender: self)
+                //print(self.userID!)
+                
+                self.postToken(Token: token)
+                
 
-   
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            
-            if error != nil {
-                print(error?.localizedDescription as Any)
+                // let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                //let signinvc = storyboard.instantiateViewController(withIdentifier: "Home")
                 
-                let emailNotSentAlert = UIAlertController(title: "Email Verification", message: "Email failed to send: \(String(describing: error?.localizedDescription) as Any)", preferredStyle: .alert)
-                  emailNotSentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                   self.present(emailNotSentAlert, animated: true, completion: nil)
-                
-                return
-                }
-            else
-                {
-                    self.performSegue(withIdentifier: "toEditProfile", sender: self)
-                
+                // self.present(signinvc, animated: true, completion: nil)
+                print("User has Signed In")
+            } else {
+                // Error
+                self.presentSignupAlertView()
             }
         }
     }
+    }
+
+struct FacebookPermission
+{
+    static let Email: String = "email"
+    static let UserPhotos: String = "user_photos"
+    static let PublicProfile: String = "public_profile"
 }
+
+
+

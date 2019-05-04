@@ -42,12 +42,12 @@ class OHCircleSegue: UIStoryboardSegue, CAAnimationDelegate {
         if OHCircleSegue.stack.peek() !== destination {
             OHCircleSegue.stack.push(vc: source)
         } else {
-            OHCircleSegue.stack.pop()
+            //OHCircleSegue.stack.pop()
             shouldUnwind = true
         }
         
-        let sourceView = source.view as UIView!
-        let destView = destination.view as UIView!
+        let sourceView = source.view as UIView?
+        let destView = destination.view as UIView?
         
         // Add source (or destination) controller's view to the main application
         // window depending of if this is a normal or unwind segue

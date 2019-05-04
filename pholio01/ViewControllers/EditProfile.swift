@@ -22,6 +22,8 @@ import JGProgressHUD
 import MapKit
 import CoreLocation
 import GeoFire
+import Pastel
+import BSGridCollectionViewLayout
 
 class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelegate, ValidationDelegate {
     func validationSuccessful() {
@@ -91,6 +93,9 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
 
     let list = ["Male", "Female"]
     
+    let Model: String = "Finished"
+
+    
     
     
     
@@ -112,31 +117,68 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         
         super.viewDidLoad()
         
+        let button = UIButton(type: .custom)
+        //set image for button
+        button.setImage(UIImage(named: "back"), for: .normal)
+        //add function for button
+        button.addTarget(self, action: #selector(fbButtonPressed), for: .touchUpInside)
+        //set frame
+        button.frame = CGRect(x: 0, y: 0, width: 21, height: 21)
         
-        genderTapped.backgroundColor = UIColor.black
+        let widthConstraint = button.widthAnchor.constraint(equalToConstant: 21)
+        let heightConstraint = button.heightAnchor.constraint(equalToConstant: 21)
+        heightConstraint.isActive = true
+        widthConstraint.isActive = true
+        
+        let barButton = UIBarButtonItem(customView: button)
+        //assign button to navigationbar
+        self.navigationItem.leftBarButtonItem = barButton
+        
+        
+        
+        locationLabel.backgroundColor = UIColor.white
+        locationLabel.layer.borderColor = UIColor.white.withAlphaComponent(0.12).cgColor
+        locationLabel.layer.borderWidth = 1.5
+        
+        locationLabel.layer.cornerRadius = 13
+        
+        //signUp.layer.shadowColor = UIColor.white.cgColor
+        // signUp.layer.shadowRadius = 5
+        locationLabel.layer.shadowOpacity = 0.5
+        locationLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        
+        genderTapped.backgroundColor = UIColor.orange
+        genderTapped.setTitle("Gender", for: .normal)
+        genderTapped.layer.borderColor = UIColor.white.withAlphaComponent(0.12).cgColor
         genderTapped.layer.borderWidth = 1.5
-        genderTapped.layer.borderColor = UIColor.white.cgColor
-        genderTapped.layer.cornerRadius = genderTapped.frame.height / 2
-        genderTapped.layer.shadowColor = UIColor.white.cgColor
-        genderTapped.layer.shadowRadius = 7
-        genderTapped.layer.shadowOpacity = 0.2
-        genderTapped.layer.shadowOffset = CGSize(width: 0, height: 0)
+        genderTapped.layer.cornerRadius = 4
+        genderTapped.setTitleColor(UIColor.white, for: .normal)
+        //signUp.layer.shadowColor = UIColor.white.cgColor
+        // signUp.layer.shadowRadius = 5
+        genderTapped.layer.shadowOpacity = 0.5
+        genderTapped.layer.shadowOffset = CGSize(width: 1, height: 1)
         
-        self.signUpButton.backgroundColor = UIColor.orange
-        signUpButton.setTitle("Continue", for: .normal)
-        signUpButton.layer.borderWidth = 1
-        signUpButton.layer.borderColor = UIColor.orange.cgColor
+        
+       
+        
+    
+        
+        signUpButton.backgroundColor = UIColor.orange
+        signUpButton.setTitle("Sign Up", for: .normal)
+        signUpButton.layer.borderColor = UIColor.white.withAlphaComponent(0.12).cgColor
+        signUpButton.layer.borderWidth = 1.5
+        signUpButton.layer.cornerRadius = 4
         signUpButton.setTitleColor(UIColor.white, for: .normal)
-        signUpButton.layer.shadowColor = UIColor.white.cgColor
-        signUpButton.layer.shadowRadius = 5
-        signUpButton.layer.shadowOpacity = 0.3
-        signUpButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+        //signUp.layer.shadowColor = UIColor.white.cgColor
+        // signUp.layer.shadowRadius = 5
+        signUpButton.layer.shadowOpacity = 0.5
+        signUpButton.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         
         
         
-        
-         genderTapped.frame = CGRect(x: 50, y: 660, width: view.frame.width - 105, height: 60)
+         genderTapped.frame = CGRect(x: 50, y: 660, width: view.frame.width - 105, height: 30)
         
          HourlyRate.frame = CGRect(x: 50, y: 600, width: view.frame.width - 105, height: 47)
         
@@ -144,7 +186,7 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         
           locationLabel.frame = CGRect(x: 50, y: 475, width: view.frame.width - 105, height: 47)
         
-         locationName.frame = CGRect(x: 50, y: 500, width: view.frame.width - 105, height: 47)
+        // locationName.frame = CGRect(x: 50, y: 500, width: view.frame.width - 105, height: 47)
         
         
         
@@ -265,7 +307,7 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        locationAuthStatus()
+     // locationAuthStatus()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -374,6 +416,7 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         }
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         HourlyRate.becomeFirstResponder
@@ -382,7 +425,46 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: UIResponder.keyboardWillShowNotification, object: nil)
         
+        
+        
+        let pastelView = PastelView(frame: view.bounds)
+        
+        //MARK: -  Custom Direction
+        pastelView.startPastelPoint = .bottomLeft
+        pastelView.endPastelPoint = .topRight
+        
+        //MARK: -  Custom Duration
+        
+        pastelView.animationDuration = 3.75
+
+        //MARK: -  Custom Color
+        pastelView.setColors([
+            
+            
+            // UIColor(red: 156/255, green: 39/255, blue: 176/255, alpha: 1.0),
+            
+            // UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
+            
+            UIColor(red: 135/255, green: 206/255, blue: 250/255, alpha: 1.0),
+            
+            
+            UIColor(red: 0/255, green: 0/255, blue: 100/255, alpha: 1.0)])
+        
+        
+        // UIColor(red: 32/255, green: 158/255, blue: 255/255, alpha: 1.0)])
+        
+        
+        //   UIColor(red: 90/255, green: 120/255, blue: 127/255, alpha: 1.0),
+        
+        
+        //  UIColor(red: 58/255, green: 255/255, blue: 217/255, alpha: 1.0)])
+        
+        pastelView.startAnimation()
+        view.insertSubview(pastelView, at: 1)
+        
+        
     }
+    
     
     
     
@@ -491,7 +573,12 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
    
     
     
-    
+    @objc func fbButtonPressed() {
+        
+        dismiss(animated: true, completion: nil)
+
+        print("Bar Button Pressed")
+    }
     
     
     @IBAction func cancelPressed(_ sender: Any) {
@@ -517,6 +604,8 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
     @IBAction func gender(_ sender: Any) {
         if genderTV.isHidden {
             
+
+            
             animate(toggle: true, type: genderTapped)
         }
      else {
@@ -529,6 +618,7 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         if toggle {
             
             UIView.animate(withDuration: 0.3) {
+                
                 
                 self.genderTV.isHidden = false
             }
@@ -553,18 +643,26 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
         let childUpdates: [String: Any] = [
             "/dateCreated": Date().timeIntervalSince1970,
             "/Age": Int(Age) ?? 0,
-            "/Hourly Rate": Int(hourlyRate) ?? 0,
+            "/Rate": Int(hourlyRate) ?? 0,
             "/GenderFilter": GenderFilter.both.rawValue // this is the default value can be changed to .male and .female
         ]
         
+        
+        let childupdates: [String: Any] = [
+            "/Yes": Model,
+    ]
+        
         let userRef = ref.child("Users").child(Auth.auth().currentUser!.uid)
         userRef.updateChildValues(childUpdates)
+        userRef.updateChildValues(childupdates)
+
         
         // set the age
         //userRef.child("Age").setValue(Int(Age))
         
         // set the hourly rate
         //userRef.child("Hourly Rate").setValue(Int(hourlyRate))
+        
         
         self.performSegue(withIdentifier: "toHomePage", sender: self)
         
