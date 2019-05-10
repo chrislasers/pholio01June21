@@ -134,7 +134,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         arrayMenuOptions.append(["title":"Request", "icon":"add-user"])
         arrayMenuOptions.append(["title":"Filters", "icon":"filter-3"])
         arrayMenuOptions.append(["title":"Get Help", "icon":"question-2"])
-        //arrayMenuOptions.append(["title":"Settings", "icon":"gear-2"])
+        arrayMenuOptions.append(["title":"Settings", "icon":"gear-2"])
         arrayMenuOptions.append(["title":"Log Out", "icon":"logout-2"])
         
         

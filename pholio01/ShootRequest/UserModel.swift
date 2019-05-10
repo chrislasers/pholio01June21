@@ -81,7 +81,7 @@ class UserModel: NSObject {
         self.userProfilePicDictionary = dictionary["UserPro-Pic"] as? [String: Any]
         
         
-        if let profileImageUrl = userProfilePicDictionary!["profileImageURL"] as? String {
+        if let profileImageUrl = userProfilePicDictionary!["imageUrl1"] as? String {
             self.profileImageUrl = profileImageUrl
         }
         

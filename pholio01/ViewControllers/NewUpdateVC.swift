@@ -56,6 +56,8 @@ class NewUpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     
     @IBOutlet weak var tapToChangePic: UIButton!
     
+    
+    
     var imagePicker:UIImagePickerController!
     var selectedImage: UIImage!
     let validator = Validator()
@@ -90,7 +92,10 @@ class NewUpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         
-        
+        if let uid = Auth.auth().currentUser?.uid {
+            let docData: [String: Any] = ["uid": uid]
+            Firestore.firestore().collection("users").document(uid).setData(docData)
+        }
         
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true

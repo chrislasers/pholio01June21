@@ -92,7 +92,10 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         
-        
+        if let uid = Auth.auth().currentUser?.uid {
+            let docData: [String: Any] = ["uid": uid]
+            Firestore.firestore().collection("users").document(uid).setData(docData)
+        }
         
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
@@ -534,10 +537,10 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
                     if let downloadUrl = metadata {
                         // Make you download string
                         let profileImageURL = downloadUrl.absoluteString
-                        userReference.setValue(["profileImageURL": profileImageURL])
+                        userReference.setValue(["imageUrl1": profileImageURL])
                         
                         let uid = Auth.auth().currentUser?.uid ?? ""
-                        let docData = ["uid": uid, "profileImageURL": profileImageURL]
+                        let docData = ["uid": uid, "imageUrl1": profileImageURL]
                         Firestore.firestore().collection("users").document(uid).setData(docData) { (err) in
                             if let err = err {
                                 print(err)

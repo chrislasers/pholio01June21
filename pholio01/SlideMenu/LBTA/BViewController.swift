@@ -27,7 +27,7 @@ import Pastel
 import Kingfisher
 
 
-class BViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, CLLocationManagerDelegate {
+class BViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet weak var map: MKMapView!
     
@@ -117,6 +117,7 @@ class BViewController: UIViewController, UICollectionViewDelegate, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+                
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
         leftSwipe.direction = .left
         
@@ -180,14 +181,15 @@ class BViewController: UIViewController, UICollectionViewDelegate, UICollectionV
             
         }
         
-        setupNavigationItems()
+        //setupNavigationItems()
         
-        setupMenuController()
+       // setupMenuController()
         
-        setupPanGesture()
+       // setupPanGesture()
         
-        setupDarkCoverView()
-       // self.addSlideMenuButton()
+      //  setupDarkCoverView()
+        
+       self.addSlideMenuButton()
         
         
         let pastelView = PastelView(frame: view.bounds)
@@ -245,6 +247,8 @@ class BViewController: UIViewController, UICollectionViewDelegate, UICollectionV
         view.addGestureRecognizer(panGesture)
     }
     
+    
+    
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
         if gesture.state == .changed {
@@ -272,7 +276,7 @@ class BViewController: UIViewController, UICollectionViewDelegate, UICollectionV
         }
     }
     
-    fileprivate func handleEnded(gesture: UIPanGestureRecognizer) {
+     func handleEnded(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
         
         let velocity = gesture.velocity(in: view)
@@ -305,11 +309,12 @@ class BViewController: UIViewController, UICollectionViewDelegate, UICollectionV
     
     let menuController = MenuController()
     
-    fileprivate let velocityOpenThreshold: CGFloat = 500
-    fileprivate let menuWidth: CGFloat = 300
-    fileprivate var isMenuOpened = false
+     let velocityOpenThreshold: CGFloat = 500
+     let menuWidth: CGFloat = 280
     
-    fileprivate func performAnimations(transform: CGAffineTransform) {
+     var isMenuOpened = false
+    
+     func performAnimations(transform: CGAffineTransform) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.menuController.view.transform = transform
             //            self.view.transform = tranform
@@ -329,6 +334,8 @@ class BViewController: UIViewController, UICollectionViewDelegate, UICollectionV
         })
     }
     
+    
+    
     @objc func handleOpen() {
         isMenuOpened = true
         performAnimations(transform: CGAffineTransform(translationX: self.menuWidth, y: 0))
@@ -337,7 +344,83 @@ class BViewController: UIViewController, UICollectionViewDelegate, UICollectionV
     @objc func handleHide() {
         isMenuOpened = false
         performAnimations(transform: .identity)
+        
+        
     }
+    
+    @objc func openMenu() {
+        isMenuOpened = true
+        redViewLeadingConstraint.constant = menuWidth
+        performAnimations()
+        print("Menu Open")
+    }
+    
+    @objc func closeMenu() {
+       redViewLeadingConstraint.constant = 0
+        isMenuOpened = false
+        performAnimations()
+        print("Menu Closed")
+
+    }
+    
+    func didSelectMenuItem(indexPath: IndexPath) {
+        //        print("Selected menu item:", indexPath.row)
+        
+        
+        
+        switch indexPath.row {
+            
+            
+        case 0:
+            print("Show Home Screen")
+            
+            let listsController = ListsController()
+
+            
+            view.addSubview(listsController.view)
+
+            
+           // let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+           // let controller = storyboard.instantiateViewController(withIdentifier: "Filters") as! FiltersVC
+            
+          //  self.navigationController?.pushViewController(controller, animated: true)
+        case 1:
+                      print("Show Lists Screen")
+           // self.openViewControllerBasedOnIdentifier("Home")
+
+            
+        case 2:
+            
+            print("Show Lists Screen")
+
+          // self.openViewControllerBasedOnIdentifier("Request")
+
+        default:
+            print("Show Moments Screen")
+            closeMenu()
+
+        }
+        
+       //self.openViewControllerBasedOnIdentifier("Filters")
+      //closeMenu()
+    }
+    
+    fileprivate func performAnimations() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            // leave a reference link down in desc below
+            self.view.layoutIfNeeded()
+            self.darkCoverView.alpha = self.isMenuOpened ? 1 : 0
+        })
+    }
+    
+    
+    
+    var redViewLeadingConstraint: NSLayoutConstraint!
+    fileprivate let velocityThreshold: CGFloat = 500
+    
+    
+    
     
     // MARK:- Fileprivate
     
@@ -384,6 +467,9 @@ class BViewController: UIViewController, UICollectionViewDelegate, UICollectionV
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         collectionView.collectionViewLayout.invalidateLayout()
+        
+        menuController.view.frame = CGRect(x: 0, y: 0, width: 200, height: 500) // something new
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {

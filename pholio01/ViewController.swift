@@ -15,6 +15,7 @@ import CTSlidingUpPanel
 import Cosmos
 import Firebase
 import FirebaseAuth
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
