@@ -92,6 +92,8 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         
         
+        
+        
         if let uid = Auth.auth().currentUser?.uid {
             let docData: [String: Any] = ["uid": uid]
             Firestore.firestore().collection("users").document(uid).setData(docData)
