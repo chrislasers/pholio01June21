@@ -97,6 +97,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
             Firestore.firestore().collection("users").document(uid).setData(docData)
         }
         
+        
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
