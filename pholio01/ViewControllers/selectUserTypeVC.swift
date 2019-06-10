@@ -134,7 +134,7 @@ class selectUserTypeVC: UIViewController {
         super.viewWillAppear(animated)
         
         
-        
+       
         let pastelView = PastelView(frame: view.bounds)
         
         //MARK: -  Custom Direction
@@ -143,24 +143,19 @@ class selectUserTypeVC: UIViewController {
         
         //MARK: -  Custom Duration
         
-        pastelView.animationDuration = 3.75
-
+        pastelView.animationDuration = 3.00
+        
         //MARK: -  Custom Color
         pastelView.setColors([
             
-            
-            // UIColor(red: 156/255, green: 39/255, blue: 176/255, alpha: 1.0),
-            
-            // UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
-            
-            UIColor(red: 135/255, green: 206/255, blue: 250/255, alpha: 1.0),
+            UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
             
             
-            UIColor(red: 0/255, green: 0/255, blue: 100/255, alpha: 1.0)])
-        
-        
-        // UIColor(red: 32/255, green: 158/255, blue: 255/255, alpha: 1.0)])
-        
+            UIColor(red: 123/255, green: 31/255, blue: 162/255, alpha: 1.0),
+            
+            
+            
+            UIColor(red: 50/255, green: 157/255, blue: 240/255, alpha: 1.0)])
         
         //   UIColor(red: 90/255, green: 120/255, blue: 127/255, alpha: 1.0),
         

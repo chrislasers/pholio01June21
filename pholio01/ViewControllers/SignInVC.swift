@@ -177,6 +177,12 @@ class SignInVC: UIViewController, UITextFieldDelegate, MessagingDelegate, Valida
             myLoginButton.setTitleColor(UIColor.white, for: .normal)
             myLoginButton.layer.cornerRadius = 7
             
+             myLoginButton.layer.borderColor = UIColor.white.cgColor
+            
+            myLoginButton.layer.borderWidth = 1.0
+
+            
+            
             myLoginButton.setImage(#imageLiteral(resourceName: "flogo_RGB_HEX-144").withRenderingMode(.automatic), for: .normal)
             myLoginButton.tintColor = .white
             myLoginButton.contentMode = .scaleAspectFill
@@ -227,7 +233,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, MessagingDelegate, Valida
                 
             case .iPhoneXS, .iPhoneXR:
                 
-                myLoginButton.frame = CGRect(x: 50, y: 660, width: view.frame.width - 105, height: 47)
+                myLoginButton.frame = CGRect(x: 50, y: 685, width: view.frame.width - 98, height: 47)
                 
                 
             case .iPhoneXSMax:
@@ -300,11 +306,19 @@ class SignInVC: UIViewController, UITextFieldDelegate, MessagingDelegate, Valida
         
     
             
+            
         case .iPhoneXR:
 
         newLogo.frame = CGRect(x: 136, y: 97, width: 145, height: 145)
         
         Logo.frame = CGRect(x: 103, y: 64, width: 210, height: 210)
+            
+            
+        case .iPhoneXS:
+            
+            newLogo.frame = CGRect(x: 102, y: 113, width: 170, height: 170)
+            
+            Logo.frame = CGRect(x: 69, y: 81, width: 235, height: 235)
         
         case .iPhoneXSMax:
             
@@ -1057,25 +1071,25 @@ class SignInVC: UIViewController, UITextFieldDelegate, MessagingDelegate, Valida
             
             
             
-            email.frame = CGRect(x: 51, y: 330, width: 275, height: 45)
+            email.frame = CGRect(x: 51, y: 380, width: 275, height: 45)
             
-            password.frame = CGRect(x: 51, y: 407, width: 275, height: 45)
-            
-            
-            emailValid.frame = CGRect(x: 293, y: 383, width: 33, height: 16)
-            
-            passwordValid.frame = CGRect(x: 293, y: 460, width: 33, height: 16)
+            password.frame = CGRect(x: 51, y: 457, width: 275, height: 45)
             
             
-            forgetPassword.frame = CGRect(x: 133, y: 470, width: 108, height: 27)
+            emailValid.frame = CGRect(x: 293, y: 433, width: 33, height: 16)
+            
+            passwordValid.frame = CGRect(x: 293, y: 510, width: 33, height: 16)
             
             
-            signIn.frame = CGRect(x: 51, y: 519, width: 275, height: 45)
+            forgetPassword.frame = CGRect(x: 133, y: 520, width: 108, height: 27)
             
-            signUp.frame = CGRect(x: 51, y: 572, width: 275, height: 45)
+            
+            signIn.frame = CGRect(x: 51, y: 568, width: 275, height: 45)
+            
+            signUp.frame = CGRect(x: 51, y: 622, width: 275, height: 45)
             
             // Create the view
-            let progressRing = UICircularProgressRing(frame: CGRect(x: 77, y: 57, width: 225, height: 225))
+            let progressRing = UICircularProgressRing(frame: CGRect(x: 61, y: 72, width: 250, height: 250))
             // Change any of the properties you'd like
             
             
@@ -1121,7 +1135,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, MessagingDelegate, Valida
             
             
             progressRing.outerRingColor = UIColor.orange
-            progressRing.outerRingWidth = 3.0
+            progressRing.outerRingWidth = 1.5
             progressRing.shouldShowValueText = false
             progressRing.gradientColors = [UIColor.orange]
             //progressRing.minValue = 0
@@ -1287,6 +1301,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, MessagingDelegate, Valida
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         
+        
         let pastelView = PastelView(frame: view.bounds)
         
         //MARK: -  Custom Direction
@@ -1295,24 +1310,19 @@ class SignInVC: UIViewController, UITextFieldDelegate, MessagingDelegate, Valida
         
         //MARK: -  Custom Duration
         
-        pastelView.animationDuration = 3.75
+        pastelView.animationDuration = 3.00
         
         //MARK: -  Custom Color
         pastelView.setColors([
             
-            
-            // UIColor(red: 156/255, green: 39/255, blue: 176/255, alpha: 1.0),
-            
-            // UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
-            
-            UIColor(red: 135/255, green: 206/255, blue: 250/255, alpha: 1.0),
+            UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
             
             
-            UIColor(red: 0/255, green: 0/255, blue: 100/255, alpha: 1.0)])
+            UIColor(red: 123/255, green: 31/255, blue: 162/255, alpha: 1.0),
+            
         
         
-        // UIColor(red: 32/255, green: 158/255, blue: 255/255, alpha: 1.0)])
-        
+        UIColor(red: 50/255, green: 157/255, blue: 240/255, alpha: 1.0)])
         
         //   UIColor(red: 90/255, green: 120/255, blue: 127/255, alpha: 1.0),
         
@@ -1320,7 +1330,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, MessagingDelegate, Valida
         //  UIColor(red: 58/255, green: 255/255, blue: 217/255, alpha: 1.0)])
         
         pastelView.startAnimation()
-        view.insertSubview(pastelView, at: 1)
+        view.insertSubview(pastelView, at: 3)
         
     }
     
@@ -1451,7 +1461,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, MessagingDelegate, Valida
         return true
     }
     
-    private func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+    internal func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
     }
     
     

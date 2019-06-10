@@ -115,7 +115,7 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
     }
     
     internal func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 72
+        return 120
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -269,42 +269,42 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
         super.viewDidLoad()
         
         // addGesture()
-        
-        
-        let pastelView = PastelView(frame: view.bounds)
-        
-        //MARK: -  Custom Direction
-        pastelView.startPastelPoint = .bottomLeft
-        pastelView.endPastelPoint = .topRight
-        
-        //MARK: -  Custom Duration
-        
-        pastelView.animationDuration = 3.75
-        
-        //MARK: -  Custom Color
-        pastelView.setColors([
-            
-            
-            // UIColor(red: 156/255, green: 39/255, blue: 176/255, alpha: 1.0),
-            
-            // UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
-            
-            UIColor(red: 135/255, green: 206/255, blue: 250/255, alpha: 1.0),
-            
-            
-            UIColor(red: 0/255, green: 0/255, blue: 100/255, alpha: 1.0)])
-        
-        
-        // UIColor(red: 32/255, green: 158/255, blue: 255/255, alpha: 1.0)])
-        
-        
-        //   UIColor(red: 90/255, green: 120/255, blue: 127/255, alpha: 1.0),
-        
-        
-        //  UIColor(red: 58/255, green: 255/255, blue: 217/255, alpha: 1.0)])
-        
-        pastelView.startAnimation()
-        view.insertSubview(pastelView, at: 0)
+//
+//
+//        let pastelView = PastelView(frame: view.bounds)
+//
+//        //MARK: -  Custom Direction
+//        pastelView.startPastelPoint = .bottomLeft
+//        pastelView.endPastelPoint = .topRight
+//
+//        //MARK: -  Custom Duration
+//
+//        pastelView.animationDuration = 3.75
+//
+//        //MARK: -  Custom Color
+//        pastelView.setColors([
+//
+//
+//            // UIColor(red: 156/255, green: 39/255, blue: 176/255, alpha: 1.0),
+//
+//            // UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
+//
+//            UIColor(red: 135/255, green: 206/255, blue: 250/255, alpha: 1.0),
+//
+//
+//            UIColor(red: 0/255, green: 0/255, blue: 100/255, alpha: 1.0)])
+//
+//
+//        // UIColor(red: 32/255, green: 158/255, blue: 255/255, alpha: 1.0)])
+//
+//
+//        //   UIColor(red: 90/255, green: 120/255, blue: 127/255, alpha: 1.0),
+//
+//
+//        //  UIColor(red: 58/255, green: 255/255, blue: 217/255, alpha: 1.0)])
+//
+//        pastelView.startAnimation()
+//        view.insertSubview(pastelView, at: 0)
         
         setupLongPressGesture()
         
@@ -357,7 +357,7 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
         return true
     }
     
-    private func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         guard let userID = Auth.auth().currentUser?.uid else {
             return
@@ -582,6 +582,11 @@ class NewMatchVC: UIViewController,UICollectionViewDelegate, UICollectionViewDat
         let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
         chatLogController.user = user
         navigationController?.pushViewController(chatLogController, animated: true)
+        
+        
+        //                    let vc = MatchesMessagesController()
+        //                    navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     

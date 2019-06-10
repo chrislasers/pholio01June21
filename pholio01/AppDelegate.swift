@@ -68,7 +68,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-    
+        
+        
+      
+       
+        
+        
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            
+            if Auth.auth().currentUser != nil
+            {
+               
+                print("User Signed In")
+                
+                //self.performSegue(withIdentifier: "homepageVC", sender: nil)    }
+                
+            }  else {
+                
+                
+                print("User Not Signed In")
+            }
+            
+            // self.animateBackgroundColor()
+            
+        }
+        
+
         
         // [START set_messaging_delegate]
         Messaging.messaging().delegate = self

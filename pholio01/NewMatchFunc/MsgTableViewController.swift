@@ -16,9 +16,13 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     
     var user: UserModel? {
         didSet {
-            
-            navigationItem.title = user!.username
-            
+            let toId = user?.userId
+            Database.database().reference().child("Users").child(toId!).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    self.navigationItem.title = dictionary["Usertype"] as? String
+                }
+            }, withCancel: nil)
+
             observeUserMessages()
             
         }

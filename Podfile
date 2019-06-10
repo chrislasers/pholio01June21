@@ -70,8 +70,14 @@ platform :ios, '11.0'
 	pod 'InstagramLogin'
 
 	pod 'YPImagePicker'
-
+ 
 	pod 'Kingfisher'
+
+	pod 'FAPanels'
+
+	pod 'CircleMenu'
+
+	pod 'LBTATools'
 
 end
 

@@ -17,6 +17,7 @@ PODS:
     - BSGridCollectionViewLayout (= 1.2.2)
     - BSImageView (= 1.0.2)
   - BSImageView (1.0.2)
+  - CircleMenu (4.0.1)
   - Cosmos (18.0.1)
   - CTSlidingUpPanel (1.1.0)
   - FacebookCore (0.5.0):
@@ -32,6 +33,7 @@ PODS:
     - FacebookCore (~> 0.5)
     - FBSDKCoreKit (~> 4.37)
     - FBSDKShareKit (~> 4.37)
+  - FAPanels (1.0.2)
   - FBSDKCoreKit (4.39.1):
     - Bolts (~> 1.9)
   - FBSDKLoginKit (4.39.1):
@@ -203,6 +205,7 @@ PODS:
   - JGProgressHUD (2.0.3)
   - Kingfisher (5.1.1)
   - LBTAComponents (1.0.2)
+  - LBTATools (1.0.6)
   - leveldb-library (1.20)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
@@ -230,11 +233,13 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - BSImagePicker
+  - CircleMenu
   - Cosmos
   - CTSlidingUpPanel
   - FacebookCore
   - FacebookLogin
   - FacebookShare
+  - FAPanels
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -250,6 +255,7 @@ DEPENDENCIES:
   - JGProgressHUD
   - Kingfisher
   - LBTAComponents (from `https://github.com/bhlvoong/LBTAComponents.git`)
+  - LBTATools
   - Pastel
   - SDWebImage
   - SwiftValidator (from `https://github.com/jpotts18/SwiftValidator.git`, tag `4.2.0`)
@@ -266,11 +272,13 @@ SPEC REPOS:
     - BSGridCollectionViewLayout
     - BSImagePicker
     - BSImageView
+    - CircleMenu
     - Cosmos
     - CTSlidingUpPanel
     - FacebookCore
     - FacebookLogin
     - FacebookShare
+    - FAPanels
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKShareKit
@@ -298,6 +306,7 @@ SPEC REPOS:
     - InstagramLogin
     - JGProgressHUD
     - Kingfisher
+    - LBTATools
     - leveldb-library
     - nanopb
     - Pastel
@@ -339,11 +348,13 @@ SPEC CHECKSUMS:
   BSGridCollectionViewLayout: 3e6f23b3a2b4f0ca9afae09ca01389d1057f7b32
   BSImagePicker: 553707de1adaad42eac252e0b84d20dbdba83fe9
   BSImageView: ab22ff8cae61f1ae17a3c9efeeb216af3cf84a09
+  CircleMenu: d846569acbe805b75cef5793056707224240db64
   Cosmos: 7dfaa3f52584ca5f94ab74b5c2e264019cc9f7f5
   CTSlidingUpPanel: cf4905c71f55b69133e19f512be4e512e3749170
   FacebookCore: 74288d0add931d361b1596beae787ab72c438249
   FacebookLogin: ebcf34714a1cb9f0759d9f071cfb01ed500996cf
   FacebookShare: 963b4bb1124a64a395b1e428163d70b5774116e8
+  FAPanels: 520037c53f4ded152e8e6103d97f79b644473363
   FBSDKCoreKit: f442aa96179cc9b382bb4abeb7e340a47cca8f91
   FBSDKLoginKit: c3079d9a4db27c492287b1eed7a4272b28cf8a59
   FBSDKShareKit: 27d7b982e7b1f4638da2f2b1ab6eba5afc6b5888
@@ -373,6 +384,7 @@ SPEC CHECKSUMS:
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   Kingfisher: 2558186963e5be42d98c5b110ccb3130148b77e4
   LBTAComponents: 7d5e126b0e62ade42db7388abb3f92bf8aa0b201
+  LBTATools: ab52bd47d7e4e31eff1bdf72f4d92829a7d029e1
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Pastel: b3dd5b8d612dac06ae7c63c97c45c900829bc139
@@ -388,6 +400,6 @@ SPEC CHECKSUMS:
   UICircularProgressRing: 5a32c01f54474571b1e66e8fa050c0f83d6d981b
   YPImagePicker: 5dd3814b47b1208e9c8cc8f6ef77fe90db3723b6
 
-PODFILE CHECKSUM: c05d5e5c3a40d499bcefda6b02923135cc821bc6
+PODFILE CHECKSUM: 421d262dc1236acb6ab49b102da5cc39e3a8c099
 
-COCOAPODS: 1.6.0.beta.2
+COCOAPODS: 1.7.1

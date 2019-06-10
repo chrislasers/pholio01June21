@@ -44,7 +44,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CircleMenu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Cosmos.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FAPanels.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -235,6 +245,11 @@
 			<false/>
 		</dict>
 		<key>LBTAComponents.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>LBTATools.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

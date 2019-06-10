@@ -71,7 +71,10 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
         
-        getProfileImage()
+    getProfileImage()
+        
+        //fetchCurrentUser()
+        
         self.tblMenuOptions.tableFooterView = UIView()
         
         let userID: String = (Auth.auth().currentUser?.uid)!
@@ -141,13 +144,48 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tblMenuOptions.reloadData()
     }
     
+    var users: Users?
+    
+    func fetchCurrentUser() {
+        // fetch some Firestore Data
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        Firestore.firestore().collection("Users").document(uid).getDocument { (snapshot, err) in
+            if let err = err {
+                print(err)
+                return
+            }
+            
+            // fetched our user here
+            guard let dictionary = snapshot?.data() else { return }
+            self.users = Users(dictionary: dictionary)
+            self.loadUserPhotos()
+            
+            self.tblMenuOptions.reloadData()
+        }
+    }
+    
+    func loadUserPhotos() {
+        
+        let imageUrl = URL(string: users!.imageUrl1!)!
+        
+        
+        self.userProfileImage.kf.indicatorType = .activity
+        self.userProfileImage.kf.setImage(with: imageUrl)
+        
+        
+    }
+    
+    
+
+    
+    
     func getProfileImage() {
         DBService.shared.refreshUser(userId: (Auth.auth().currentUser?.uid)!) { (user) in
             
             let imageUrl = URL(string: user.profileImageUrl!)!
             self.userProfileImage.kf.indicatorType = .activity
             self.userProfileImage.kf.setImage(with: imageUrl)
-            /*
+           /*
              DispatchQueue.global(qos: .background).async {
              let imageData = NSData(contentsOf: URL(string: user.profileImageUrl!)!)
              

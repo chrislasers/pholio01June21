@@ -45,9 +45,21 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         imageButton?.setImage(selectedImage?.withRenderingMode(.alwaysOriginal), for: .normal)
         dismiss(animated: true)
         
+        let storage = Storage.storage()
+        let storageReference = storage.reference()
+        
+        
+        _ = storageReference.child("User-Gallery").child((Auth.auth().currentUser?.uid)!)
+        
+        let uid = Auth.auth().currentUser?.uid
+        let imgName = NSUUID().uuidString + ".jpg"
+        // storage/carImages/image.jpg
+        let imagesReference = storageReference.child("User-Gallery").child((Auth.auth().currentUser?.uid)!).child("\(uid!)/photos/\(imgName)")
+        
+        
         let filename = UUID().uuidString
         let ref = Storage.storage().reference(withPath: "/images/\(filename)")
-        guard let uploadData = selectedImage?.jpegData(compressionQuality: 0.75) else { return }
+        guard let uploadData = selectedImage?.jpegData(compressionQuality: 0.70) else { return }
         
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Uploading image..."
@@ -69,18 +81,63 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
                     return
                 }
                 
+                
                 print("Finished getting download url:", url?.absoluteString ?? "")
                 
                 if imageButton == self.image1Button {
                     self.user?.imageUrl1 = url?.absoluteString
+                    
+                   // self.uploadGalleryUrlToUserNode(contentType: "image", item: (url?.absoluteString)!)
+
                 } else if imageButton == self.image2Button {
                     self.user?.imageUrl2 = url?.absoluteString
+                  //  self.uploadGalleryUrlToUserNode(contentType: "image", item: (url?.absoluteString)!)
+
                 } else {
                     self.user?.imageUrl3 = url?.absoluteString
+                 //   self.uploadGalleryUrlToUserNode(contentType: "image", item: (url?.absoluteString)!)
+
                 }
             })
         }
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        imagesReference.putData(uploadData, metadata: metadata, completion: { (metadata, error) in
+            guard metadata != nil else {
+                //completionBlock(nil, "Error occured")
+                
+                return
+            }
+            
+            imagesReference.downloadURL(completion: { (metadata, error) in
+                if let downloadUrl = metadata {
+                    // Make you download string
+                    let downloadString = downloadUrl.absoluteString
+                    print(downloadString)
+                    self.uploadGalleryUrlToUserNode(contentType: "image", item: downloadString)
+                    
+                   // completionBlock(downloadUrl, nil)
+                } else {
+                    
+                    print(error as Any)
+                    // Do something if error
+                  //  completionBlock(nil, "Error")
+                }
+            })
+        })
+        
     }
+    
+    
+    
+    func uploadGalleryUrlToUserNode(contentType: String, item: String) {
+        let galleryDict = ["content": contentType,
+                           "item": item]
+        
+        DBService.shared.currentUser.child("User-Gallery").childByAutoId().updateChildValues(galleryDict)
+    }
+    
     
     func createButton(selector: Selector) -> UIButton {
         let button = UIButton(type: .system)
@@ -95,7 +152,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
 
         
         setupNavigationItems()
@@ -150,12 +207,12 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
     
     
     
-    var user: UserModel?
+    var user: Users?
     
      func fetchCurrentUser() {
         // fetch some Firestore Data
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        Firestore.firestore().collection("users").document(uid).getDocument { (snapshot, err) in
+        Firestore.firestore().collection("Users").document(uid).getDocument { (snapshot, err) in
             if let err = err {
                 print(err)
                 return
@@ -163,7 +220,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
             
             // fetched our user here
             guard let dictionary = snapshot?.data() else { return }
-            self.user = UserModel(withUserId: userID!, dictionary: dictionary)
+            self.user = Users(dictionary: dictionary)
             self.loadUserPhotos()
             
             self.tableView.reloadData()
@@ -319,7 +376,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Saving settings"
         hud.show(in: view)
-        Firestore.firestore().collection("users").document(uid).setData(docData) { (err) in
+        Firestore.firestore().collection("Users").document(uid).setData(docData) { (err) in
             hud.dismiss()
             if let err = err {
                 print("Failed to save user settings:", err)

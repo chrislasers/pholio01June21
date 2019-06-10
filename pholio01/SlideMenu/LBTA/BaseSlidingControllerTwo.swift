@@ -65,7 +65,7 @@ class BaseSlidingController: UIViewController {
             ])
         
         self.redViewLeadingConstraint = redView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
-//        redViewLeadingConstraint.constant = 150
+     redViewLeadingConstraint.constant = 150
         redViewLeadingConstraint.isActive = true
     }
 

@@ -360,7 +360,7 @@ class NewUpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     }
     
     
-    private func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+    internal func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         return
     }
     

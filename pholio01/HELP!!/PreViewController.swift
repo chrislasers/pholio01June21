@@ -286,6 +286,9 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
             if imagePreview.center.x > (view.bounds.width / 2 + 100) {
                 print("Interested")
                 
+                //self.dismiss(animated: true, completion: nil)
+
+                
                 // Thumbs Up
                 UIView.animate(withDuration: 0.3, animations: {
                     self.imagePreview.center = CGPoint(x:  self.imagePreview.center.x + 200, y:  self.imagePreview.center.y + 100)
@@ -420,7 +423,10 @@ class PreViewController: UIViewController, SegmentedProgressBarDelegate {
         }
     }
     
+    fileprivate var users: Users?
+
     
+   
     fileprivate func presentMatchView(cardUID: String) {
         let matchView = MatchView()
         view.addSubview(matchView)

@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import Kingfisher
 
 
 class NewMatchTableViewCell: UITableViewCell {
@@ -34,7 +35,7 @@ class NewMatchTableViewCell: UITableViewCell {
                 let timestampDate = Date(timeIntervalSince1970: seconds)
                 
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "hh:mm:ss a"
+                dateFormatter.dateFormat = "hh:mm a"
                 timeLabel.text = dateFormatter.string(from: timestampDate)
             }
             
@@ -55,7 +56,12 @@ class NewMatchTableViewCell: UITableViewCell {
                     
                     if let userProfilePicDictionary = dictionary["UserPro-Pic"] as? [String: Any] {
                         if let profileImageUrl = userProfilePicDictionary["profileImageURL"] as? String {
-                            self.profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
+                            
+                            
+                            
+                            let imageUrl = URL(string: profileImageUrl)
+                            self.profileImageView.kf.indicatorType = .activity
+                            self.profileImageView.kf.setImage(with: imageUrl)
                         }
                     }
                     
@@ -70,15 +76,15 @@ class NewMatchTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        textLabel?.frame = CGRect(x: 64, y: textLabel!.frame.origin.y - 2, width: textLabel!.frame.width, height: textLabel!.frame.height)
+        textLabel?.frame = CGRect(x: 138, y: textLabel!.frame.origin.y - 7, width: textLabel!.frame.width, height: textLabel!.frame.height)
         
-        detailTextLabel?.frame = CGRect(x: 64, y: detailTextLabel!.frame.origin.y + 2, width: detailTextLabel!.frame.width, height: detailTextLabel!.frame.height)
+        detailTextLabel?.frame = CGRect(x: 138, y: detailTextLabel!.frame.origin.y + 1, width: detailTextLabel!.frame.width, height: detailTextLabel!.frame.height)
     }
     
-    let profileImageView: UIImageView = {
+    var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 24
+        imageView.layer.cornerRadius = 55
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -102,14 +108,14 @@ class NewMatchTableViewCell: UITableViewCell {
         
         //ios 9 constraint anchors
         //need x,y,width,height anchors
-        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
-        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        profileImageView.widthAnchor.constraint(equalToConstant: 48).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
+       profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 110).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 110).isActive = true
         
         //need x,y,width,height anchors
-        timeLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 18).isActive = true
+        timeLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 23).isActive = true
+        timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 11).isActive = true
         timeLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         timeLabel.heightAnchor.constraint(equalTo: textLabel!.heightAnchor).isActive = true
     }

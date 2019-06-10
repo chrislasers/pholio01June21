@@ -236,7 +236,7 @@ class FiltersVC: UIViewController {
     }
     
     @objc func photographerPressed() {
-        if let index = pairingWithArray.index(where: {$0 == PairingFilter.photographer }) {
+        if let index = pairingWithArray.firstIndex(where: {$0 == PairingFilter.photographer }) {
             pairingWithArray.remove(at: index)
             photographer.activateButton(bool: false)
             
@@ -250,7 +250,7 @@ class FiltersVC: UIViewController {
     }
     
     @objc func modelPressed() {
-        if let index = pairingWithArray.index(where: {$0 == PairingFilter.model }) {
+        if let index = pairingWithArray.firstIndex(where: {$0 == PairingFilter.model }) {
             pairingWithArray.remove(at: index)
             model.activateButton(bool: false)
             
@@ -263,7 +263,7 @@ class FiltersVC: UIViewController {
     }
     
     @objc func guestPressed() {
-        if let index = pairingWithArray.index(where: {$0 == PairingFilter.guest }) {
+        if let index = pairingWithArray.firstIndex(where: {$0 == PairingFilter.guest }) {
             pairingWithArray.remove(at: index)
             guest.activateButton(bool: false)
             

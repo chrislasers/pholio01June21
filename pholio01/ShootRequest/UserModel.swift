@@ -52,10 +52,16 @@ class UserModel: NSObject {
     var imageUrl3: String?
     var uid: String?
     
+    var UserGallery: String?
+    
     
     
     init(withUserId userId: String, dictionary: [String: Any]) {
+        self.uid = userId
+        
         self.userId = userId
+        
+
         
         //self.email = userEmail
         
@@ -66,6 +72,10 @@ class UserModel: NSObject {
         self.imageUrl2 = dictionary["imageUrl2"] as? String
         self.imageUrl3 = dictionary["imageUrl3"] as? String
         self.uid = dictionary["uid"] as? String ?? ""
+        
+        self.UserGallery = dictionary["User-Gallery"] as? String
+
+        
 
         
         let arr = dictionary.map {[$0: $1]}
@@ -81,7 +91,7 @@ class UserModel: NSObject {
         self.userProfilePicDictionary = dictionary["UserPro-Pic"] as? [String: Any]
         
         
-        if let profileImageUrl = userProfilePicDictionary!["imageUrl1"] as? String {
+      if let profileImageUrl = userProfilePicDictionary!["profileImageURL"] as? String {
             self.profileImageUrl = profileImageUrl
         }
         

@@ -64,7 +64,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     var ref: DatabaseReference!
     
     
-    let userID = Auth.auth().currentUser?.uid
+   // let userID = Auth.auth().currentUser?.uid
     
     let storage = Storage.storage()
     
@@ -91,12 +91,9 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         }
         
         
-        
-        
-        
         if let uid = Auth.auth().currentUser?.uid {
             let docData: [String: Any] = ["uid": uid]
-            Firestore.firestore().collection("users").document(uid).setData(docData)
+            Firestore.firestore().collection("Users").document(uid).setData(docData)
         }
         
         
@@ -284,6 +281,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillChange), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         
+       
         let pastelView = PastelView(frame: view.bounds)
         
         //MARK: -  Custom Direction
@@ -292,24 +290,19 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
         
         //MARK: -  Custom Duration
         
-        pastelView.animationDuration = 3.75
-
+        pastelView.animationDuration = 3.00
+        
         //MARK: -  Custom Color
         pastelView.setColors([
             
-            
-            // UIColor(red: 156/255, green: 39/255, blue: 176/255, alpha: 1.0),
-            
-            // UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
-            
-            UIColor(red: 135/255, green: 206/255, blue: 250/255, alpha: 1.0),
+            UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
             
             
-            UIColor(red: 0/255, green: 0/255, blue: 100/255, alpha: 1.0)])
-        
-        
-        // UIColor(red: 32/255, green: 158/255, blue: 255/255, alpha: 1.0)])
-        
+            UIColor(red: 123/255, green: 31/255, blue: 162/255, alpha: 1.0),
+            
+            
+            
+            UIColor(red: 50/255, green: 157/255, blue: 240/255, alpha: 1.0)])
         
         //   UIColor(red: 90/255, green: 120/255, blue: 127/255, alpha: 1.0),
         
@@ -409,7 +402,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
     }
     
     
-    private func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+    internal func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         return
     }
     
@@ -540,10 +533,10 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
                     if let downloadUrl = metadata {
                         // Make you download string
                         let profileImageURL = downloadUrl.absoluteString
-                        userReference.setValue(["imageUrl1": profileImageURL])
+                        userReference.setValue(["profileImageURL": profileImageURL])
                         
                         let uid = Auth.auth().currentUser?.uid ?? ""
-                        let docData = ["uid": uid, "imageUrl1": profileImageURL]
+                        let docData = ["uid": uid, "profileImageURL": profileImageURL]
                         Firestore.firestore().collection("users").document(uid).setData(docData) { (err) in
                             if let err = err {
                                 print(err)
@@ -666,7 +659,7 @@ class UpdateVC: UIViewController, UITextFieldDelegate, ValidationDelegate {
                   //  self.present(navController, animated: true)
                     
                     
-                    self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).setValue(["Username": self.username.text!])
+                    self.ref.child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["Username": self.username.text!])
                     
                     print("User display changed")
                     

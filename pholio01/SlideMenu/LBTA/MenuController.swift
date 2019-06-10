@@ -16,29 +16,28 @@ struct MenuItem {
 extension MenuController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-       // let slidingController = BViewController()
-        //slidingController.didSelectMenuItem(indexPath: indexPath)
+//       let slidingController = BViewController()
+//        slidingController.didSelectMenuItem(indexPath: indexPath)
 
         
        if(indexPath.row == 0)
        {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
-           let controller = storyboard.instantiateViewController(withIdentifier: "Filters") as! FiltersVC
-            
-           self.navigationController?.pushViewController(controller, animated: true)
-            
-            
+        
+        let controller = storyboard.instantiateViewController(withIdentifier: "Filters") as! FiltersVC
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+
 
        } else if(indexPath.row == 1) {
-            
-           let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      
-          let controller = storyboard.instantiateViewController(withIdentifier: "SettingsController") ////as! SettingsController
-            
-          self.navigationController?.pushViewController(controller, animated: true)//
 
-            
+           let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+          let controller = storyboard.instantiateViewController(withIdentifier: "Filters") as! FiltersVC
+
+          self.navigationController?.pushViewController(controller, animated: true)
+
+
        }
     }
 }

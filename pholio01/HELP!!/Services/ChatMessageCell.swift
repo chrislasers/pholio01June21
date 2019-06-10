@@ -38,7 +38,7 @@ class ChatMessageCell: UICollectionViewCell {
     
 
     
-    let profileImageView: UIImageView = {
+    var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "profileImageURL")
 

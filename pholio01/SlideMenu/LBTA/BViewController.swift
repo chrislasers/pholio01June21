@@ -25,14 +25,28 @@ import GeoFire
 import FirebaseFirestore
 import Pastel
 import Kingfisher
+import CircleMenu
+import FAPanels
 
 
-class BViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, CLLocationManagerDelegate {
+extension UIColor {
+    static func color(_ red: Int, green: Int, blue: Int, alpha: Float) -> UIColor {
+        return UIColor(
+            red: 1.0 / 255.0 * CGFloat(red),
+            green: 1.0 / 255.0 * CGFloat(green),
+            blue: 1.0 / 255.0 * CGFloat(blue),
+            alpha: CGFloat(alpha))
+    }
+}
+
+class BViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, CLLocationManagerDelegate, FAPanelStateDelegate {
     
     @IBOutlet weak var map: MKMapView!
     
     
     
+    @IBAction func button(_ sender: Any) {
+    }
     
     @IBOutlet var coloredImageView: UIImageView!
     
@@ -71,6 +85,17 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         
     }()
     
+    var window: UIWindow?
+
+    
+    let items: [(icon: String, color: UIColor)] = [
+        ("icon_home", UIColor(red: 0.19, green: 0.57, blue: 1, alpha: 1)),
+        ("icon_search", UIColor(red: 0.22, green: 0.74, blue: 0, alpha: 1)),
+        ("notifications-btn", UIColor(red: 0.96, green: 0.23, blue: 0.21, alpha: 1)),
+        ("settings-btn", UIColor(red: 0.51, green: 0.15, blue: 1, alpha: 1)),
+        ("nearby-btn", UIColor(red: 1, green: 0.39, blue: 0, alpha: 1))
+    ]
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -88,27 +113,27 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         
         
         
-      //  let button = UIButton(type: .custom)
-        //set image for button
-      //  button.setImage(UIImage(named: "speech-bubble"), for: .normal)
-        //add function for button
-      //  button.addTarget(self, action: #selector(fbButtonPressed), for: .touchUpInside)
-        //set frame
-       // button.frame = CGRect(x: 0, y: 0, width: 29, height: 29)
+        let button = UIButton(type: .custom)
+       // set image for button
+        button.setImage(UIImage(named: "speech-bubble"), for: .normal)
+      //  add function for button
+        button.addTarget(self, action: #selector(fbButtonPressed), for: .touchUpInside)
+       // set frame
+        button.frame = CGRect(x: 0, y: 0, width: 29, height: 29)
         
-    //    let widthConstraint = button.widthAnchor.constraint(equalToConstant: 27)
-     //   let heightConstraint = button.heightAnchor.constraint(equalToConstant: 27)
-   //     heightConstraint.isActive = true
-     //   widthConstraint.isActive = true
+        let widthConstraint = button.widthAnchor.constraint(equalToConstant: 27)
+        let heightConstraint = button.heightAnchor.constraint(equalToConstant: 27)
+        heightConstraint.isActive = true
+        widthConstraint.isActive = true
         
-    //    let barButton = UIBarButtonItem(customView: button)
-        //assign button to navigationbar
-    //    self.navigationItem.rightBarButtonItem = barButton
-        
-        
+        let barButton = UIBarButtonItem(customView: button)
+       // assign button to navigationbar
+        self.navigationItem.rightBarButtonItem = barButton
         
         
-        animateBackgroundColor()
+        
+        
+      //  animateBackgroundColor()
         
         
         
@@ -141,7 +166,7 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
                 print("User Not Signed In")
             }
             
-            self.animateBackgroundColor()
+           // self.animateBackgroundColor()
             
         }
         
@@ -177,20 +202,25 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         DispatchQueue.main.async {
             self.collectionView.delegate = self
             self.collectionView.dataSource = self
-            //  self.collectionView.reloadData()
+              self.collectionView.reloadData()
             
         }
+
+      setupNavigationItems()
+
+    setupMenuController()
+
+ setupPanGesture()
+
+  setupDarkCoverView()
+
+ // self.addSlideMenuButton()
         
-        //setupNavigationItems()
+     
         
-       // setupMenuController()
         
-       // setupPanGesture()
         
-      //  setupDarkCoverView()
-        
-       self.addSlideMenuButton()
-        
+       
         
         let pastelView = PastelView(frame: view.bounds)
         
@@ -200,24 +230,19 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         
         //MARK: -  Custom Duration
         
-        pastelView.animationDuration = 3.75
+        pastelView.animationDuration = 3.00
         
         //MARK: -  Custom Color
         pastelView.setColors([
             
-            
-            // UIColor(red: 156/255, green: 39/255, blue: 176/255, alpha: 1.0),
-            
-            // UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
-            
-            UIColor(red: 135/255, green: 206/255, blue: 250/255, alpha: 1.0),
+            UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
             
             
-            UIColor(red: 0/255, green: 0/255, blue: 100/255, alpha: 1.0)])
-        
-        
-        // UIColor(red: 32/255, green: 158/255, blue: 255/255, alpha: 1.0)])
-        
+            UIColor(red: 123/255, green: 31/255, blue: 162/255, alpha: 1.0),
+            
+            
+            
+            UIColor(red: 50/255, green: 157/255, blue: 240/255, alpha: 1.0)])
         
         //   UIColor(red: 90/255, green: 120/255, blue: 127/255, alpha: 1.0),
         
@@ -225,10 +250,30 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         //  UIColor(red: 58/255, green: 255/255, blue: 217/255, alpha: 1.0)])
         
         pastelView.startAnimation()
-        view.insertSubview(pastelView, at: 0)
+        view.insertSubview(pastelView, at: 3)
         
         
     }
+    
+    func circleMenu(_: CircleMenu, willDisplay button: UIButton, atIndex: Int) {
+        button.backgroundColor = items[atIndex].color
+        
+        button.setImage(UIImage(named: items[atIndex].icon), for: .normal)
+        
+        // set highlited image
+        let highlightedImage = UIImage(named: items[atIndex].icon)?.withRenderingMode(.alwaysTemplate)
+        button.setImage(highlightedImage, for: .highlighted)
+        button.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+    }
+    
+    func circleMenu(_: CircleMenu, buttonWillSelected _: UIButton, atIndex: Int) {
+        print("button will selected: \(atIndex)")
+    }
+    
+    func circleMenu(_: CircleMenu, buttonDidSelected _: UIButton, atIndex: Int) {
+        print("button did selected: \(atIndex)")
+    }
+    
     
   
     let darkCoverView = UIView()
@@ -308,10 +353,10 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     }
     
     let menuController = MenuController()
-    
+    var redViewLeadingConstraint: NSLayoutConstraint!
+    fileprivate let velocityThreshold: CGFloat = 50
      let velocityOpenThreshold: CGFloat = 500
      let menuWidth: CGFloat = 280
-    
      var isMenuOpened = false
     
      func performAnimations(transform: CGAffineTransform) {
@@ -336,9 +381,17 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
     
     
     
+    
+    
     @objc func handleOpen() {
-        isMenuOpened = true
-        performAnimations(transform: CGAffineTransform(translationX: self.menuWidth, y: 0))
+        
+
+        
+       // panel!.openLeft(animated: true)
+
+        
+       isMenuOpened = true
+       performAnimations(transform: CGAffineTransform(translationX: self.menuWidth, y: 0))
     }
     
     @objc func handleHide() {
@@ -374,18 +427,13 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         case 0:
             print("Show Home Screen")
             
+            
             let listsController = ListsController()
 
             
             view.addSubview(listsController.view)
 
-            
-           // let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
-           // let controller = storyboard.instantiateViewController(withIdentifier: "Filters") as! FiltersVC
-            
-          //  self.navigationController?.pushViewController(controller, animated: true)
-        case 1:
+           
                       print("Show Lists Screen")
            // self.openViewControllerBasedOnIdentifier("Home")
 
@@ -413,15 +461,6 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
             self.darkCoverView.alpha = self.isMenuOpened ? 1 : 0
         })
     }
-    
-    
-    
-    var redViewLeadingConstraint: NSLayoutConstraint!
-    fileprivate let velocityThreshold: CGFloat = 500
-    
-    
-    
-    
     // MARK:- Fileprivate
     
     fileprivate func setupMenuController() {
@@ -432,10 +471,44 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         addChild(menuController)
     }
     
+    
     fileprivate func setupNavigationItems() {
         navigationItem.title = "Home"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(handleOpen))
+        
+        setupCircularNavigationButton()
+        
+        //        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(handleOpen))
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide", style: .plain, target: self, action: #selector(handleHide))
+    }
+    
+    fileprivate func setupCircularNavigationButton() {
+        let image = #imageLiteral(resourceName: "girl_profile").withRenderingMode(.alwaysOriginal)
+        
+        let customView = UIButton(type: .system)
+        //        customView.backgroundColor = .orange
+        customView.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
+        //        customView.imageView?.image // this is not what you want
+        customView.setImage(image, for: .normal)
+        customView.imageView?.contentMode = .scaleAspectFit
+        
+        customView.layer.cornerRadius = 20
+        customView.clipsToBounds = true
+        
+        // this doesn't work
+        // custom view uses auto layout to put itself in the nav bar
+        //        customView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        
+        customView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        customView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        let barButtonItem = UIBarButtonItem(customView: customView)
+        
+        navigationItem.leftBarButtonItem = barButtonItem
+        
+        // option #1 that doesn't work
+        //        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(handleOpen))
+        
     }
     
     
@@ -454,7 +527,6 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
             
         }
     }
-    
     
     
     
@@ -499,7 +571,7 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
         super.viewDidAppear(animated)
         
         
-        animateBackgroundColor()
+       // animateBackgroundColor()
         
         
     }
@@ -630,13 +702,18 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
                     let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
                     let viewController = storyboard.instantiateViewController(withIdentifier: "NewMatchVC") as! NewMatchVC
                     self.navigationController?.pushViewController(viewController, animated: true)
+//                    
+//                    let vc = MatchesMessagesController()
+//                    navigationController?.pushViewController(vc, animated: true)
                 }
             }
             
         } else {
+            
             let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "NewMatchVC") as! NewMatchVC
             self.navigationController?.pushViewController(viewController, animated: true)
+           
         }
         
         print("Bar Button Pressed")
