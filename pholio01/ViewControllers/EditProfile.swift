@@ -106,13 +106,35 @@ class EditProfile:UIViewController, UITextFieldDelegate, CLLocationManagerDelega
 
     override func viewDidLoad() {
         
+        let tf = CustomTextField(padding: 24, height: 44)
+        
+        tf.layer.cornerRadius =  tf.height / 2
+        
+        tf.placeholder = "Enter Age"
+        tf.backgroundColor = .white
+        Age.keyboardType = .default
+        Age.placeholder = "Enter Age"
+        
+      
+        let tff = CustomTextField(padding: 24, height: 44)
+        
+        tff.layer.cornerRadius =  tf.height / 2
+        
+        tff.placeholder = "Enter Hourly Rate"
+        tff.backgroundColor = .white
+        HourlyRate.keyboardType = .default
+        HourlyRate.placeholder = " Enter Hourly Rate"
+        
+        
         
         Age.keyboardType = .decimalPad
-
         Age.placeholder = "Age"
         
         HourlyRate.keyboardType = .decimalPad
         HourlyRate.placeholder = "Hourly Rate"
+        
+        
+        
         
         
         super.viewDidLoad()

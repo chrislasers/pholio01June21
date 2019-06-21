@@ -506,11 +506,11 @@ class SignInVC: UIViewController, UITextFieldDelegate, MessagingDelegate, Valida
         tf.backgroundColor = .white
         
         email.keyboardType = .emailAddress
-        email.placeholder = "Enter Email"
+        email.placeholder = "Email"
         
         let password: CustomTextField = {
             let tf = CustomTextField(padding: 24, height: 44)
-            tf.placeholder = "Enter Password"
+            tf.placeholder = "Password"
             tf.isSecureTextEntry = true
             tf.backgroundColor = .white
             return tf

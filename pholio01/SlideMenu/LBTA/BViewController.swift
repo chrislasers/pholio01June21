@@ -206,15 +206,15 @@ class BViewController: BaseViewController, UICollectionViewDelegate, UICollectio
             
         }
 
-      setupNavigationItems()
+//      setupNavigationItems()
+//
+//    setupMenuController()
+//
+// setupPanGesture()
+//
+//  setupDarkCoverView()
 
-    setupMenuController()
-
- setupPanGesture()
-
-  setupDarkCoverView()
-
- // self.addSlideMenuButton()
+self.addSlideMenuButton()
         
      
         

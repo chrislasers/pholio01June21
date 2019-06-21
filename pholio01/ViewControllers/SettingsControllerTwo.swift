@@ -17,13 +17,13 @@ import Firebase
 import FirebaseStorage
 
 
-class CustomImagePickerControllerTwo: UIImagePickerController {
+class CustomImagePickerController: UIImagePickerController {
     
     var imageButton: UIButton?
     
 }
 
-class SettingsController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class SettingsControllerTwo: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     // instance properties
     lazy var image1Button = createButton(selector: #selector(handleSelectPhoto))
@@ -277,11 +277,11 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         case 1:
             headerLabel.text = "Name"
         case 2:
-            headerLabel.text = "Bio"
+            headerLabel.text = "Profession"
         case 3:
             headerLabel.text = "Age"
         default:
-            headerLabel.text = nil
+            headerLabel.text = "Bio"
         }
         return headerLabel
     }
@@ -294,7 +294,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -313,7 +313,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
              cell.textField.addTarget(self, action: #selector(handleNameChange), for: .editingDidEnd)
              cell.textField.addTarget(self, action: #selector(handleNameChange), for: .editingDidEndOnExit )
         case 2:
-            cell.textField.placeholder = " Enter Bio"
+            cell.textField.placeholder = "Enter Profession"
             cell.textField.text = user?.profession
             cell.textField.addTarget(self, action: #selector(handleProfessionChange), for: .editingChanged)
             cell.textField.addTarget(self, action: #selector(handleProfessionChange), for: .editingDidBegin )
@@ -330,7 +330,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
                 cell.textField.text = String(age)
             }
         default:
-            cell.textField.placeholder = nil
+            cell.textField.placeholder = "Enter Bio"
         }
         
         return cell
@@ -353,10 +353,10 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
      func setupNavigationItems() {
         navigationItem.title = "Settings"
         navigationController?.navigationBar.prefersLargeTitles = true
-        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave)),
-           // UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleCancel))
+            UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleCancel))
         ]
     }
     
