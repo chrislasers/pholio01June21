@@ -43,7 +43,6 @@
 		2A37421E21F0F5E9000A9A80 /* InstaConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A37421D21F0F5E9000A9A80 /* InstaConstant.swift */; };
 		2A40224020B6BEB0001F2F38 /* EditProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A40223F20B6BEB0001F2F38 /* EditProfile.swift */; };
 		2A42585F20BBC3B8006B0146 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A42585E20BBC3B8006B0146 /* CoreLocation.framework */; };
-		2A42D1F322B14444007BE74B /* AgeRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A42D1F222B14443007BE74B /* AgeRangeCell.swift */; };
 		2A42D1FB22B96D22007BE74B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A42D1FA22B96D21007BE74B /* User.swift */; };
 		2A4A4B1C20826AAC0069D5C6 /* PairWithVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A4B1B20826AAC0069D5C6 /* PairWithVC.swift */; };
 		2A4A4B2020826BF70069D5C6 /* HomePageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A4B1F20826BF70069D5C6 /* HomePageVC.swift */; };
@@ -161,7 +160,6 @@
 		2A3F6CB9208ED07C001DD794 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		2A40223F20B6BEB0001F2F38 /* EditProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfile.swift; sourceTree = "<group>"; };
 		2A42585E20BBC3B8006B0146 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		2A42D1F222B14443007BE74B /* AgeRangeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgeRangeCell.swift; sourceTree = "<group>"; };
 		2A42D1FA22B96D21007BE74B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2A4A4B1B20826AAC0069D5C6 /* PairWithVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairWithVC.swift; sourceTree = "<group>"; };
 		2A4A4B1F20826BF70069D5C6 /* HomePageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageVC.swift; sourceTree = "<group>"; };
@@ -454,7 +452,6 @@
 				2A060DAF2275DEC8006A0494 /* MatchView.swift */,
 				2A060DB522776D3D006A0494 /* SendMessageButton.swift */,
 				2A060DB722776D4A006A0494 /* KeepSwipingButton.swift */,
-				2A42D1F222B14443007BE74B /* AgeRangeCell.swift */,
 			);
 			name = SettingsHelper;
 			path = ../../ViewControllers/SettingsHelper;
@@ -712,7 +709,6 @@
 				2AD953122167BACE00DACDC0 /* NewUpdateVC.swift in Sources */,
 				2A8CFB8C2195696600E09DF6 /* DataController.swift in Sources */,
 				2A40224020B6BEB0001F2F38 /* EditProfile.swift in Sources */,
-				2A42D1F322B14444007BE74B /* AgeRangeCell.swift in Sources */,
 				2AEED8FF213C881B0082B110 /* Extensions.swift in Sources */,
 				2AC3B982226D955E00DFA532 /* Bindables.swift in Sources */,
 				2A78E43F214C750300FE0728 /* FilterButton03.swift in Sources */,
